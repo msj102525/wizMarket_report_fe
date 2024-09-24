@@ -1,0 +1,44 @@
+@tailwind base; 
+@tailwind components; 
+@tailwind utilities; 
+
+* { 
+ margin: 0; 
+ padding: 0;
+ font-family: NanumSquareOTF; 
+ font-size:14px;
+ } 
+ 
+ #wrap { 
+ width: 100%; 
+ height: auto; 
+ } 
+ 
+ html,
+ body { 
+ width: 100%; 
+ height: 100%; 
+ } 
+ 
+ ul,
+ li { 
+ list-style: none; 
+ } 
+ 
+ input { 
+ outline: none; 
+ }
+ input, select {
+  display: block;
+ } 
+ 
+ html { 
+ font-family: sans-serif; 
+ font-weight: 600; 
+ }
+
+ @layer components {
+    .div-underline {
+      @apply relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:block after:w-full after:h-[2px] after:bg-[#D9D9D9];
+    }
+  }
