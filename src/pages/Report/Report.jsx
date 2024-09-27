@@ -1,57 +1,69 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 import CommonInformation from "./Component/CommonInformation";
 import StoreInfo from "./Component/StoreInfo";
 import RisingBusiness from "./Component/RisingBusiness";
 
 const Report = () => {
-    const [reportData, setReportData] = useState([]);
-    const [loading, setLoading] = useState(true);
+    const { store_business_id } = useParams();
+    const [commonReportData, setCommonReportData] = useState([]);
+    const [risingReportData, setRisingReportData] = useState(null);
+    const [loadingCommon, setLoadingCommon] = useState(true);
+    const [loadingRising, setLoadingRising] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchReportData = async () => {
             try {
-                const response = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/info/common`);
-                console.log(response.data);
-                setReportData(response.data);
+                const commonInfoResponse = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/info/common`);
+                console.log(commonInfoResponse.data)
+                setCommonReportData(commonInfoResponse.data);
+                setLoadingCommon(false);
+
+                const risingBusinessResponse = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, {
+                    params: {
+                        store_business_id: store_business_id
+                    }
+                });
+                console.log(risingBusinessResponse.data);
+                setRisingReportData(risingBusinessResponse.data);
+                setLoadingRising(false);
             } catch (err) {
                 setError(err);
-            } finally {
-                setLoading(false);
+                setLoadingCommon(false);
+                setLoadingRising(false);
             }
         };
 
         fetchReportData();
-    }, []);
-
-    if (loading) {
-        return <p>로딩 중...</p>;
-    }
+    }, [store_business_id]);
 
     if (error) {
         return <p>보고서 데이터를 가져오는 중 오류가 발생했습니다: {error.message}</p>;
     }
 
-    // if (reportData.length === 0) {
-    //     return <p>보고서가 없습니다.</p>;
-    // }
-
     return (
         <main className="report bg-gray-100 max-w-[394px] flex justify-center">
-            <div className="">
-                <section className="">
-                    <StoreInfo />
+            <div className="w-full">
+                <section className="mb-4">
+                    <StoreInfo store_business_id={store_business_id} />
+                </section>
+                <section className="p-2 mb-4">
+                    <RisingBusiness risingReportData={risingReportData} loading={loadingRising} />
                 </section>
                 <section className="p-2">
-                    <RisingBusiness />
-                </section>
-                <section className="p-2">
-                    {reportData.map((report, idx) => (
-                        <div className="py-2">
-                            <CommonInformation key={idx} report={report} />
+                    {loadingCommon ? (
+                        <div className="flex justify-center items-center h-64">
+                            <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
                         </div>
-                    ))}
+                    ) : (
+                        commonReportData.map((commonReport) => (
+                            <div className="py-2" key={commonReport.common_information_id}>
+                                <CommonInformation commonReport={commonReport} />
+                            </div>
+                        ))
+                    )}
                 </section>
             </div>
         </main>
