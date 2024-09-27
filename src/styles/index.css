@@ -1,44 +1,68 @@
-@tailwind base; 
-@tailwind components; 
-@tailwind utilities; 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-* { 
- margin: 0; 
- padding: 0;
- font-family: NanumSquareOTF; 
- /* font-size:14px; */
- } 
- 
- #wrap { 
- width: 100%; 
- height: auto; 
- } 
- 
- html,
- body { 
- width: 100%; 
- height: 100%; 
- } 
- 
- ul,
- li { 
- list-style: none; 
- } 
- 
- input { 
- outline: none; 
- }
- input, select {
+* {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  /* font-size:14px; */
+}
+
+#wrap {
+  width: 100%;
+  height: auto;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+}
+
+ul,
+li {
+  list-style: none;
+}
+
+input {
+  outline: none;
+}
+
+input,
+select {
   display: block;
- } 
- 
- html { 
- font-family: sans-serif; 
- font-weight: 600; 
- }
+}
 
- @layer components {
-    .div-underline {
-      @apply relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:block after:w-full after:h-[2px] after:bg-[#D9D9D9];
-    }
+html {
+  font-family: sans-serif;
+  font-weight: 600;
+}
+
+@layer components {
+  .div-underline {
+    @apply relative after:content-[''] after:absolute after:bottom-0 after:left-0 after:block after:w-full after:h-[2px] after:bg-[#D9D9D9];
   }
+}
+
+/* Swiper */
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: #000;  /* 네비게이션 버튼 색상 */
+  transform: scale(0.7);  /* 네비게이션 버튼 크기 조정 */
+}
+
+/* 페이지네이션 도트 색상 */
+#root > main > div span.swiper-pagination-bullet.swiper-pagination-bullet-active {
+  background: #fff; 
+}
+
+#root > main > div > section:nth-child(3) > div:nth-child(1) > div > div > div.files.pt-2.w-full > div > div.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal > span:nth-child(2) {
+  background: #eee;  
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+}

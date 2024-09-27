@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import axios from "axios";
+import CommonInformation from "./Component/CommonInformation";
+import StoreInfo from "./Component/StoreInfo";
+import RisingBusiness from "./Component/RisingBusiness";
 
 const Report = () => {
-    const { reportId } = useParams();
     const [reportData, setReportData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -12,7 +13,8 @@ const Report = () => {
         const fetchReportData = async () => {
             try {
                 const response = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/info/common`);
-                setReportData(response.data); // 여러 개의 보고서를 상태에 저장
+                console.log(response.data);
+                setReportData(response.data);
             } catch (err) {
                 setError(err);
             } finally {
@@ -28,29 +30,31 @@ const Report = () => {
     }
 
     if (error) {
-        return <p>보고서 데이터를 가져오는 중 오류가 발생했습니다: {error.message}</p>; // 오류 메시지
+        return <p>보고서 데이터를 가져오는 중 오류가 발생했습니다: {error.message}</p>;
     }
 
-    // 보고서가 없을 경우 처리
-    if (reportData.length === 0) {
-        return <p>보고서가 없습니다.</p>;
-    }
+    // if (reportData.length === 0) {
+    //     return <p>보고서가 없습니다.</p>;
+    // }
 
     return (
-        <div>
-            <h1>보고서 목록</h1>
-            <h1>보고서 아이디: {reportId}</h1>
-            <ul>
-                {reportData.map((report) => (
-                    <li key={report.common_information_id}>
-                        <h2>{report.title}</h2>
-                        <p>{report.content}</p>
-                        <p>작성일: {new Date(report.reg_date).toLocaleDateString()}</p> {/* 작성일 형식 변경 */}
-                        <p>작성자: {report.reg_id}</p> {/* reg_id로 작성자 표시, 필요시 수정 가능 */}
-                    </li>
-                ))}
-            </ul>
-        </div>
+        <main className="report bg-gray-100 max-w-[394px] flex justify-center">
+            <div className="">
+                <section className="">
+                    <StoreInfo />
+                </section>
+                <section className="p-2">
+                    <RisingBusiness />
+                </section>
+                <section className="p-2">
+                    {reportData.map((report, idx) => (
+                        <div className="py-2">
+                            <CommonInformation key={idx} report={report} />
+                        </div>
+                    ))}
+                </section>
+            </div>
+        </main>
     );
 };
 
