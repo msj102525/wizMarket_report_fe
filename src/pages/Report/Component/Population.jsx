@@ -1,6 +1,7 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import PopulationMetric from './PopulationMetric'
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
@@ -30,7 +31,23 @@ const Population = ({ populationReportData, loading }) => {
         age_60_plus,
         male_population_percent,
         female_population_percent
-    } = populationReportData;
+    } = populationReportData.population_data;
+
+    const {
+        resident_jscore,
+        work_pop_jscore,
+        house_jscore,
+        shop_jscore,
+        income_jscore
+    } = populationReportData.j_score_data;
+
+    const {
+        resident,
+        work_pop,
+        house,
+        shop,
+        income
+    } = populationReportData.loc_info_data;
 
     const ageValues = [age_under_10, age_10s, age_20s, age_30s, age_40s, age_50s, age_60_plus];
     const maxValue = Math.max(...ageValues);
@@ -38,7 +55,6 @@ const Population = ({ populationReportData, loading }) => {
     const maxIndex = ageValues.indexOf(maxValue);
     const minIndex = ageValues.indexOf(minValue);
 
-    // Mapping age group indices to labels
     const ageLabels = ['10세 미만', '10대', '20대', '30대', '40대', '50대', '60세 이상'];
 
     const ageData = {
@@ -110,9 +126,10 @@ const Population = ({ populationReportData, loading }) => {
             ? '남성 인구가 더 많습니다.'
             : '여성과 남성 인구가 동일합니다.';
 
+
     return (
-        <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
-            <div className="">
+        <div className='bg-white px-2 py-6 rounded-lg shadow-md space-y-6'>
+            <div>
                 <p className="text-md">{sub_district_name} 인구분포({formattedDate} 기준)</p>
                 <p className='text-sm text-gray-600'>
                     {sub_district_name}에는 총 인구 수 {total_population.toLocaleString()}명 중
@@ -122,8 +139,18 @@ const Population = ({ populationReportData, loading }) => {
                 </p>
             </div>
 
-            <div className="mt-4 h-80">
+            <div className="py-4 h-80">
                 <Bar data={ageData} options={options} />
+            </div>
+
+            <div className="">
+                <div className="flex justify-between text-center">
+                    <PopulationMetric label="주거인구" value={resident} jScore={resident_jscore} />
+                    <PopulationMetric label="직장인구" value={work_pop} jScore={work_pop_jscore} />
+                    <PopulationMetric label="세대수" value={house} jScore={house_jscore} />
+                    <PopulationMetric label="업소수" value={shop} jScore={shop_jscore} />
+                    <PopulationMetric label="소득(만원)" value={Math.floor(income / 10000)} jScore={income_jscore} />
+                </div>
             </div>
         </div>
     );

@@ -4,6 +4,7 @@ import axios from "axios";
 import CommonInformation from "./Component/CommonInformation";
 import StoreInfo from "./Component/StoreInfo";
 import RisingBusiness from "./Component/RisingBusiness";
+import LocInfoJscore from "./Component/LocInfoJscore";
 import LocInfo from "./Component/LocInfo";
 import Population from "./Component/Population";
 
@@ -41,7 +42,7 @@ const Report = () => {
                         store_business_id: store_business_id
                     }
                 });
-                console.log(populationReportData.data);
+                // console.log(populationReportData.data);
                 setPopulationReportData(populationReportData.data);
                 setLoadingPopulation(false);
 
@@ -82,10 +83,13 @@ const Report = () => {
                     )}
                 </section>
                 <section className="p-2 mb-4">
-                    <LocInfo store_business_id={store_business_id} />
+                    <LocInfoJscore store_business_id={store_business_id} />
                 </section>
                 <section className="p-2 mb-4">
                     <Population populationReportData={populationReportData} loading={loadingPopulation} />
+                </section>
+                <section className="p-2 mb-4">
+                    <LocInfo populationReportData={populationReportData} loading={loadingPopulation} />
                 </section>
             </div>
         </main>
