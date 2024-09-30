@@ -4,20 +4,26 @@ import axios from "axios";
 import CommonInformation from "./Component/CommonInformation";
 import StoreInfo from "./Component/StoreInfo";
 import RisingBusiness from "./Component/RisingBusiness";
+import LocInfo from "./Component/LocInfo";
+import Population from "./Component/Population";
 
 const Report = () => {
     const { store_business_id } = useParams();
     const [commonReportData, setCommonReportData] = useState([]);
     const [risingReportData, setRisingReportData] = useState(null);
+    const [populationReportData, setPopulationReportData] = useState(null);
+
     const [loadingCommon, setLoadingCommon] = useState(true);
     const [loadingRising, setLoadingRising] = useState(true);
+    const [loadingPopulation, setLoadingPopulation] = useState(true);
+
     const [error, setError] = useState(null);
 
     useEffect(() => {
         const fetchReportData = async () => {
             try {
                 const commonInfoResponse = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/info/common`);
-                console.log(commonInfoResponse.data)
+                // console.log(commonInfoResponse.data)
                 setCommonReportData(commonInfoResponse.data);
                 setLoadingCommon(false);
 
@@ -26,13 +32,23 @@ const Report = () => {
                         store_business_id: store_business_id
                     }
                 });
-                console.log(risingBusinessResponse.data);
+                // console.log(risingBusinessResponse.data);
                 setRisingReportData(risingBusinessResponse.data);
                 setLoadingRising(false);
+
+                const populationReportData = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, {
+                    params: {
+                        store_business_id: store_business_id
+                    }
+                });
+                console.log(populationReportData.data);
+                setPopulationReportData(populationReportData.data);
+                setLoadingPopulation(false);
+
             } catch (err) {
                 setError(err);
                 setLoadingCommon(false);
-                setLoadingRising(false);
+                setLoadingPopulation(false);
             }
         };
 
@@ -64,6 +80,12 @@ const Report = () => {
                             </div>
                         ))
                     )}
+                </section>
+                <section className="p-2 mb-4">
+                    <LocInfo store_business_id={store_business_id} />
+                </section>
+                <section className="p-2 mb-4">
+                    <Population populationReportData={populationReportData} loading={loadingPopulation} />
                 </section>
             </div>
         </main>
