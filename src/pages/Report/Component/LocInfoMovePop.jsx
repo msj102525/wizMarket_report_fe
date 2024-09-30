@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LocInfo = ({ locInfoReportData, loading }) => {
+const LocInfoMovePop = ({ locInfoReportData, loading }) => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -17,11 +17,11 @@ const LocInfo = ({ locInfoReportData, loading }) => {
     return (
         <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
             <div className=" pb-10">
-                <p>입지분석</p>
-                <p>레이더 그래프</p>
+                <p>매장 인근 (읍/면/동) 유동인구</p>
+                <p>일 평균: ????명</p>
             </div>
         </div>
     );
 };
 
-export default LocInfo;
+export default LocInfoMovePop;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const LocInfo = ({ locInfoReportData, loading }) => {
+const CommercialDistirct = ({ locInfoReportData, loading }) => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -17,11 +17,11 @@ const LocInfo = ({ locInfoReportData, loading }) => {
     return (
         <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
             <div className=" pb-10">
-                <p>입지분석</p>
+                <p>상권분석</p>
                 <p>레이더 그래프</p>
             </div>
         </div>
     );
 };
 
-export default LocInfo;
+export default CommercialDistirct;

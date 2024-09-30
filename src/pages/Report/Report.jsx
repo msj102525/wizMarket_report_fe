@@ -7,6 +7,13 @@ import RisingBusiness from "./Component/RisingBusiness";
 import LocInfoJscore from "./Component/LocInfoJscore";
 import LocInfo from "./Component/LocInfo";
 import Population from "./Component/Population";
+import CommercialDistrictJscore from "./Component/CommercialDistrictJscore";
+import LocInfoResidentWork from "./Component/LocInfoResidentWork";
+import LocInfoMovePop from "./Component/LocInfoMovePop";
+import LocInfoStrategy from "./Component/LocInfoStrategy";
+import CommercialDistirct from "./Component/CommercialDistirct";
+import CommercialDistrictProfitPerDay from "./Component/CommercialDistrictProfitPerDay";
+import CommercialDistrictProfitPerTime from "./Component/CommercialDistrictProfitPerTime";
 
 const Report = () => {
     const { store_business_id } = useParams();
@@ -83,13 +90,34 @@ const Report = () => {
                     )}
                 </section>
                 <section className="p-2 mb-4">
-                    <LocInfoJscore store_business_id={store_business_id} />
+                    <LocInfoJscore />
                 </section>
                 <section className="p-2 mb-4">
                     <Population populationReportData={populationReportData} loading={loadingPopulation} />
                 </section>
                 <section className="p-2 mb-4">
                     <LocInfo populationReportData={populationReportData} loading={loadingPopulation} />
+                </section>
+                <section className="p-2 mb-4">
+                    <LocInfoResidentWork />
+                </section>
+                <section className="p-2 mb-4">
+                    <LocInfoMovePop />
+                </section>
+                <section className="p-2 mb-4">
+                    <LocInfoStrategy />
+                </section>
+                <section className="p-2 mb-4">
+                    <CommercialDistrictJscore />
+                </section>
+                <section className="p-2 mb-4">
+                    <CommercialDistirct />
+                </section>
+                <section className="p-2 mb-4">
+                    <CommercialDistrictProfitPerDay />
+                </section>
+                <section className="p-2 mb-4">
+                    <CommercialDistrictProfitPerTime />
                 </section>
             </div>
         </main>
