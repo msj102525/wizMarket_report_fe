@@ -4,7 +4,7 @@ import axios from "axios";
 import CommonInformation from "./Component/CommonInformation";
 import StoreInfo from "./Component/StoreInfo";
 import RisingBusiness from "./Component/RisingBusiness";
-import LocInfoJscore from "./Component/LocInfoJscore";
+import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
 import LocInfo from "./Component/LocInfo";
 import Population from "./Component/Population";
 import CommercialDistrictJscore from "./Component/CommercialDistrictJscore";
@@ -17,106 +17,111 @@ import CommercialDistrictProfitPerTime from "./Component/CommercialDistrictProfi
 
 const Report = () => {
     const { store_business_id } = useParams();
-    const [commonReportData, setCommonReportData] = useState([]);
+    const [commonReportData, setCommonReportData] = useState(null);
     const [risingReportData, setRisingReportData] = useState(null);
     const [populationReportData, setPopulationReportData] = useState(null);
+    const [locInfoReportData, setLocInfoReportData] = useState(null);
+    const [locInfoAvgJscoreReportData, setLocInfoAvgJscoreReportData] = useState(null);
 
-    const [loadingCommon, setLoadingCommon] = useState(true);
-    const [loadingRising, setLoadingRising] = useState(true);
-    const [loadingPopulation, setLoadingPopulation] = useState(true);
-
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchReportData = async () => {
+        const fetchData = async () => {
+            setLoading(true);
             try {
-                const commonInfoResponse = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/info/common`);
-                // console.log(commonInfoResponse.data)
-                setCommonReportData(commonInfoResponse.data);
-                setLoadingCommon(false);
+                const [
+                    risingResponse,
+                    commonResponse,
+                    populationResponse,
+                    locInfoResponse,
+                    locInfoAvgJscoreResponse,
+                ] = await Promise.all([
+                    axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, { params: { store_business_id } }),
+                    axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/info/common`),
+                    axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, { params: { store_business_id } }),
+                    axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/info`, { params: { store_business_id } }),
+                    axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/average/jscore`, { params: { store_business_id } }),
+                ]);
 
-                const risingBusinessResponse = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, {
-                    params: {
-                        store_business_id: store_business_id
-                    }
-                });
-                // console.log(risingBusinessResponse.data);
-                setRisingReportData(risingBusinessResponse.data);
-                setLoadingRising(false);
-
-                const populationReportData = await axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, {
-                    params: {
-                        store_business_id: store_business_id
-                    }
-                });
-                // console.log(populationReportData.data);
-                setPopulationReportData(populationReportData.data);
-                setLoadingPopulation(false);
-
+                setRisingReportData(risingResponse.data);
+                setCommonReportData(commonResponse.data);
+                setPopulationReportData(populationResponse.data);
+                setLocInfoReportData(locInfoResponse.data);
+                setLocInfoAvgJscoreReportData(locInfoAvgJscoreResponse.data);
             } catch (err) {
-                setError(err);
-                setLoadingCommon(false);
-                setLoadingPopulation(false);
+                setError(err.message);
+            } finally {
+                setLoading(false);
             }
         };
 
-        fetchReportData();
+        fetchData();
     }, [store_business_id]);
 
-    if (error) {
-        return <p>보고서 데이터를 가져오는 중 오류가 발생했습니다: {error.message}</p>;
-    }
+    const renderSection = (Component, data, loading, error, componentName, additionalProps = {}) => {
+        if (loading) {
+            return (
+                <div className="flex justify-center items-center h-64">
+                    <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            );
+        }
+        if (error) {
+            return (
+                <div className="p-4 bg-white">
+                    <p className="text-red-500">'{componentName}' 에서 데이터를 불러오는 중 오류가 발생했습니다: {error}</p>
+                </div>
+            );
+        }
+        return <Component {...data} {...additionalProps} />;
+    };
 
     return (
         <main className="report bg-gray-100 max-w-[394px] flex justify-center">
             <div className="w-full">
-                <section className="mb-4">
+                <section className="pb-4">
                     <StoreInfo store_business_id={store_business_id} />
                 </section>
-                <section className="p-2 mb-4">
-                    <RisingBusiness risingReportData={risingReportData} loading={loadingRising} />
+                <section className="p-2 pb-4">
+                    {renderSection(RisingBusiness, { risingReportData }, loading, error, 'RisingBusiness')}
                 </section>
                 <section className="p-2">
-                    {loadingCommon ? (
-                        <div className="flex justify-center items-center h-64">
-                            <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+                    {!error && !loading && commonReportData.map((commonReport) => (
+                        <div className="py-2" key={commonReport.common_information_id}>
+                            {renderSection(CommonInformation, { commonReport }, false, null, 'CommonInformation')}
                         </div>
-                    ) : (
-                        commonReportData.map((commonReport) => (
-                            <div className="py-2" key={commonReport.common_information_id}>
-                                <CommonInformation commonReport={commonReport} />
-                            </div>
-                        ))
-                    )}
+                    ))}
+                    {(loading || error) && renderSection(CommonInformation, {}, loading, error, 'CommonInformation')}
                 </section>
-                <section className="p-2 mb-4">
-                    <LocInfoJscore />
+                <section className="p-2 pb-4">
+                    {renderSection(LocInfoAvgJscore, { locInfoAvgJscoreReportData }, loading, error, 'LocInfoAvgJscore')}
                 </section>
-                <section className="p-2 mb-4">
-                    <Population populationReportData={populationReportData} loading={loadingPopulation} />
+                <section className="p-2 pb-4">
+                    {renderSection(Population, { populationReportData }, loading, error, 'Population')}
                 </section>
-                <section className="p-2 mb-4">
-                    <LocInfo populationReportData={populationReportData} loading={loadingPopulation} />
+                <section className="p-2 pb-4">
+                    {renderSection(LocInfo, { locInfoReportData }, loading, error, 'LocInfo')}
                 </section>
-                <section className="p-2 mb-4">
+                <section className="p-2 pb-4">
                     <LocInfoResidentWork />
                 </section>
-                <section className="p-2 mb-4">
+                <section className="p-2 pb-4">
                     <LocInfoMovePop />
                 </section>
-                <section className="p-2 mb-4">
+                <section className="p-2 pb-4">
                     <LocInfoStrategy />
                 </section>
-                <section className="p-2 mb-4">
+                <section className="p-2 pb-4">
                     <CommercialDistrictJscore />
                 </section>
-                <section className="p-2 mb-4">
+                <section className="p-2 pb-4">
                     <CommercialDistirct />
                 </section>
-                <section className="p-2 mb-4">
+                <section className="p-2 pb-4">
                     <CommercialDistrictProfitPerDay />
                 </section>
-                <section className="p-2 mb-4">
+                <section className="p-2 pb-4">
                     <CommercialDistrictProfitPerTime />
                 </section>
             </div>

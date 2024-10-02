@@ -1,9 +1,11 @@
 import React from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
-import PopulationMetric from './PopulationMetric'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';  // 플러그인 추가
+import PopulationMetric from './PopulationMetric';
+import formatDate from '../../../utils/formatDate';
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);  // 플러그인 등록
 
 const Population = ({ populationReportData, loading }) => {
     if (loading) {
@@ -31,7 +33,7 @@ const Population = ({ populationReportData, loading }) => {
         age_60_plus,
         male_population_percent,
         female_population_percent
-    } = populationReportData.population_data;
+    } = populationReportData.population_data || {};
 
     const {
         resident_jscore,
@@ -39,7 +41,7 @@ const Population = ({ populationReportData, loading }) => {
         house_jscore,
         shop_jscore,
         income_jscore
-    } = populationReportData.j_score_data;
+    } = populationReportData.j_score_data || {};
 
     const {
         resident,
@@ -47,7 +49,7 @@ const Population = ({ populationReportData, loading }) => {
         house,
         shop,
         income
-    } = populationReportData.loc_info_data;
+    } = populationReportData.loc_info_data || {};
 
     const ageValues = [age_under_10, age_10s, age_20s, age_30s, age_40s, age_50s, age_60_plus];
     const maxValue = Math.max(...ageValues);
@@ -96,6 +98,18 @@ const Population = ({ populationReportData, loading }) => {
             title: {
                 display: false,
             },
+            datalabels: {
+                color: 'black',
+                anchor: 'center',
+                align: 'center',
+                formatter: (value) => value.toLocaleString(),
+                font: {
+                    size: 12,
+                    weight: 'bold',
+                },
+                // 라벨이 막대 안에 항상 표시되도록 설정
+                clamp: true,
+            }
         },
         scales: {
             x: {
@@ -117,8 +131,7 @@ const Population = ({ populationReportData, loading }) => {
         }
     };
 
-    const date = new Date(reference_date);
-    const formattedDate = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}월`;
+    const formattedDate = formatDate(reference_date);
 
     const genderComparison = female_population_percent > male_population_percent
         ? '여성 인구가 더 많습니다.'
@@ -126,11 +139,10 @@ const Population = ({ populationReportData, loading }) => {
             ? '남성 인구가 더 많습니다.'
             : '여성과 남성 인구가 동일합니다.';
 
-
     return (
         <div className='bg-white px-2 py-6 rounded-lg shadow-md space-y-6'>
             <div>
-                <p className="text-md">{sub_district_name} 인구분포({formattedDate} 기준)</p>
+                <p className="text-md font-extrabold">{sub_district_name} 인구분포({formattedDate} 기준)</p>
                 <p className='text-sm text-gray-600'>
                     {sub_district_name}에는 총 인구 수 {total_population.toLocaleString()}명 중
                     여성 {female_population_percent}%, 남성 {male_population_percent}%로
