@@ -8,7 +8,7 @@ import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
 import LocInfo from "./Component/LocInfo";
 import Population from "./Component/Population";
 import CommercialDistrictJscore from "./Component/CommercialDistrictJscore";
-import LocInfoResidentWork from "./Component/LocInfoResidentWork";
+import PopulationResidentWork from "./Component/PopulationResidentWork";
 import LocInfoMovePop from "./Component/LocInfoMovePop";
 import LocInfoStrategy from "./Component/LocInfoStrategy";
 import CommercialDistirct from "./Component/CommercialDistirct";
@@ -22,6 +22,7 @@ const Report = () => {
     const [populationReportData, setPopulationReportData] = useState(null);
     const [locInfoReportData, setLocInfoReportData] = useState(null);
     const [locInfoAvgJscoreReportData, setLocInfoAvgJscoreReportData] = useState(null);
+    const [populationResidentWorkPopReportData, setPopulationResidentWorkPopReportData] = useState(null);
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -36,12 +37,14 @@ const Report = () => {
                     populationResponse,
                     locInfoResponse,
                     locInfoAvgJscoreResponse,
+                    populationResidentWorkPopReportData,
                 ] = await Promise.all([
                     axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, { params: { store_business_id } }),
                     axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/info/common`),
                     axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, { params: { store_business_id } }),
                     axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/info`, { params: { store_business_id } }),
                     axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/average/jscore`, { params: { store_business_id } }),
+                    axios.get(`${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population/compare`, { params: { store_business_id } }),
                 ]);
 
                 setRisingReportData(risingResponse.data);
@@ -49,6 +52,7 @@ const Report = () => {
                 setPopulationReportData(populationResponse.data);
                 setLocInfoReportData(locInfoResponse.data);
                 setLocInfoAvgJscoreReportData(locInfoAvgJscoreResponse.data);
+                setPopulationResidentWorkPopReportData(populationResidentWorkPopReportData.data);
             } catch (err) {
                 setError(err.message);
             } finally {
@@ -104,7 +108,7 @@ const Report = () => {
                     {renderSection(LocInfo, { locInfoReportData }, loading, error, 'LocInfo')}
                 </section>
                 <section className="p-2 pb-4">
-                    <LocInfoResidentWork />
+                    {renderSection(PopulationResidentWork, { populationResidentWorkPopReportData }, loading, error, 'PopulationResidentWork')}
                 </section>
                 <section className="p-2 pb-4">
                     <LocInfoMovePop />

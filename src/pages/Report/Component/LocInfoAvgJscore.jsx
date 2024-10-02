@@ -15,8 +15,7 @@ const LocInfoAvgJscore = ({ locInfoAvgJscoreReportData, loading }) => {
         return <div>데이터를 불러오는 중 오류가 발생했습니다.</div>;
     }
 
-    const { city_name, district_name, sub_district_name, sub_district_id, ref_date, weighted_avg_val } = locInfoAvgJscoreReportData;
-    console.log(sub_district_id)
+    const { city_name, district_name, sub_district_name, ref_date, weighted_avg_val } = locInfoAvgJscoreReportData;
     const formattedDate = formatDate(ref_date);
 
     return (
