@@ -53,14 +53,14 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, loading }
             datalabels: { // 데이터 레이블 스타일 설정
                 color: '#000000', // 폰트 색상
                 font: {
-                    size: 20, // 폰트 크기
+                    size: 16, // 폰트 크기
                     weight: 'bold', // 폰트 두께
                 },
                 formatter: (value) => {
                     return value; // 데이터 값을 표시
                 },
-                anchor: 'end', // 데이터 레이블의 기준점을 끝쪽으로 설정
-                align: 'end',
+                anchor: 'start', // 데이터 레이블의 기준점을 끝쪽으로 설정
+                align: 'start',
             },
         },
     };
@@ -77,7 +77,7 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, loading }
                     <p className="text-md">{`${sub_district_name} 주거환경`}</p>
                     <p className="text-sm">{focusAreaText}</p>
                 </div>
-                <div className="w-full flex justify-center ">
+                <div className="w-2/3 flex justify-center ">
                     <div className="w-full py-12">
                         <Doughnut data={data} options={options} />
                     </div>
