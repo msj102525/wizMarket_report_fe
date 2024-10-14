@@ -12,7 +12,7 @@ const CommonInformation = ({ commonReport }) => {
         <div className="bg-white p-4 rounded-md tracking-tight shadow-md shadow-black-500 ">
             <div className="commonReport-item">
                 <div className="pb-2 ">
-                    <p className="pb-4 text-md">{commonReport.title}</p>
+                    <p className="pb-4 font-bold">{commonReport.title}</p>
                     <div className="text-sm" dangerouslySetInnerHTML={{ __html: commonReport.content.replace(/\n/g, '<br />') }} />
                 </div>
                 <div className="files pt-2 w-full">
