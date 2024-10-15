@@ -41,7 +41,7 @@ select {
 
 html {
   font-family: sans-serif;
-  font-weight: 600;
+  /* font-weight: 600; */
 }
 
 @layer components {
@@ -60,11 +60,11 @@ html {
 
 /* 페이지네이션 도트 색상 */
 #root > main > div span.swiper-pagination-bullet.swiper-pagination-bullet-active {
-  background: #fff; 
+  /* background: #fff;  */
 }
 
 #root > main > div > section:nth-child(3) > div:nth-child(1) > div > div > div.files.pt-2.w-full > div > div.swiper-pagination.swiper-pagination-clickable.swiper-pagination-bullets.swiper-pagination-horizontal > span:nth-child(2) {
-  background: #eee;  
+  /* background: #eee;   */
 }
 
 .swiper-container {

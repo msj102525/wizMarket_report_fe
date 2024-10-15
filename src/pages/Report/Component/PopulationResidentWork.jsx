@@ -19,11 +19,10 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, loading }
         );
     }
 
-    const { resident, work_pop, resident_percentage, work_pop_percentage,
-        //  city_name, district_name,
-        sub_district_name } = populationResidentWorkPopReportData;
+    const { resident, work_pop, resident_percentage, work_pop_percentage, sub_district_name } = populationResidentWorkPopReportData;
 
-    // 도넛 차트 데이터 및 옵션 설정
+    const total = resident + work_pop; // 총합 계산
+
     const data = {
         labels: ['주거인구', '근무인구'],
         datasets: [
@@ -33,7 +32,7 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, loading }
                 backgroundColor: ['#1F77B4', '#FF7F0E'],
                 borderColor: ['rgba(31, 119, 180, 1)', 'rgba(255, 127, 14, 1)'],
                 borderWidth: 1,
-                cutout: '80%', // 도넛의 중앙 원의 크기 (80%로 설정하여 얇게 보이게 함)
+                cutout: '80%',
             },
         ],
     };
@@ -42,30 +41,30 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, loading }
         responsive: true,
         plugins: {
             legend: {
-                display: false, // 레전드를 보이지 않게 설정
+                display: false,
             },
             title: {
-                display: false, // 타이틀을 보이지 않게 설정
+                display: false,
             },
             labels: {
-                display: false // 라벨을 보이지 않게 설정
+                display: false,
             },
-            datalabels: { // 데이터 레이블 스타일 설정
-                color: '#000000', // 폰트 색상
+            datalabels: {
+                color: '#222',
                 font: {
-                    size: 16, // 폰트 크기
-                    weight: 'bold', // 폰트 두께
+                    size: 14,
+                    weight: 'bold',
                 },
-                formatter: (value) => {
-                    return value; // 데이터 값을 표시
+                formatter: (value, context) => {
+                    const percentage = ((value / total) * 100).toFixed(1);
+                    return `  ${percentage}%\n(${value})`;
                 },
-                anchor: 'start', // 데이터 레이블의 기준점을 끝쪽으로 설정
+                anchor: 'start',
                 align: 'start',
             },
         },
     };
 
-    // 주거인구와 근무인구의 비율에 따라 텍스트 결정
     const focusAreaText = resident_percentage > work_pop_percentage
         ? `${sub_district_name} 주거인구 중심지역입니다.`
         : `${sub_district_name} 직장인구 중심지역입니다.`;

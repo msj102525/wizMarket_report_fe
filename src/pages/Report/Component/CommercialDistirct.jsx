@@ -1,6 +1,6 @@
 import React from 'react';
 
-const CommercialDistirct = ({ locInfoReportData, loading }) => {
+const CommercialDistirct = ({ commercialDistrictReportData, loading }) => {
     if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -9,7 +9,7 @@ const CommercialDistirct = ({ locInfoReportData, loading }) => {
         );
     }
 
-    // if (!locInfoReportData) {
+    // if (!commercialDistrictReportData) {
     //     return <div>데이터를 불러오는 중 오류가 발생했습니다.</div>;
     // }
 

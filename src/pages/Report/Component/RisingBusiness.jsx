@@ -1,6 +1,7 @@
 import React from 'react';
 
 const RisingBusiness = ({ risingReportData, loading }) => {
+
     if (loading) {
         return (
             <div className="flex justify-center items-center h-64">
@@ -9,12 +10,12 @@ const RisingBusiness = ({ risingReportData, loading }) => {
         );
     }
 
-    if (!risingReportData && !risingReportData.length) {
+
+    if (!risingReportData) {
         return <div>데이터를 불러오는 중 오류가 발생했습니다.</div>;
     }
 
     const { nationwide_top5 = [], sub_district_top3_data = [] } = risingReportData;
-
     const date = nationwide_top5.length > 0 ? new Date(nationwide_top5[0].y_m) : null;
     const year = date ? date.getFullYear() : null;
     const month = date ? date.getMonth() + 1 : null;
