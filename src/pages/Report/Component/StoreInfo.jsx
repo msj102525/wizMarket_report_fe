@@ -13,7 +13,7 @@ const StoreInfo = ({ storeInfo, loading }) => {
         return null;
     }
 
-    const { localStoreInfo, weatherInfo } = storeInfo;
+    const { localStoreInfo, weatherInfo, aqi_info } = storeInfo;
 
     const {
         road_name_address,
@@ -47,7 +47,7 @@ const StoreInfo = ({ storeInfo, loading }) => {
                 </div>
 
                 {/* 날씨 아이콘과 온도 추가 */}
-                <div className="absolute top-4 right-4 flex flex-col items-center">
+                <div className="w-28 absolute top-6 right-2 flex flex-col items-center">
                     <div className="w-20 h-20">
                         <img
                             src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
@@ -55,7 +55,8 @@ const StoreInfo = ({ storeInfo, loading }) => {
                             className="block w-full"
                         />
                     </div>
-                    <p className='text-white text-lg absolute bottom-[-5px]'>{Math.round(weatherInfo.temp)}°C</p>
+                    <p className='text-white text-xl font-bold absolute bottom-[-5px]'>{Math.round(weatherInfo.temp)}°C</p>
+                    <p className='text-gray-100 text-xs absolute bottom-[-24px]'>미세먼지 {aqi_info.description}</p>
                 </div>
             </div>
 
