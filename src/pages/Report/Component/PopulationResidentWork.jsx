@@ -24,7 +24,7 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, loading }
     const total = resident + work_pop; // 총합 계산
 
     const data = {
-        labels: ['주거인구', '근무인구'],
+        labels: ['주거인구', '직장인구'],
         datasets: [
             {
                 label: '인구 분포',
@@ -66,24 +66,35 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, loading }
     };
 
     const focusAreaText = resident_percentage > work_pop_percentage
-        ? `${sub_district_name} 주거인구 중심지역입니다.`
-        : `${sub_district_name} 직장인구 중심지역입니다.`;
+        ? `${sub_district_name}은 주거인구가 ${resident_percentage}%를 차지하는 주거중심지역입니다.`
+        : `${sub_district_name}은 직장인구가 ${work_pop_percentage}%를 차지하는 직장중심지역입니다.`;
 
-    return (
-        <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
-            <div className="flex flex-col items-center">
-                <div className="w-full">
-                    <p className="text-md">{`${sub_district_name} 주거환경`}</p>
-                    <p className="text-sm">{focusAreaText}</p>
-                </div>
-                <div className="w-2/3 flex justify-center ">
-                    <div className="w-full py-12">
-                        <Doughnut data={data} options={options} />
+        return (
+            <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
+                <div className="flex flex-col items-center">
+                    <div className="w-full">
+                        <p className="text-md pb-2">{`${sub_district_name} 주거환경`}</p>
+                        <p className="text-[12px]">{focusAreaText}</p>
+                    </div>
+                    <div className="w-full flex justify-between items-center">
+                        {/* 왼쪽 직장인구 텍스트 */}
+                        <div className="text-center">
+                            <p className="text-sm">직장인구</p>
+                        </div>
+                        {/* 도넛 차트 */}
+                        <div className="w-2/3 flex justify-center">
+                            <div className="w-full py-12">
+                                <Doughnut data={data} options={options} />
+                            </div>
+                        </div>
+                        {/* 오른쪽 주거인구 텍스트 */}
+                        <div className="text-center">
+                            <p className="text-sm">주거인구</p>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    );
-};
-
-export default PopulationResidentWork;
+        );
+    };
+    
+    export default PopulationResidentWork;
