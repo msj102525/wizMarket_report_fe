@@ -96,7 +96,7 @@ const LocInfo = ({ locInfoReportData, loading }) => {
     return (
         <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
             <div className="pb-10">
-                <p className="text-md font-extrabold">{sub_district_name} 인구분포({formattedDate} 기준)</p>
+                <p className="text-md font-extrabold">{sub_district_name} 입지분석({formattedDate} 기준)</p>
                 <div>
                     {lowScores.length > 0 && highScores.length > 0 ? (
                         <p className="text-sm font-medium text-gray-700">
