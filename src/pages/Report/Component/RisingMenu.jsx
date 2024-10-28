@@ -1,17 +1,41 @@
 import React from 'react';
 
-const RisingMenu = ({ risingMenuGPTData }) => {
+const RisingMenu = ({ risingMenuGPTData, storeInfoRedux }) => {
+
+    if (!risingMenuGPTData) {
+        return (
+            <div className="p-4 bg-white">
+                <p className="text-red-500">storeInfo 데이터를 불러오는 중 오류가 발생했습니다</p>
+            </div>
+        );
+    }
+
+    const { local_store_top5_orderd_menu, rising_menu_advice } = risingMenuGPTData;
+
+
     return (
-        <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
+        <div className='bg-white pt-4 px-4 rounded-lg shadow-md space-y-6'>
+            <p className='text-sm font-semibold'>{storeInfoRedux.detail_category_name} 매장에서 가장 많이 주문하는 메뉴?</p>
             <div className=" pb-10">
-                {/* <p className='text-blue-500 font-semibold'>1위</p>
-                <p className='text-blue-500 font-semibold'>2위</p>
-                <p className='text-blue-500 font-semibold'>3위</p>
-                <p className='text-blue-500 font-semibold'>4위</p>
-                <p className='text-blue-500 font-semibold'>5위</p> */}
+                <p className='text-blue-600 text-sm font-semibold py-1'>1위
+                    <span className='text-black text-sm font-semibold'> {local_store_top5_orderd_menu.detail_category_top1_ordered_menu}</span>
+                </p>
+                <p className='text-blue-600 text-sm font-semibold py-1'>2위
+                    <span className='text-black text-sm font-semibold'> {local_store_top5_orderd_menu.detail_category_top2_ordered_menu}</span>
+                </p>
+                <p className='text-blue-600 text-sm font-semibold py-1'>3위
+                    <span className='text-black text-sm font-semibold'> {local_store_top5_orderd_menu.detail_category_top3_ordered_menu}</span>
+                </p>
+                <p className='text-blue-600 text-sm font-semibold py-1'>4위
+                    <span className='text-black text-sm font-semibold'> {local_store_top5_orderd_menu.detail_category_top4_ordered_menu}</span>
+                </p>
+                <p className='text-blue-600 text-sm font-semibold py-1'>5위
+                    <span className='text-black text-sm font-semibold'> {local_store_top5_orderd_menu.detail_category_top5_ordered_menu}</span>
+                </p>
+
                 <div className="">
-                    <p className='font-bold'>백쉐프의 조언 들어보세요~</p>
-                    <p>{risingMenuGPTData}</p>
+                    <p className='font-bold py-4'>백쉐프의 조언 들어보세요~</p>
+                    <p className='text-sm'>{rising_menu_advice}</p>
                 </div>
             </div>
         </div>
