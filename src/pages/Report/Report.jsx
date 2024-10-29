@@ -90,7 +90,7 @@ const Report = React.memo(() => {
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/common/info`, setter: setCommonReportData, errorSetter: setErrorCommon },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore/average`, setter: setLocInfoAvgJscoreReportData, errorSetter: setErrorLocInfoAvgJscore },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, setter: setPopulationReportData, errorSetter: setErrorPopulation },
-                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/info`, setter: setLocInfoReportData, errorSetter: setErrorLocInfo },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore`, setter: setLocInfoReportData, errorSetter: setErrorLocInfo },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`, setter: setCommercialDistrictData, errorSetter: setErrorCommercialDistrictData },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population/compare`, setter: setPopulationResidentWorkPopReportData, errorSetter: setErrorPopulationResidentWork },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/gpt/report_loc_info`, setter: setCommercialDistrictSummaryData, errorSetter: setErrorCommercialDistrictSummaryData },
