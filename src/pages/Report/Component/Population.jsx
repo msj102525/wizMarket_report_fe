@@ -7,11 +7,11 @@ import formatDate from '../../../utils/formatDate';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);  // 플러그인 등록
 
-const Population = ({ populationReportData, loading }) => {
-    if (loading) {
+const Population = ({ populationReportData, storeInfoRedux }) => {
+    if (!populationReportData) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+            <div className="p-4 bg-white">
+                <p className="text-red-500">populationReportData 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
@@ -21,37 +21,37 @@ const Population = ({ populationReportData, loading }) => {
     }
 
     const {
-        sub_district_name,
-        total_population,
-        reference_date,
-        age_under_10,
-        age_10s,
-        age_20s,
-        age_30s,
-        age_40s,
-        age_50s,
-        age_60_plus,
-        male_population_percent,
-        female_population_percent
-    } = populationReportData.population_data || {};
+        population_total,
+        population_male_percent,
+        population_female_percent,
+        population_age_10_under,
+        population_age_10s,
+        population_age_20s,
+        population_age_30s,
+        population_age_40s,
+        population_age_50s,
+        population_age_60_over,
+        loc_info_resident_k,
+        loc_info_work_pop_k,
+        loc_info_move_pop_k,
+        loc_info_shop_k,
+        loc_info_income_won,
+        loc_info_resident_j_score,
+        loc_info_work_pop_j_score,
+        loc_info_move_pop_j_score,
+        loc_info_shop_j_score,
+        loc_info_income_j_score
+    } = populationReportData;
 
-    const {
-        resident_jscore,
-        work_pop_jscore,
-        house_jscore,
-        shop_jscore,
-        income_jscore
-    } = populationReportData.j_score_data || {};
-
-    const {
-        resident,
-        work_pop,
-        house,
-        shop,
-        income
-    } = populationReportData.loc_info_data || {};
-
-    const ageValues = [age_under_10, age_10s, age_20s, age_30s, age_40s, age_50s, age_60_plus];
+    const ageValues = [
+        population_age_10_under,
+        population_age_10s,
+        population_age_20s,
+        population_age_30s,
+        population_age_40s,
+        population_age_50s,
+        population_age_60_over
+    ];
     const maxValue = Math.max(...ageValues);
     const minValue = Math.min(...ageValues);
     const maxIndex = ageValues.indexOf(maxValue);
@@ -107,7 +107,6 @@ const Population = ({ populationReportData, loading }) => {
                     size: 12,
                     weight: 'bold',
                 },
-                // 라벨이 막대 안에 항상 표시되도록 설정
                 clamp: true,
             }
         },
@@ -131,22 +130,18 @@ const Population = ({ populationReportData, loading }) => {
         }
     };
 
-    const formattedDate = formatDate(reference_date);
-
-    const genderComparison = female_population_percent > male_population_percent
+    const genderComparison = population_female_percent > population_male_percent
         ? '여성 인구가 더 많습니다.'
-        : female_population_percent < male_population_percent
+        : population_female_percent < population_male_percent
             ? '남성 인구가 더 많습니다.'
             : '여성과 남성 인구가 동일합니다.';
 
     return (
         <div className='bg-white px-2 py-6 rounded-lg shadow-md space-y-6'>
             <div>
-                <p className="text-md font-extrabold">{sub_district_name} 인구분포({formattedDate} 기준)</p>
+                <p className="text-md font-bold">{storeInfoRedux.sub_district_name} 인구분포 ({formatDate(storeInfoRedux.population_data_ref_date)} 기준)</p>
                 <p className='text-sm text-gray-600'>
-                    {sub_district_name}에는 총 인구 수 {total_population.toLocaleString()}명 중
-                    여성 {female_population_percent}%, 남성 {male_population_percent}%로
-                    {genderComparison}
+                    총 인구 수 {population_total.toLocaleString()}명 중 여성 {population_female_percent}%, 남성 {population_male_percent}%로 {genderComparison}
                     또한 {ageLabels[maxIndex]}가 가장 많고 {ageLabels[minIndex]} 인구가 가장 적습니다.
                 </p>
             </div>
@@ -157,11 +152,11 @@ const Population = ({ populationReportData, loading }) => {
 
             <div className="">
                 <div className="flex justify-between text-center">
-                    <PopulationMetric label="주거인구" value={resident} jScore={resident_jscore} />
-                    <PopulationMetric label="직장인구" value={work_pop} jScore={work_pop_jscore} />
-                    <PopulationMetric label="세대수" value={house} jScore={house_jscore} />
-                    <PopulationMetric label="업소수" value={shop} jScore={shop_jscore} />
-                    <PopulationMetric label="소득(만원)" value={Math.floor(income / 10000)} jScore={income_jscore} />
+                    <PopulationMetric label="주거인구" value={loc_info_resident_k} jScore={loc_info_resident_j_score} />
+                    <PopulationMetric label="직장인구" value={loc_info_work_pop_k} jScore={loc_info_work_pop_j_score} />
+                    <PopulationMetric label="유동인구" value={loc_info_move_pop_k} jScore={loc_info_move_pop_j_score} />
+                    <PopulationMetric label="업소수" value={loc_info_shop_k} jScore={loc_info_shop_j_score} />
+                    <PopulationMetric label="소득(만원)" value={loc_info_income_won} jScore={loc_info_income_j_score} />
                 </div>
             </div>
         </div>

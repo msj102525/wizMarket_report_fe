@@ -6,10 +6,10 @@ import axios from "axios";
 import StoreInfo from "./Component/StoreInfo";
 import RisingMenu from "./Component/RisingMenu";
 import CommonInformation from "./Component/CommonInformation";
+import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
+import Population from "./Component/Population";
+import LocInfo from "./Component/LocInfo";
 // import RisingBusiness from "./Component/RisingBusiness";
-// import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
-// import LocInfo from "./Component/LocInfo";
-// import Population from "./Component/Population";
 import CommercialDistrictJscore from "./Component/CommercialDistrictJscore";
 // import PopulationResidentWork from "./Component/PopulationResidentWork";
 import LocInfoMovePop from "./Component/LocInfoMovePop";
@@ -41,17 +41,18 @@ const Report = React.memo(() => {
     const [loadingCommon, setLoadingCommon] = useState(true);
     const [errorCommon, setErrorCommon] = useState(null);
 
-    // const [populationReportData, setPopulationReportData] = useState(null);
-    // const [loadingPopulation, setLoadingPopulation] = useState(true);
-    // const [errorPopulation, setErrorPopulation] = useState(null);
+    const [locInfoAvgJscoreReportData, setLocInfoAvgJscoreReportData] = useState(null);
+    const [loadingLocInfoAvgJscore, setLoadingLocInfoAvgJscore] = useState(true);
+    const [errorLocInfoAvgJscore, setErrorLocInfoAvgJscore] = useState(null);
 
-    // const [locInfoReportData, setLocInfoReportData] = useState(null);
-    // const [loadingLocInfo, setLoadingLocInfo] = useState(true);
-    // const [errorLocInfo, setErrorLocInfo] = useState(null);
+    const [populationReportData, setPopulationReportData] = useState(null);
+    const [loadingPopulation, setLoadingPopulation] = useState(true);
+    const [errorPopulation, setErrorPopulation] = useState(null);
 
-    // const [locInfoAvgJscoreReportData, setLocInfoAvgJscoreReportData] = useState(null);
-    // const [loadingLocInfoAvgJscore, setLoadingLocInfoAvgJscore] = useState(true);
-    // const [errorLocInfoAvgJscore, setErrorLocInfoAvgJscore] = useState(null);
+    const [locInfoReportData, setLocInfoReportData] = useState(null);
+    const [loadingLocInfo, setLoadingLocInfo] = useState(true);
+    const [errorLocInfo, setErrorLocInfo] = useState(null);
+
 
     // const [populationResidentWorkPopReportData, setPopulationResidentWorkPopReportData] = useState(null);
     // const [loadingPopulationResidentWork, setLoadingPopulationResidentWork] = useState(true);
@@ -87,11 +88,11 @@ const Report = React.memo(() => {
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info`, setter: setStoreInfo, errorSetter: setErrorStoreInfo },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`, setter: setrisingMenuGPTData, errorSetter: setErrorrisingMenuGPTData },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/common/info`, setter: setCommonReportData, errorSetter: setErrorCommon },
-                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, setter: setPopulationReportData, errorSetter: setErrorPopulation },
-                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/info`, setter: setLocInfoReportData, errorSetter: setErrorLocInfo },
-                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/average/jscore`, setter: setLocInfoAvgJscoreReportData, errorSetter: setErrorLocInfoAvgJscore },
-                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population/compare`, setter: setPopulationResidentWorkPopReportData, errorSetter: setErrorPopulationResidentWork },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore/average`, setter: setLocInfoAvgJscoreReportData, errorSetter: setErrorLocInfoAvgJscore },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, setter: setPopulationReportData, errorSetter: setErrorPopulation },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/info`, setter: setLocInfoReportData, errorSetter: setErrorLocInfo },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`, setter: setCommercialDistrictData, errorSetter: setErrorCommercialDistrictData },
+                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population/compare`, setter: setPopulationResidentWorkPopReportData, errorSetter: setErrorPopulationResidentWork },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/gpt/report_loc_info`, setter: setCommercialDistrictSummaryData, errorSetter: setErrorCommercialDistrictSummaryData },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, setter: setRisingReportData, errorSetter: setErrorRising },
                 ];
@@ -117,9 +118,9 @@ const Report = React.memo(() => {
                     setLoadingStoreInfo(false);
                     setLoadingrisingMenuGPTData(false);
                     setLoadingCommon(false);
-                    // setLoadingPopulation(false);
-                    // setLoadingLocInfo(false);
-                    // setLoadingLocInfoAvgJscore(false);
+                    setLoadingLocInfoAvgJscore(false);
+                    setLoadingPopulation(false);
+                    setLoadingLocInfo(false);
                     // setLoadingPopulationResidentWork(false);
                     // setLoadingCommercialDistrictData(false);
                     // setLoadingCommercialDistrictSummaryData(false);
@@ -184,15 +185,15 @@ const Report = React.memo(() => {
                 </section>
 
                 <section className="px-2 py-1 ">
-                    {/* {renderSection(LocInfoAvgJscore, { locInfoAvgJscoreReportData }, loadingLocInfoAvgJscore, errorLocInfoAvgJscore, 'LocInfoAvgJscore')} */}
+                    {renderSection(LocInfoAvgJscore, { locInfoAvgJscoreReportData, storeInfoRedux }, loadingLocInfoAvgJscore, errorLocInfoAvgJscore, 'LocInfoAvgJscore')}
                 </section>
 
                 <section className="px-2 py-1 ">
-                    {/* {renderSection(Population, { populationReportData }, loadingPopulation, errorPopulation, 'Population')} */}
+                    {renderSection(Population, { populationReportData, storeInfoRedux }, loadingPopulation, errorPopulation, 'Population')}
                 </section>
 
                 <section className="px-2 py-1 ">
-                    {/* {renderSection(LocInfo, { locInfoReportData }, loadingLocInfo, errorLocInfo, 'LocInfo')} */}
+                    {renderSection(LocInfo, { locInfoReportData, storeInfoRedux }, loadingLocInfo, errorLocInfo, 'LocInfo')}
                 </section>
 
                 <section className="px-2 py-1 ">

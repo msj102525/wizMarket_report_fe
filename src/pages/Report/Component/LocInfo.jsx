@@ -5,18 +5,15 @@ import formatDate from '../../../utils/formatDate';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-const LocInfo = ({ locInfoReportData, loading }) => {
-    if (loading) {
+const LocInfo = ({ locInfoReportData,storeInfoRedux }) => {
+    if (!locInfoReportData) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+            <div className="p-4 bg-white">
+                <p className="text-red-500">storeInfo 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
 
-    if (!locInfoReportData) {
-        return <div>데이터를 불러오는 중 오류가 발생했습니다.</div>;
-    }
 
     const { loc_info, data_ref } = locInfoReportData;
 
