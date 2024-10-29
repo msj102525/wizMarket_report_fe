@@ -52,13 +52,17 @@ const Report = React.memo(() => {
     const [loadingLocInfo, setLoadingLocInfo] = useState(true);
     const [errorLocInfo, setErrorLocInfo] = useState(null);
 
+    const [commercialDistrictAvgJscoreReportData, setCommercialDistrictAvgJscoreReportData] = useState(null);
+    const [loadingCommercialDistrictAvgJscore, setLoadingCommercialDistrictAvgJscore] = useState(true);
+    const [errorCommercialDistrictAvgJscore, setErrorCommercialDistrictAvgJscore] = useState(null);
+
     const [populationResidentWorkPopReportData, setPopulationResidentWorkPopReportData] = useState(null);
     const [loadingPopulationResidentWork, setLoadingPopulationResidentWork] = useState(true);
     const [errorPopulationResidentWork, setErrorPopulationResidentWork] = useState(null);
 
-    const [commercialDistrictAvgJscoreReportData, setCommercialDistrictAvgJscoreReportData] = useState(null);
-    const [loadingCommercialDistrictAvgJscore, setLoadingCommercialDistrictAvgJscore] = useState(true);
-    const [errorCommercialDistrictAvgJscore, setErrorCommercialDistrictAvgJscore] = useState(null);
+    const [locInfoMovePopReportData, setLocInfoMovePopReportData] = useState(null);
+    const [loadingLocInfoMovePop, setLoadingLocInfoMovePop] = useState(true);
+    const [errorLocInfoMovePop, setErrorLocInfoMovePop] = useState(null);
 
     // const [commercialDistrictData, setCommercialDistrictData] = useState(null);
     // const [loadingcommercialDistrictData, setLoadingCommercialDistrictData] = useState(true);
@@ -95,6 +99,7 @@ const Report = React.memo(() => {
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore`, setter: setLocInfoReportData, errorSetter: setErrorLocInfo },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/resident/work/compare`, setter: setPopulationResidentWorkPopReportData, errorSetter: setErrorPopulationResidentWork },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore/average`, setter: setCommercialDistrictAvgJscoreReportData, errorSetter: setErrorCommercialDistrictAvgJscore },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/move/population`, setter: setLocInfoMovePopReportData, errorSetter: setErrorLocInfoMovePop },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`, setter: setCommercialDistrictData, errorSetter: setErrorCommercialDistrictData },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/gpt/report_loc_info`, setter: setCommercialDistrictSummaryData, errorSetter: setErrorCommercialDistrictSummaryData },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, setter: setRisingReportData, errorSetter: setErrorRising },
@@ -126,6 +131,7 @@ const Report = React.memo(() => {
                     setLoadingLocInfo(false);
                     setLoadingPopulationResidentWork(false);
                     setLoadingCommercialDistrictAvgJscore(false);
+                    setLoadingLocInfoMovePop(false);
                     // setLoadingCommercialDistrictData(false);
                     // setLoadingCommercialDistrictSummaryData(false);
                     // setLoadingRising(false);
@@ -205,7 +211,7 @@ const Report = React.memo(() => {
                 </section>
 
                 <section className="px-2 py-1 ">
-                    <LocInfoMovePop />
+                    {renderSection(LocInfoMovePop, { locInfoMovePopReportData, storeInfoRedux }, loadingLocInfoMovePop, errorLocInfoMovePop, 'LocInfoMovePop')}
                 </section>
 
                 {/* <section className="px-2 py-1 ">

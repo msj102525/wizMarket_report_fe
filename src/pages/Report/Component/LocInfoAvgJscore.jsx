@@ -9,9 +9,6 @@ const LocInfoAvgJscore = ({ locInfoAvgJscoreReportData, storeInfoRedux }) => {
         );
     }
 
-    if (!locInfoAvgJscoreReportData) {
-        return <div>데이터를 불러오는 중 오류가 발생했습니다.</div>;
-    }
 
     const { city_name, district_name, sub_district_name, loc_info_data_ref_date } = storeInfoRedux;
 
