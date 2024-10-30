@@ -7,14 +7,12 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 
 const CommercialDistrictTimeSales = ({ commercialDistrictTimeSales }) => {
     if (!commercialDistrictTimeSales) {
-        console.log(`데이터 없음: ${commercialDistrictTimeSales}`)
         return (
             <div className="p-4 bg-white">
                 <p className="text-red-500">commercialDistrictTimeSales 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
-    console.log(`데이터 있음: ${commercialDistrictTimeSales}`)
 
     const {
         commercial_district_average_sales_percent_06_09,

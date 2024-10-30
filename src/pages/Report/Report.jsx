@@ -16,10 +16,10 @@ import CommercialDistrictMainCategoryCount from "./Component/CommercialDistrictM
 import CommercialDistirctJScore from "./Component/CommercialDistirctJScore";
 import CommercialDistrictWeekdaySales from "./Component/CommercialDistrictWeekdaySales";
 import CommercialDistrictTimeSales from "./Component/CommercialDistrictTimeSales";
+import CommercialDistrictRisingSales from "./Component/CommercialDistrictRisingSales"
+import RisingBusiness from "./Component/RisingBusiness";
 // import CommercialDistrictSummary from "./Component/CommercialDistrictSummary";
 // import LocInfoStrategy from "./Component/LocInfoStrategy";
-// import RisingBusiness from "./Component/RisingBusiness";
-import CommercialDistrictDetailCategory from "./Component/CommercialDistrictDetailCategory";
 import Footer from "./Component/Footer";
 
 const Report = React.memo(() => {
@@ -80,13 +80,19 @@ const Report = React.memo(() => {
     const [loadingCommercialDistrictTimeSales, setLoadingCommercialDistrictTimeSales] = useState(true);
     const [errorCommercialDistrictTimeSales, setErrorCommercialDistrictTimeSales] = useState(null);
 
+    const [commercialRisingSales, setCommercialRisingSales] = useState(null);
+    const [loadingCommercialRisingSales, setLoadingCommercialRisingSales] = useState(true);
+    const [errorCommercialRisingSales, setErrorCommercialRisingSales] = useState(null);
+
+    const [risingReportData, setRisingReportData] = useState(null);
+    const [loadingRising, setLoadingRising] = useState(true);
+    const [errorRising, setErrorRising] = useState(null);
+
     // const [commercialDistrictSummaryData, setCommercialDistrictSummaryData] = useState(null);
     // const [loadingcommercialDistrictSummaryData, setLoadingCommercialDistrictSummaryData] = useState(true);
     // const [errorcommercialDistrictSummaryData, setErrorCommercialDistrictSummaryData] = useState(null);
 
-    // const [risingReportData, setRisingReportData] = useState(null);
-    // const [loadingRising, setLoadingRising] = useState(true);
-    // const [errorRising, setErrorRising] = useState(null);
+
 
 
 
@@ -117,8 +123,9 @@ const Report = React.memo(() => {
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore`, setter: setCommercialDistrictJscore, errorSetter: setErrorCommercialDistrictJscore },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/weekday/sales`, setter: setCommercialDistrictWeekdaySales, errorSetter: setErrorCommercialDistrictWeekdaySales },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/time/sales`, setter: setCommercialDistrictTimeSales, errorSetter: setErrorCommercialDistrictTimeSales },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/rising/sales`, setter: setCommercialRisingSales, errorSetter: setErrorCommercialRisingSales },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`, setter: setRisingReportData, errorSetter: setErrorRising },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/gpt/report_loc_info`, setter: setCommercialDistrictSummaryData, errorSetter: setErrorCommercialDistrictSummaryData },
-                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, setter: setRisingReportData, errorSetter: setErrorRising },
                 ];
 
                 const fetchEndpoint = async (endpoint) => {
@@ -152,8 +159,9 @@ const Report = React.memo(() => {
                     setLoadingCommercialDistrictJscore(false);
                     setLoadingCommercialDistrictWeekdaySales(false);
                     setLoadingCommercialDistrictTimeSales(false);
+                    setLoadingRising(false);
+                    setLoadingCommercialRisingSales(false);
                     // setLoadingCommercialDistrictSummaryData(false);
-                    // setLoadingRising(false);
                 }
             } catch (error) {
                 if (isMounted) {
@@ -263,11 +271,11 @@ const Report = React.memo(() => {
                 </section>
 
                 <section className="px-2 py-1 ">
-                    <CommercialDistrictDetailCategory />
+                    {renderSection(CommercialDistrictRisingSales, { commercialRisingSales, storeInfoRedux }, loadingCommercialRisingSales, errorCommercialRisingSales, 'CommercialDistrictRisingSales')}
                 </section>
 
                 <section className="px-2 py-1 ">
-                    {/* {renderSection(RisingBusiness, { risingReportData }, loadingRising, errorRising, 'RisingBusiness')} */}
+                    {renderSection(RisingBusiness, { risingReportData, storeInfoRedux }, loadingRising, errorRising, 'RisingBusiness')}
                 </section>
 
                 <section className="px-2 py-1 ">

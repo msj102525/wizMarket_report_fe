@@ -1,45 +1,52 @@
 import React from 'react';
 
-const RisingBusiness = ({ risingReportData, loading }) => {
-
-    if (loading) {
+const RisingBusiness = ({ risingReportData }) => {
+    if (!risingReportData) {
         return (
-            <div className="flex justify-center items-center h-64">
-                <div className="w-16 h-16 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+            <div className="p-4 bg-white">
+                <p className="text-red-500">risingReportData 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
 
+    // 전국 TOP5 및 지역 TOP3 데이터 추출
+    const nationwide_top5 = [
+        risingReportData.rising_business_national_rising_sales_top1_info,
+        risingReportData.rising_business_national_rising_sales_top2_info,
+        risingReportData.rising_business_national_rising_sales_top3_info,
+        risingReportData.rising_business_national_rising_sales_top4_info,
+        risingReportData.rising_business_national_rising_sales_top5_info,
+    ];
 
-    if (!risingReportData) {
-        return <div>데이터를 불러오는 중 오류가 발생했습니다.</div>;
-    }
-
-    const { nationwide_top5 = [], sub_district_top3_data = [] } = risingReportData;
-    const date = nationwide_top5.length > 0 ? new Date(nationwide_top5[0].y_m) : null;
-    const year = date ? date.getFullYear() : null;
-    const month = date ? date.getMonth() + 1 : null;
+    const sub_district_top3_data = [
+        risingReportData.rising_business_sub_district_rising_sales_top1_info,
+        risingReportData.rising_business_sub_district_rising_sales_top2_info,
+        risingReportData.rising_business_sub_district_rising_sales_top3_info,
+    ];
 
     return (
         <div className='bg-white p-4 rounded-md tracking-tight shadow-md shadow-black-500'>
             <div className="pb-10">
                 <h2 className="text-xl font-bold mb-4">최근 뜨는 점포업종은?</h2>
+
                 {nationwide_top5.length > 0 ? (
                     <div className="mb-6">
-                        <p className='text-sm text-gray-500'>{year}년 {month}월</p>
                         <h3 className="text-lg font-semibold pb-2">전국 매출 증가 업종 TOP5</h3>
-                        {nationwide_top5.map((item, index) => (
-                            <div key={item.rising_business_id} className="pb-2 flex justify-between gap-4">
-                                <p className='text-md truncate'>
-                                    <span className="font-bold text-blue-500">{index + 1}. </span>
-                                    <span>{item.district_name} {item.sub_district_name} | </span>
-                                    <span>{item.biz_detail_category_name}</span>
-                                </p>
-                                <p>
-                                    <span className="font-bold text-blue-500">{item.growth_rate.toFixed(1)}%</span>
-                                </p>
-                            </div>
-                        ))}
+                        {nationwide_top5.map((item, index) => {
+                            const [district_name, sub_district_name, biz_detail_category_name, growth_rate] = item.split(',');
+                            return (
+                                <div key={index} className="pb-2 flex justify-between gap-4">
+                                    <p className='text-md truncate'>
+                                        <span className="font-bold text-blue-500">{index + 1}. </span>
+                                        <span>{district_name} {sub_district_name} | </span>
+                                        <span>{biz_detail_category_name === "소분류없음" ? '뜨는 업종이 없습니다.' : biz_detail_category_name}</span>
+                                    </p>
+                                    <p>
+                                        <span className="font-bold text-blue-500">{parseFloat(growth_rate).toFixed(1)}%</span>
+                                    </p>
+                                </div>
+                            );
+                        })}
                     </div>
                 ) : (
                     <div className="">Top5 데이터 오류</div>
@@ -47,26 +54,28 @@ const RisingBusiness = ({ risingReportData, loading }) => {
 
                 {sub_district_top3_data.length > 0 ? (
                     <div className='div-underline'>
-                        <p className='text-sm text-gray-500'>{year}년 {month}월</p>
                         <h3 className="text-lg font-semibold pb-2">
-                            {sub_district_top3_data[0].sub_district_name} 매출 증가 업종 TOP3
+                            {sub_district_top3_data[0].split(',')[1]} 매출 증가 업종 TOP3
                         </h3>
-                        {sub_district_top3_data.map((item, index) => (
-                            <div key={item.rising_business_id} className="pb-2 flex justify-between">
-                                <p className='text-md'>
-                                    <span className="font-bold text-blue-500">{index + 1}. </span>
-                                    <span>{item.biz_detail_category_name === "소분류없음" ? '뜨는 업종이 없습니다.' : item.biz_detail_category_name}</span>
-                                </p>
-                                <p>
-                                    <span className="font-bold text-blue-500">{item.growth_rate.toFixed(1)}%</span>
-                                </p>
-                            </div>
-                        ))}
+                        {sub_district_top3_data.map((item, index) => {
+                            const [district_name, sub_district_name, biz_detail_category_name, growth_rate] = item.split(',');
+                            return (
+                                <div key={index} className="pb-2 flex justify-between">
+                                    <p className='text-md'>
+                                        <span className="font-bold text-blue-500">{index + 1}. </span>
+                                        <span>{district_name} {sub_district_name} | </span>
+                                        <span>{biz_detail_category_name === "소분류없음" ? '뜨는 업종이 없습니다.' : biz_detail_category_name}</span>
+                                    </p>
+                                    <p>
+                                        <span className="font-bold text-blue-500">{parseFloat(growth_rate).toFixed(1)}%</span>
+                                    </p>
+                                </div>
+                            );
+                        })}
                     </div>
-                ): (
+                ) : (
                     <div className="">Top3 데이터 오류</div>
                 )}
-
             </div>
             <div className="text-sm text-gray-500">
                 <p className='pb-5'>분석 및 조언</p>
