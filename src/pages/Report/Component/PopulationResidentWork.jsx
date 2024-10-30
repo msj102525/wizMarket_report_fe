@@ -63,7 +63,7 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, storeInfo
         : `${sub_district_name}은 직장인구가 ${loc_info_work_pop_percent}%를 차지하는 직장중심지역입니다.`;
 
     return (
-        <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
+        <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
             <div className="flex flex-col items-center">
                 <div className="w-full">
                     <p className="text-md pb-2">{`${sub_district_name} 주거환경`}</p>

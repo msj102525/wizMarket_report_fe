@@ -137,7 +137,7 @@ const Population = ({ populationReportData, storeInfoRedux }) => {
             : '여성과 남성 인구가 동일합니다.';
 
     return (
-        <div className='bg-white px-2 py-6 rounded-lg shadow-md space-y-6'>
+        <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
             <div>
                 <p className="text-md font-bold">{storeInfoRedux.sub_district_name} 인구분포 ({formatDate(storeInfoRedux.population_data_ref_date)} 기준)</p>
                 <p className='text-sm text-gray-600'>

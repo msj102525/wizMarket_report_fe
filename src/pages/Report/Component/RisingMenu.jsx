@@ -14,9 +14,9 @@ const RisingMenu = ({ risingMenuGPTData, storeInfoRedux }) => {
 
 
     return (
-        <div className='bg-white pt-4 px-4 rounded-lg shadow-md space-y-6'>
+        <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
             <p className='text-sm font-semibold'>{storeInfoRedux.detail_category_name} 매장에서 가장 많이 주문하는 메뉴?</p>
-            <div className=" pb-10">
+            <div className="">
                 <p className='text-blue-600 text-sm font-semibold py-1'>1위
                     <span className='text-black text-sm font-semibold'> {local_store_top5_orderd_menu.detail_category_top1_ordered_menu}</span>
                 </p>

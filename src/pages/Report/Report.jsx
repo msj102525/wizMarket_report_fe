@@ -8,14 +8,14 @@ import RisingMenu from "./Component/RisingMenu";
 import CommonInformation from "./Component/CommonInformation";
 import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
 import Population from "./Component/Population";
-import LocInfo from "./Component/LocInfoJScore";
+import LocInfoJScore from "./Component/LocInfoJScore";
 import PopulationResidentWork from "./Component/PopulationResidentWork";
 import CommercialDistrictAvgJScore from "./Component/CommercialDistrictAvgJScore";
 import LocInfoMovePop from "./Component/LocInfoMovePop";
-import CommercialDistirctJScore from "./Component/CommercialDistirctJScore";
-import CommercialDistrictProfitPerDay from "./Component/CommercialDistrictProfitPerDay";
-import CommercialDistrictProfitPerTime from "./Component/CommercialDistrictProfitPerTime";
 import CommercialDistrictMainCategoryCount from "./Component/CommercialDistrictMainCategoryCount";
+import CommercialDistirctJScore from "./Component/CommercialDistirctJScore";
+import CommercialDistrictWeekdaySales from "./Component/CommercialDistrictWeekdaySales";
+import CommercialDistrictTimeSales from "./Component/CommercialDistrictTimeSales";
 // import CommercialDistrictSummary from "./Component/CommercialDistrictSummary";
 // import LocInfoStrategy from "./Component/LocInfoStrategy";
 // import RisingBusiness from "./Component/RisingBusiness";
@@ -72,6 +72,14 @@ const Report = React.memo(() => {
     const [loadingCommercialDistrictJscore, setLoadingCommercialDistrictJscore] = useState(true);
     const [errorCommercialDistrictJscore, setErrorCommercialDistrictJscore] = useState(null);
 
+    const [commercialDistrictWeekdaySales, setCommercialDistrictWeekdaySales] = useState(null);
+    const [loadingCommercialDistrictWeekdaySales, setLoadingCommercialDistrictWeekdaySales] = useState(true);
+    const [errorCommercialDistrictWeekdaySales, setErrorCommercialDistrictWeekdaySales] = useState(null);
+
+    const [commercialDistrictTimeSales, setCommercialDistrictTimeSales] = useState(null);
+    const [loadingCommercialDistrictTimeSales, setLoadingCommercialDistrictTimeSales] = useState(true);
+    const [errorCommercialDistrictTimeSales, setErrorCommercialDistrictTimeSales] = useState(null);
+
     // const [commercialDistrictSummaryData, setCommercialDistrictSummaryData] = useState(null);
     // const [loadingcommercialDistrictSummaryData, setLoadingCommercialDistrictSummaryData] = useState(true);
     // const [errorcommercialDistrictSummaryData, setErrorCommercialDistrictSummaryData] = useState(null);
@@ -79,6 +87,7 @@ const Report = React.memo(() => {
     // const [risingReportData, setRisingReportData] = useState(null);
     // const [loadingRising, setLoadingRising] = useState(true);
     // const [errorRising, setErrorRising] = useState(null);
+
 
 
     useEffect(() => {
@@ -106,6 +115,8 @@ const Report = React.memo(() => {
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/move/population`, setter: setLocInfoMovePopReportData, errorSetter: setErrorLocInfoMovePop },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/mainCategory/count`, setter: setCommercialDistrictMainCategoryCountData, errorSetter: setErrorCommercialDistrictMainCategoryCountData },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore`, setter: setCommercialDistrictJscore, errorSetter: setErrorCommercialDistrictJscore },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/weekday/sales`, setter: setCommercialDistrictWeekdaySales, errorSetter: setErrorCommercialDistrictWeekdaySales },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/time/sales`, setter: setCommercialDistrictTimeSales, errorSetter: setErrorCommercialDistrictTimeSales },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/gpt/report_loc_info`, setter: setCommercialDistrictSummaryData, errorSetter: setErrorCommercialDistrictSummaryData },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, setter: setRisingReportData, errorSetter: setErrorRising },
                 ];
@@ -139,6 +150,8 @@ const Report = React.memo(() => {
                     setLoadingLocInfoMovePop(false);
                     setLoadingCommercialDistrictMainCategoryCountData(false);
                     setLoadingCommercialDistrictJscore(false);
+                    setLoadingCommercialDistrictWeekdaySales(false);
+                    setLoadingCommercialDistrictTimeSales(false);
                     // setLoadingCommercialDistrictSummaryData(false);
                     // setLoadingRising(false);
                 }
@@ -147,6 +160,7 @@ const Report = React.memo(() => {
                     console.error('Error in fetchData:', error);
                 }
             }
+
         };
 
         if (store_business_id) {
@@ -193,7 +207,7 @@ const Report = React.memo(() => {
 
                 <section className="px-2 py-1">
                     {!errorCommon && !loadingCommon && commonReportData.map((commonReport) => (
-                        <div className="px-2 py-1" key={commonReport.common_information_id}>
+                        <div className="" key={commonReport.common_information_id}>
                             {renderSection(CommonInformation, { commonReport }, false, null, 'CommonInformation')}
                         </div>
                     ))}
@@ -209,7 +223,7 @@ const Report = React.memo(() => {
                 </section>
 
                 <section className="px-2 py-1 ">
-                    {renderSection(LocInfo, { locInfoReportData, storeInfoRedux }, loadingLocInfo, errorLocInfo, 'LocInfo')}
+                    {renderSection(LocInfoJScore, { locInfoReportData, storeInfoRedux }, loadingLocInfo, errorLocInfo, 'LocInfoJScore')}
                 </section>
 
                 <section className="px-2 py-1 ">
@@ -238,14 +252,14 @@ const Report = React.memo(() => {
 
                 {/* <section className="px-2 py-1 ">
                     {renderSection(CommercialDistrictSummary, { commercialDistrictSummaryData }, loadingcommercialDistrictSummaryData, errorcommercialDistrictSummaryData, 'CommercialDistrictSummary')}
-                </section> */}
+                    </section> */}
 
                 <section className="px-2 py-1 ">
-                    <CommercialDistrictProfitPerDay />
+                    {renderSection(CommercialDistrictWeekdaySales, { commercialDistrictWeekdaySales }, loadingCommercialDistrictWeekdaySales, errorCommercialDistrictWeekdaySales, 'CommercialDistrictWeekdaySales')}
                 </section>
 
                 <section className="px-2 py-1 ">
-                    <CommercialDistrictProfitPerTime />
+                    {renderSection(CommercialDistrictTimeSales, { commercialDistrictTimeSales }, loadingCommercialDistrictTimeSales, errorCommercialDistrictTimeSales, 'CommercialDistrictTimeSales')}
                 </section>
 
                 <section className="px-2 py-1 ">

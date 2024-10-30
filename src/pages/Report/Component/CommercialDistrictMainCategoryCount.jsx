@@ -122,7 +122,7 @@ const CommercialDistrictMainCategoryCount = ({ commercialDistrictMainCategoryCou
     const formattedDate = formatDate(storeInfoRedux.nice_biz_map_data_ref_date);
 
     return (
-        <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
+        <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
             <div>
                 <p className="text-md font-semibold mb-4">{storeInfoRedux.sub_district_name} 업종별 분포 ({formattedDate} 기준)</p>
                 <p className='text-sm text-gray-800'>

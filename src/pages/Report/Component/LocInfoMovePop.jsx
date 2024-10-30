@@ -20,8 +20,8 @@ const LocInfoMovePop = ({ locInfoMovePopReportData, storeInfoRedux }) => {
     const cityPercentage = parseInt((loc_info_city_move_pop / maxPopulation) * 200);
 
     return (
-        <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
-            <div className="pb-10">
+        <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
+            <div className="">
                 <div className="text-center pb-6">
                     <p className='text-lg font-semibold'>매장 인근 ({sub_district_name}) 유동인구</p>
                     <p className='text-xs py-4 font-sem'>일 평균 <span className='font-bold text-3xl'> {loc_info_move_pop.toLocaleString("ko-KR")}</span> <span className='font-bold text-xl'>명</span ></p>

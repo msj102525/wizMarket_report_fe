@@ -85,7 +85,7 @@ const LocInfoJScore = ({ locInfoReportData, storeInfoRedux }) => {
     const formattedDate = formatDate(storeInfoRedux.loc_info_data_ref_date);
 
     return (
-        <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
+        <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
             <div className="pb-10">
                 <p className="text-md font-semibold">{storeInfoRedux.sub_district_name} 입지분석 ({formattedDate} 기준)</p>
                 <div>
