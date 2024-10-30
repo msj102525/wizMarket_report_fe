@@ -5,11 +5,11 @@ import formatDate from '../../../utils/formatDate';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-const LocInfo = ({ locInfoReportData, storeInfoRedux }) => {
+const LocInfoJScore = ({ locInfoReportData, storeInfoRedux }) => {
     if (!locInfoReportData) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">storeInfo 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">locInfoReportData 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
@@ -87,7 +87,7 @@ const LocInfo = ({ locInfoReportData, storeInfoRedux }) => {
     return (
         <div className='bg-white p-6 rounded-lg shadow-md space-y-6'>
             <div className="pb-10">
-                <p className="text-md font-extrabold">{storeInfoRedux.sub_district_name} 입지분석 ({formattedDate} 기준)</p>
+                <p className="text-md font-semibold">{storeInfoRedux.sub_district_name} 입지분석 ({formattedDate} 기준)</p>
                 <div>
                     {lowScores.length > 0 && highScores.length > 0 ? (
                         <p className="text-sm font-medium text-gray-700">
@@ -113,4 +113,4 @@ const LocInfo = ({ locInfoReportData, storeInfoRedux }) => {
     );
 };
 
-export default LocInfo;
+export default LocInfoJScore;

@@ -8,17 +8,17 @@ import RisingMenu from "./Component/RisingMenu";
 import CommonInformation from "./Component/CommonInformation";
 import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
 import Population from "./Component/Population";
-import LocInfo from "./Component/LocInfo";
+import LocInfo from "./Component/LocInfoJScore";
 import PopulationResidentWork from "./Component/PopulationResidentWork";
-// import RisingBusiness from "./Component/RisingBusiness";
 import CommercialDistrictAvgJScore from "./Component/CommercialDistrictAvgJScore";
 import LocInfoMovePop from "./Component/LocInfoMovePop";
-// import LocInfoStrategy from "./Component/LocInfoStrategy";
-// import CommercialDistirct from "./Component/CommercialDistirct";
+import CommercialDistirctJScore from "./Component/CommercialDistirctJScore";
 import CommercialDistrictProfitPerDay from "./Component/CommercialDistrictProfitPerDay";
 import CommercialDistrictProfitPerTime from "./Component/CommercialDistrictProfitPerTime";
 import CommercialDistrictMainCategoryCount from "./Component/CommercialDistrictMainCategoryCount";
 // import CommercialDistrictSummary from "./Component/CommercialDistrictSummary";
+// import LocInfoStrategy from "./Component/LocInfoStrategy";
+// import RisingBusiness from "./Component/RisingBusiness";
 import CommercialDistrictDetailCategory from "./Component/CommercialDistrictDetailCategory";
 import Footer from "./Component/Footer";
 
@@ -64,9 +64,13 @@ const Report = React.memo(() => {
     const [loadingLocInfoMovePop, setLoadingLocInfoMovePop] = useState(true);
     const [errorLocInfoMovePop, setErrorLocInfoMovePop] = useState(null);
 
-    // const [commercialDistrictData, setCommercialDistrictData] = useState(null);
-    // const [loadingcommercialDistrictData, setLoadingCommercialDistrictData] = useState(true);
-    // const [errorcommercialDistrictData, setErrorCommercialDistrictData] = useState(null);
+    const [commercialDistrictMainCategoryCountData, setCommercialDistrictMainCategoryCountData] = useState(null);
+    const [loadingCommercialDistrictMainCategoryCountData, setLoadingCommercialDistrictMainCategoryCountData] = useState(true);
+    const [errorCommercialDistrictMainCategoryCountData, setErrorCommercialDistrictMainCategoryCountData] = useState(null);
+
+    const [commercialDistrictJscore, setCommercialDistrictJscore] = useState(null);
+    const [loadingCommercialDistrictJscore, setLoadingCommercialDistrictJscore] = useState(true);
+    const [errorCommercialDistrictJscore, setErrorCommercialDistrictJscore] = useState(null);
 
     // const [commercialDistrictSummaryData, setCommercialDistrictSummaryData] = useState(null);
     // const [loadingcommercialDistrictSummaryData, setLoadingCommercialDistrictSummaryData] = useState(true);
@@ -100,7 +104,8 @@ const Report = React.memo(() => {
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/resident/work/compare`, setter: setPopulationResidentWorkPopReportData, errorSetter: setErrorPopulationResidentWork },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore/average`, setter: setCommercialDistrictAvgJscoreReportData, errorSetter: setErrorCommercialDistrictAvgJscore },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/move/population`, setter: setLocInfoMovePopReportData, errorSetter: setErrorLocInfoMovePop },
-                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`, setter: setCommercialDistrictData, errorSetter: setErrorCommercialDistrictData },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/mainCategory/count`, setter: setCommercialDistrictMainCategoryCountData, errorSetter: setErrorCommercialDistrictMainCategoryCountData },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore`, setter: setCommercialDistrictJscore, errorSetter: setErrorCommercialDistrictJscore },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/gpt/report_loc_info`, setter: setCommercialDistrictSummaryData, errorSetter: setErrorCommercialDistrictSummaryData },
                     // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising`, setter: setRisingReportData, errorSetter: setErrorRising },
                 ];
@@ -132,7 +137,8 @@ const Report = React.memo(() => {
                     setLoadingPopulationResidentWork(false);
                     setLoadingCommercialDistrictAvgJscore(false);
                     setLoadingLocInfoMovePop(false);
-                    // setLoadingCommercialDistrictData(false);
+                    setLoadingCommercialDistrictMainCategoryCountData(false);
+                    setLoadingCommercialDistrictJscore(false);
                     // setLoadingCommercialDistrictSummaryData(false);
                     // setLoadingRising(false);
                 }
@@ -219,20 +225,21 @@ const Report = React.memo(() => {
                     </section> */}
 
                 <section className="px-2 py-1 ">
-                    {renderSection(CommercialDistrictAvgJScore, { commercialDistrictAvgJscoreReportData, storeInfoRedux }, loadingCommercialDistrictAvgJscore, errorCommercialDistrictAvgJscore, 'PopulationResidentWork')}
+                    {renderSection(CommercialDistrictAvgJScore, { commercialDistrictAvgJscoreReportData, storeInfoRedux }, loadingCommercialDistrictAvgJscore, errorCommercialDistrictAvgJscore, 'CommercialDistrictAvgJScore')}
                 </section>
 
                 <section className="px-2 py-1 ">
-                    <CommercialDistrictMainCategoryCount />
+                    {renderSection(CommercialDistrictMainCategoryCount, { commercialDistrictMainCategoryCountData, storeInfoRedux }, loadingCommercialDistrictMainCategoryCountData, errorCommercialDistrictMainCategoryCountData, 'CommercialDistrictMainCategoryCount')}
                 </section>
 
                 <section className="px-2 py-1 ">
-                    {/* {renderSection(CommercialDistrictSummary, { commercialDistrictSummaryData }, loadingcommercialDistrictSummaryData, errorcommercialDistrictSummaryData, 'CommercialDistrictSummary')} */}
+                    {renderSection(CommercialDistirctJScore, { commercialDistrictJscore, storeInfoRedux }, loadingCommercialDistrictJscore, errorCommercialDistrictJscore, 'CommercialDistirctJscore')}
                 </section>
 
-                <section className="px-2 py-1 ">
-                    {/* {renderSection(CommercialDistirct, { commercialDistrictData }, loadingcommercialDistrictData, errorcommercialDistrictData, 'CommercialDistirct')} */}
-                </section>
+                {/* <section className="px-2 py-1 ">
+                    {renderSection(CommercialDistrictSummary, { commercialDistrictSummaryData }, loadingcommercialDistrictSummaryData, errorcommercialDistrictSummaryData, 'CommercialDistrictSummary')}
+                </section> */}
+
                 <section className="px-2 py-1 ">
                     <CommercialDistrictProfitPerDay />
                 </section>
