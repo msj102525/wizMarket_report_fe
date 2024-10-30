@@ -11,7 +11,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
     }
 
 
-    const { localStoreInfo, weatherInfo, aqi_info } = storeInfo;
+    const { localStoreInfo, weatherInfo, aqi_info, format_current_datetime } = storeInfo;
 
     const {
         road_name,
@@ -20,6 +20,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
         floor_info,
         local_store_image_url
     } = localStoreInfo;
+
 
     // FastAPI 서버의 정적 파일 URL 구성
     const imageUrl = `${process.env.REACT_APP_FASTAPI_BASE_URL}${local_store_image_url}`;
@@ -36,9 +37,9 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 <div className='absolute bottom-0 w-full h-full bg-gradient-to-t from-black/100 to-transparent' style={{ height: '25%' }}></div>
 
                 <div className='absolute z-10 p-4 text-white bottom-0'>
-                    <div className="flex gap-2">
-                        <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1'>{storeInfoRedux.detail_category_name}</p>
-                        <p className='text-xl font-bold'>{store_name}</p>
+                    <div className="flex gap-2 items-center">
+                        <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5'>{storeInfoRedux.detail_category_name}</p>
+                        <p className='text-2xl font-bold'>{store_name}</p>
                     </div>
                     <p className='text-xs text-gray-300'>{road_name} {building_name} {floor_info}층</p>
                 </div>
@@ -53,8 +54,8 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                         />
                     </div>
                     <p className='text-white text-xl font-bold absolute bottom-[-5px]'>{Math.round(weatherInfo.temp)}°C</p>
-                    <p className='text-gray-100 text-xs absolute bottom-[-24px]'>미세먼지 {aqi_info.description}</p>
-                    <p className='text-gray-300 text-xs absolute bottom-[-38px]'>시간</p>
+                    <p className='text-gray-100 text-sm absolute bottom-[-24px]'>미세먼지 {aqi_info.description}</p>
+                    <p className='text-gray-300 text-xs absolute bottom-[-38px]'>{format_current_datetime}</p>
                 </div>
             </div>
 

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, ArcElement } from 'chart.js';
+import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-ChartJS.register(ArcElement, Tooltip, Legend);
+ChartJS.register(ArcElement, ChartDataLabels);
 
 const PopulationResidentWork = ({ populationResidentWorkPopReportData, storeInfoRedux }) => {
     if (!populationResidentWorkPopReportData) {
@@ -36,27 +37,64 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, storeInfo
             legend: {
                 display: false,
             },
-            title: {
-                display: false,
-            },
-            labels: {
-                display: false,
+            tooltip: {
+                callbacks: {
+                    label: (tooltipItem) => {
+                        const value = tooltipItem.raw;
+                        const percentage = tooltipItem.label === '주거인구' ? loc_info_resident_percent : loc_info_work_pop_percent;
+                        return `${tooltipItem.label}: ${value.toLocaleString()} (${percentage}%)`;
+                    },
+                },
             },
             datalabels: {
                 color: '#222',
                 font: {
-                    size: 14,
-                    weight: 'bold',
+                    size: 16, // 내부 라벨 크기 줄임
+                    weight: '600',
                 },
                 formatter: (value, context) => {
                     const percentage = context.dataIndex === 0 ? loc_info_resident_percent : loc_info_work_pop_percent;
                     return `    ${percentage}%\n(${value.toLocaleString()})`;
                 },
-                anchor: 'start',
+                anchor: 'start', // 내부 라벨 위치
                 align: 'start',
             },
         },
+        layout: {
+            padding: {
+                top: 16,
+                bottom: 16,
+                left: 16,
+                right: 16
+            }
+        }
     };
+
+    const externalLabelsPlugin = {
+        id: 'external-labels',
+        afterDatasetsDraw: (chart) => {
+            const { ctx, data } = chart;
+            const meta = chart.getDatasetMeta(0);
+            ctx.save();
+            ctx.font = '12px Arial'; // 외부 라벨 크기 줄임
+            ctx.fillStyle = '#333';
+            ctx.textAlign = 'center';
+
+            meta.data.forEach((arc, index) => {
+                const angle = Math.PI / 2 - arc.startAngle - (arc.endAngle - arc.startAngle) / 2;
+                const radius = arc.outerRadius + 15; // 외부 라벨 위치 조정
+
+                const x = arc.x + Math.cos(angle) * radius;
+                const y = arc.y + Math.sin(angle) * radius;
+
+                ctx.fillText(data.labels[index], x, y); // 외부 라벨 텍스트
+            });
+
+            ctx.restore();
+        },
+    };
+
+    const plugins = [externalLabelsPlugin];
 
     const focusAreaText = loc_info_resident_percent > loc_info_work_pop_percent
         ? `${sub_district_name}은 주거인구가 ${loc_info_resident_percent}%를 차지하는 주거중심지역입니다.`
@@ -69,20 +107,10 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, storeInfo
                     <p className="text-md pb-2">{`${sub_district_name} 주거환경`}</p>
                     <p className="text-[12px]">{focusAreaText}</p>
                 </div>
-                <div className="w-full flex justify-between items-center">
-                    {/* 왼쪽 직장인구 텍스트 */}
-                    <div className="text-center">
-                        <p className="text-sm">직장인구</p>
-                    </div>
-                    {/* 도넛 차트 */}
-                    <div className="w-2/3 flex justify-center">
-                        <div className="w-full py-12">
-                            <Doughnut data={data} options={options} />
-                        </div>
-                    </div>
-                    {/* 오른쪽 주거인구 텍스트 */}
-                    <div className="text-center">
-                        <p className="text-sm">주거인구</p>
+                {/* 도넛 차트 */}
+                <div className="flex justify-center">
+                    <div className="">
+                        <Doughnut data={data} options={options} plugins={plugins} />
                     </div>
                 </div>
             </div>
