@@ -5,6 +5,7 @@ import { fetchStoreInfo } from '../../stores/storeInfoSlice';
 import axios from "axios";
 import StoreInfo from "./Component/StoreInfo";
 import RisingMenu from "./Component/RisingMenu";
+import CommercialDistrict from "./Component/CommercialDistrict";
 import CommonInformation from "./Component/CommonInformation";
 import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
 import Population from "./Component/Population";
@@ -35,6 +36,10 @@ const Report = React.memo(() => {
     const [risingMenuGPTData, setrisingMenuGPTData] = useState(null);
     const [loadingrisingMenuGPTData, setLoadingrisingMenuGPTData] = useState(true);
     const [errorrisingMenuGPTData, setErrorrisingMenuGPTData] = useState(null);
+
+    const [commercialDistrictReport, setCommercialDistrictReport] = useState(null);
+    const [loadingCommercialDistrictReport, setLoadingCommercialDistrictReport] = useState(true);
+    const [errorCommercialDistrictReport, setErrorCommercialDistrictReport] = useState(null);
 
     const [commonReportData, setCommonReportData] = useState(null);
     const [loadingCommon, setLoadingCommon] = useState(true);
@@ -112,6 +117,7 @@ const Report = React.memo(() => {
                     },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info`, setter: setStoreInfo, errorSetter: setErrorStoreInfo },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`, setter: setrisingMenuGPTData, errorSetter: setErrorrisingMenuGPTData },
+                    { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`, setter: setCommercialDistrictReport, errorSetter: setErrorCommercialDistrictReport },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/common/info`, setter: setCommonReportData, errorSetter: setErrorCommon },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore/average`, setter: setLocInfoAvgJscoreReportData, errorSetter: setErrorLocInfoAvgJscore },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`, setter: setPopulationReportData, errorSetter: setErrorPopulation },
@@ -148,6 +154,7 @@ const Report = React.memo(() => {
                 if (isMounted) {
                     setLoadingStoreInfo(false);
                     setLoadingrisingMenuGPTData(false);
+                    setLoadingCommercialDistrictReport(false);
                     setLoadingCommon(false);
                     setLoadingLocInfoAvgJscore(false);
                     setLoadingPopulation(false);
@@ -211,6 +218,10 @@ const Report = React.memo(() => {
 
                 <section className="px-2 py-1">
                     {renderSection(RisingMenu, { risingMenuGPTData, storeInfoRedux }, loadingrisingMenuGPTData, errorrisingMenuGPTData, 'RisingMenu')}
+                </section>
+
+                <section className="px-2 py-1">
+                    {renderSection(CommercialDistrict, { commercialDistrictReport, storeInfoRedux }, loadingCommercialDistrictReport, errorCommercialDistrictReport, 'CommercialDistrict')}
                 </section>
 
                 <section className="px-2 py-1">

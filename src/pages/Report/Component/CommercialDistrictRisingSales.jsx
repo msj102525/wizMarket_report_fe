@@ -51,7 +51,7 @@ const CommercialDistrictRisingSales = ({ commercialRisingSales, storeInfoRedux }
                         <div key={index} className="grid grid-cols-3 gap-4 py-2">
                             <p className={textStyle}>{item.rank}</p>
                             <p className={textStyle}>{districtName}</p>
-                            <p className={textStyle}>{formattedSales}만원</p>
+                            <p className={textStyle}>{Intl.NumberFormat().format(formattedSales)}만원</p>
                         </div>
                     );
                 })}
