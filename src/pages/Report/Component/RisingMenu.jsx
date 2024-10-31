@@ -35,7 +35,7 @@ const RisingMenu = ({ risingMenuGPTData, storeInfoRedux }) => {
 
                 <div className="">
                     <p className='font-bold py-4'>백쉐프의 조언 들어보세요~</p>
-                    <p className='text-md'>{rising_menu_advice}</p>
+                    <p className="text-sm" dangerouslySetInnerHTML={{ __html: rising_menu_advice }}></p>
                 </div>
             </div>
         </div>
