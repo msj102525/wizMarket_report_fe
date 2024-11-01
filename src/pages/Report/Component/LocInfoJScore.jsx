@@ -14,6 +14,8 @@ const LocInfoJScore = ({ locInfo, storeInfoRedux }) => {
         );
     }
 
+    const { local_store_loc_info_j_score_data, loc_info_advice } = locInfo;
+
     const {
         loc_info_resident_j_score,
         loc_info_move_pop_j_score,
@@ -23,7 +25,7 @@ const LocInfoJScore = ({ locInfo, storeInfoRedux }) => {
         loc_info_average_sales_j_score,
         loc_info_house_j_score,
         population_mz_population_j_score,
-    } = locInfo;
+    } = local_store_loc_info_j_score_data;
 
     const labels = ['MZ 인구', '업소 수', '유동인구', '주거인구', '세대 수', '평균 소득', '평균 소비', '매장평균매출'];
     const scores = [
@@ -104,9 +106,9 @@ const LocInfoJScore = ({ locInfo, storeInfoRedux }) => {
                 <div className="w-full h-80 div-underline">
                     <Radar data={data} options={options} />
                 </div>
-                <div className="text-sm text-gray-500 py-4">
-                    <p>분석 및 조언</p>
-                    <p>AI 조언.....</p>
+                <div className="">
+                    <p className='font-bold py-2'>백쉐프의 조언 들어보세요~</p>
+                    <p className="text-sm" dangerouslySetInnerHTML={{ __html: loc_info_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
             </div>
         </div>

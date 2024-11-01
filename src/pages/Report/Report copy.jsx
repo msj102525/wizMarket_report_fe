@@ -280,4 +280,132 @@ const Report = React.memo(() => {
     );
 });
 
+
+// //////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////////////////////////
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchStoreInfo } from '../../stores/storeInfoSlice';
+import axios from "axios";
+
+const Reportt = React.memo(() => {
+    const { store_business_id } = useParams();
+    const dispatch = useDispatch();
+    const storeInfoRedux = useSelector((state) => state.storeInfo);
+
+    // 각 컴포넌트별 상태 관리
+    const [componentStates, setComponentStates] = useState({
+        storeInfo: { loading: true, data: null, error: null },
+        risingMenu: { loading: true, data: null, error: null },
+        commercialDistrict: { loading: true, data: null, error: null },
+        // ... 다른 컴포넌트들
+    });
+
+    useEffect(() => {
+        const fetchComponentData = async (endpoint, key) => {
+            try {
+                const response = await axios.get(
+                    `${process.env.REACT_APP_FASTAPI_BASE_URL}${endpoint}`,
+                    { params: { store_business_id } }
+                );
+
+                // 개별 컴포넌트 상태 업데이트
+                setComponentStates(prev => ({
+                    ...prev,
+                    [key]: {
+                        loading: false,
+                        data: response.data,
+                        error: null
+                    }
+                }));
+
+                // Redux 액션이 필요한 경우 처리
+                if (key === 'storeInfo') {
+                    dispatch(fetchStoreInfo.fulfilled(response.data));
+                }
+            } catch (error) {
+                setComponentStates(prev => ({
+                    ...prev,
+                    [key]: {
+                        loading: false,
+                        data: null,
+                        error: error.message
+                    }
+                }));
+            }
+        };
+
+        const endpoints = [
+            { key: 'storeInfo', url: '/report/store/info' },
+            { key: 'risingMenu', url: '/report/rising/menu/advice' },
+            { key: 'commercialDistrict', url: '/report/commercialDistrict' },
+            // ... 다른 엔드포인트들
+        ];
+
+        // 모든 요청을 동시에 시작하되, 각각 독립적으로 처리
+        Promise.all(
+            endpoints.map(({ url, key }) => fetchComponentData(url, key))
+        ).catch(error => {
+            console.error('Some requests failed:', error);
+        });
+
+    }, [store_business_id, dispatch]);
+
+    // 개별 컴포넌트 렌더링 함수
+    const renderComponent = (Component, key) => {
+        const { loading, data, error } = componentStates[key];
+
+        if (loading) {
+            return (
+                <div className="flex justify-center items-center h-32">
+                    <div className="w-8 h-8 border-4 border-blue-500 border-solid border-t-transparent rounded-full animate-spin"></div>
+                </div>
+            );
+        }
+
+        if (error) {
+            return (
+                <div className="p-4 bg-white rounded shadow">
+                    <p className="text-red-500">데이터를 불러오는 중 오류가 발생했습니다: {error}</p>
+                </div>
+            );
+        }
+
+        return data && <Component data={data} storeInfoRedux={storeInfoRedux} />;
+    };
+
+    return (
+        <main className="report bg-gray-100 max-w-[394px] flex justify-center">
+            <div className="w-full">
+                <section className="">
+                    {renderComponent(StoreInfo, 'storeInfo')}
+                </section>
+
+                <section className="px-2 py-1">
+                    {renderComponent(RisingMenu, 'risingMenu')}
+                </section>
+
+                <section className="px-2 py-1">
+                    {renderComponent(CommercialDistrict, 'commercialDistrict')}
+                </section>
+
+                {/* 다른 섹션들도 같은 방식으로 처리 */}
+            </div>
+        </main>
+    );
+});
+
+// 자식 컴포넌트 예시
+const StoreInfo = React.memo(({ data, storeInfoRedux }) => {
+    // 데이터가 로드되면 바로 렌더링
+    return (
+        <div className="bg-white p-4 rounded shadow">
+            {/* 컴포넌트 내용 */}
+        </div>
+    );
+});
+
 export default Report;
