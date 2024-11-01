@@ -5,7 +5,7 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);
 
-const CommercialDistrictWeekdaySales = ({ commercialDistrictWeekdaySales }) => {
+const commercialDistrictWeekdaySales = ({ commercialDistrictWeekdaySales }) => {
     if (!commercialDistrictWeekdaySales) {
         return (
             <div className="p-4 bg-white">
@@ -128,4 +128,4 @@ const CommercialDistrictWeekdaySales = ({ commercialDistrictWeekdaySales }) => {
     );
 };
 
-export default CommercialDistrictWeekdaySales;
+export default commercialDistrictWeekdaySales;

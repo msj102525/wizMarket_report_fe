@@ -6,11 +6,11 @@ import formatDate from '../../../utils/formatDate';
 
 ChartJS.register(ArcElement, ChartDataLabels);
 
-const CommercialDistrictMainCategoryCount = ({ commercialDistrictMainCategoryCountData, storeInfoRedux }) => {
-    if (!commercialDistrictMainCategoryCountData) {
+const CommercialDistrictMainCategoryCount = ({ commercialDistrictMainCategory, storeInfoRedux }) => {
+    if (!commercialDistrictMainCategory) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">storeInfo 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">commercialDistrictMainCategory 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
@@ -22,7 +22,7 @@ const CommercialDistrictMainCategoryCount = ({ commercialDistrictMainCategoryCou
         commercial_district_entertainment_business_count,
         commercial_district_lifestyle_business_count,
         commercial_district_retail_business_count
-    } = commercialDistrictMainCategoryCountData;
+    } = commercialDistrictMainCategory;
 
     const dataValues = [
         commercial_district_food_business_count,

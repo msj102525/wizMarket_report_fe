@@ -1,27 +1,27 @@
 import React from 'react';
 
-const RisingBusiness = ({ risingReportData }) => {
-    if (!risingReportData) {
+const RisingBusiness = ({ risingBusiness }) => {
+    if (!risingBusiness) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">risingReportData 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">risingBusiness 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
 
     // 전국 TOP5 및 지역 TOP3 데이터 추출
     const nationwide_top5 = [
-        risingReportData.rising_business_national_rising_sales_top1_info,
-        risingReportData.rising_business_national_rising_sales_top2_info,
-        risingReportData.rising_business_national_rising_sales_top3_info,
-        risingReportData.rising_business_national_rising_sales_top4_info,
-        risingReportData.rising_business_national_rising_sales_top5_info,
+        risingBusiness.rising_business_national_rising_sales_top1_info,
+        risingBusiness.rising_business_national_rising_sales_top2_info,
+        risingBusiness.rising_business_national_rising_sales_top3_info,
+        risingBusiness.rising_business_national_rising_sales_top4_info,
+        risingBusiness.rising_business_national_rising_sales_top5_info,
     ];
 
     const sub_district_top3_data = [
-        risingReportData.rising_business_sub_district_rising_sales_top1_info,
-        risingReportData.rising_business_sub_district_rising_sales_top2_info,
-        risingReportData.rising_business_sub_district_rising_sales_top3_info,
+        risingBusiness.rising_business_sub_district_rising_sales_top1_info,
+        risingBusiness.rising_business_sub_district_rising_sales_top2_info,
+        risingBusiness.rising_business_sub_district_rising_sales_top3_info,
     ];
 
     return (

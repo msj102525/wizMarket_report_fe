@@ -1,10 +1,10 @@
 import React from 'react';
 
-const CommercialDistrict = ({ commercialDistrictReport, storeInfoRedux }) => {
-    if (!commercialDistrictReport) {
+const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
+    if (!commercialDistrict) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">commercialDistrictReport 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">commercialDistrict 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
@@ -24,7 +24,7 @@ const CommercialDistrict = ({ commercialDistrictReport, storeInfoRedux }) => {
         commercial_district_average_sales_max_percent_time,
         commercial_district_average_sales_max_percent_client_top1,
         commercial_district_average_sales_max_percent_client_top2,
-    } = commercialDistrictReport;
+    } = commercialDistrict;
 
     const { district_name, sub_district_name, detail_category_name, nice_biz_map_data_ref_date } = storeInfoRedux;
     const date = new Date(nice_biz_map_data_ref_date);

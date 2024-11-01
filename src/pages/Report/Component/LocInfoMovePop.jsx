@@ -1,16 +1,16 @@
 import React from 'react';
 
-const LocInfoMovePop = ({ locInfoMovePopReportData, storeInfoRedux }) => {
-    if (!locInfoMovePopReportData) {
+const LocInfoMovePop = ({ locInfoMovePop, storeInfoRedux }) => {
+    if (!locInfoMovePop) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">locInfoMovePopReportData 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">locInfoMovePop 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
 
     const { city_name, sub_district_name } = storeInfoRedux;
-    const { loc_info_move_pop_j_score, loc_info_move_pop, loc_info_city_move_pop } = locInfoMovePopReportData;
+    const { loc_info_move_pop_j_score, loc_info_move_pop, loc_info_city_move_pop } = locInfoMovePop;
 
     const popComparison = loc_info_move_pop > loc_info_city_move_pop ? "높은" : "적은";
 

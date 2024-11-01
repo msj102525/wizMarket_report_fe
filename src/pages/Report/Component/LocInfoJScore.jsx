@@ -5,11 +5,11 @@ import formatDate from '../../../utils/formatDate';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
-const LocInfoJScore = ({ locInfoReportData, storeInfoRedux }) => {
-    if (!locInfoReportData) {
+const LocInfoJScore = ({ locInfo, storeInfoRedux }) => {
+    if (!locInfo) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">locInfoReportData 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">locInfo 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
@@ -23,7 +23,7 @@ const LocInfoJScore = ({ locInfoReportData, storeInfoRedux }) => {
         loc_info_average_sales_j_score,
         loc_info_house_j_score,
         population_mz_population_j_score,
-    } = locInfoReportData;
+    } = locInfo;
 
     const labels = ['MZ 인구', '업소 수', '유동인구', '주거인구', '세대 수', '평균 소득', '평균 소비', '매장평균매출'];
     const scores = [

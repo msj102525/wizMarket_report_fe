@@ -7,16 +7,16 @@ import formatDate from '../../../utils/formatDate';
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ChartDataLabels);  // 플러그인 등록
 
-const Population = ({ populationReportData, storeInfoRedux }) => {
-    if (!populationReportData) {
+const Population = ({ population, storeInfoRedux }) => {
+    if (!population) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">populationReportData 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">population 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
 
-    if (!populationReportData) {
+    if (!population) {
         return <div>데이터를 불러오는 중 오류가 발생했습니다.</div>;
     }
 
@@ -41,7 +41,7 @@ const Population = ({ populationReportData, storeInfoRedux }) => {
         loc_info_move_pop_j_score,
         loc_info_shop_j_score,
         loc_info_income_j_score
-    } = populationReportData;
+    } = population;
 
     const ageValues = [
         population_age_10_under,

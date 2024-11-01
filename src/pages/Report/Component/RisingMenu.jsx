@@ -1,18 +1,18 @@
 import React from 'react';
 
-const RisingMenu = ({ risingMenuGPTData, storeInfoRedux }) => {
+const RisingMenu = ({ risingMenu, storeInfoRedux }) => {
 
-    if (!risingMenuGPTData) {
+    if (!risingMenu) {
         return (
             <div className="p-4 bg-white">
-                <p className="text-red-500">risingMenuGPTData 데이터를 불러오는 중 오류가 발생했습니다</p>
+                <p className="text-red-500">risingMenu 데이터를 불러오는 중 오류가 발생했습니다</p>
             </div>
         );
     }
 
-    const { local_store_top5_orderd_menu, rising_menu_advice } = risingMenuGPTData;
+    const { local_store_top5_orderd_menu, rising_menu_advice } = risingMenu;
 
-    console.log(rising_menu_advice);
+    console.log(risingMenu);
 
 
     return (
@@ -36,7 +36,7 @@ const RisingMenu = ({ risingMenuGPTData, storeInfoRedux }) => {
                 </p>
 
                 <div className="">
-                    <p className='font-bold py-4'>백쉐프의 조언 들어보세요~</p>
+                    <p className='font-bold py-2'>백쉐프의 조언 들어보세요~</p>
                     <p className="text-sm" dangerouslySetInnerHTML={{ __html: rising_menu_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
             </div>

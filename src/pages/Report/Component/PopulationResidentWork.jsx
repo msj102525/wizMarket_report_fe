@@ -5,8 +5,8 @@ import ChartDataLabels from 'chartjs-plugin-datalabels';
 
 ChartJS.register(ArcElement, ChartDataLabels);
 
-const PopulationResidentWork = ({ populationResidentWorkPopReportData, storeInfoRedux }) => {
-    if (!populationResidentWorkPopReportData) {
+const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
+    if (!populationResidentWork) {
         return (
             <div className="p-4 bg-white">
                 <p className="text-red-500">storeInfo 데이터를 불러오는 중 오류가 발생했습니다</p>
@@ -15,7 +15,7 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, storeInfo
     }
 
     const { sub_district_name } = storeInfoRedux;
-    const { loc_info_resident, loc_info_work_pop, loc_info_resident_percent, loc_info_work_pop_percent } = populationResidentWorkPopReportData;
+    const { loc_info_resident, loc_info_work_pop, loc_info_resident_percent, loc_info_work_pop_percent } = populationResidentWork;
 
     const data = {
         labels: ['주거인구', '직장인구'],
