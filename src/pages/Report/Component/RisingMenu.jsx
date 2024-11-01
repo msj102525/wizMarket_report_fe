@@ -12,6 +12,8 @@ const RisingMenu = ({ risingMenuGPTData, storeInfoRedux }) => {
 
     const { local_store_top5_orderd_menu, rising_menu_advice } = risingMenuGPTData;
 
+    console.log(rising_menu_advice);
+
 
     return (
         <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
@@ -35,7 +37,7 @@ const RisingMenu = ({ risingMenuGPTData, storeInfoRedux }) => {
 
                 <div className="">
                     <p className='font-bold py-4'>백쉐프의 조언 들어보세요~</p>
-                    <p className="text-sm" dangerouslySetInnerHTML={{ __html: rising_menu_advice }}></p>
+                    <p className="text-sm" dangerouslySetInnerHTML={{ __html: rising_menu_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
             </div>
         </div>

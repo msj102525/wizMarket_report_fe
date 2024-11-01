@@ -85,11 +85,6 @@ const CommercialDistrictJScore = ({ commercialDistrictJscore, storeInfoRedux }) 
                 display: false
             }
         },
-        elements: {
-            line: {
-                tension: 0.4  // 선을 더 부드럽게 만듦
-            }
-        }
     };
 
     const formattedDate = formatDate(storeInfoRedux.nice_biz_map_data_ref_date);
