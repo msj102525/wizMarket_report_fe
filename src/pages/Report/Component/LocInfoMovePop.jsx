@@ -14,10 +14,10 @@ const LocInfoMovePop = ({ locInfoMovePopReportData, storeInfoRedux }) => {
 
     const popComparison = loc_info_move_pop > loc_info_city_move_pop ? "높은" : "적은";
 
-    const maxPopulation = 260000;
+    const maxPopulation = 450000;
 
-    const localPercentage = parseInt((loc_info_move_pop / maxPopulation) * 200);
-    const cityPercentage = parseInt((loc_info_city_move_pop / maxPopulation) * 200);
+    const cityPercentage = parseInt((loc_info_city_move_pop / maxPopulation) * 250);
+    const localPercentage = parseInt((loc_info_move_pop_j_score) * 22);
 
     return (
         <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>

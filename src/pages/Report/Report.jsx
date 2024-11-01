@@ -19,8 +19,6 @@ import CommercialDistrictWeekdaySales from "./Component/CommercialDistrictWeekda
 import CommercialDistrictTimeSales from "./Component/CommercialDistrictTimeSales";
 import CommercialDistrictRisingSales from "./Component/CommercialDistrictRisingSales"
 import RisingBusiness from "./Component/RisingBusiness";
-// import CommercialDistrictSummary from "./Component/CommercialDistrictSummary";
-// import LocInfoStrategy from "./Component/LocInfoStrategy";
 import Footer from "./Component/Footer";
 
 const Report = React.memo(() => {
@@ -93,16 +91,10 @@ const Report = React.memo(() => {
     const [loadingRising, setLoadingRising] = useState(true);
     const [errorRising, setErrorRising] = useState(null);
 
-    // const [commercialDistrictSummaryData, setCommercialDistrictSummaryData] = useState(null);
-    // const [loadingcommercialDistrictSummaryData, setLoadingCommercialDistrictSummaryData] = useState(true);
-    // const [errorcommercialDistrictSummaryData, setErrorCommercialDistrictSummaryData] = useState(null);
-
-
-
 
 
     useEffect(() => {
-        let isMounted = true;  // 컴포넌트 마운트 상태 추적
+        let isMounted = true;
 
         const fetchData = async () => {
             try {
@@ -131,7 +123,6 @@ const Report = React.memo(() => {
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/time/sales`, setter: setCommercialDistrictTimeSales, errorSetter: setErrorCommercialDistrictTimeSales },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/rising/sales`, setter: setCommercialRisingSales, errorSetter: setErrorCommercialRisingSales },
                     { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`, setter: setRisingReportData, errorSetter: setErrorRising },
-                    // { url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/gpt/report_loc_info`, setter: setCommercialDistrictSummaryData, errorSetter: setErrorCommercialDistrictSummaryData },
                 ];
 
                 const fetchEndpoint = async (endpoint) => {
@@ -168,7 +159,6 @@ const Report = React.memo(() => {
                     setLoadingCommercialDistrictTimeSales(false);
                     setLoadingRising(false);
                     setLoadingCommercialRisingSales(false);
-                    // setLoadingCommercialDistrictSummaryData(false);
                 }
             } catch (error) {
                 if (isMounted) {
@@ -253,10 +243,6 @@ const Report = React.memo(() => {
                     {renderSection(LocInfoMovePop, { locInfoMovePopReportData, storeInfoRedux }, loadingLocInfoMovePop, errorLocInfoMovePop, 'LocInfoMovePop')}
                 </section>
 
-                {/* <section className="px-2 py-1 ">
-                    // <LocInfoStrategy />
-                    </section> */}
-
                 <section className="px-2 py-1 ">
                     {renderSection(CommercialDistrictAvgJScore, { commercialDistrictAvgJscoreReportData, storeInfoRedux }, loadingCommercialDistrictAvgJscore, errorCommercialDistrictAvgJscore, 'CommercialDistrictAvgJScore')}
                 </section>
@@ -268,10 +254,6 @@ const Report = React.memo(() => {
                 <section className="px-2 py-1 ">
                     {renderSection(CommercialDistirctJScore, { commercialDistrictJscore, storeInfoRedux }, loadingCommercialDistrictJscore, errorCommercialDistrictJscore, 'CommercialDistirctJscore')}
                 </section>
-
-                {/* <section className="px-2 py-1 ">
-                    {renderSection(CommercialDistrictSummary, { commercialDistrictSummaryData }, loadingcommercialDistrictSummaryData, errorcommercialDistrictSummaryData, 'CommercialDistrictSummary')}
-                    </section> */}
 
                 <section className="px-2 py-1 ">
                     {renderSection(CommercialDistrictWeekdaySales, { commercialDistrictWeekdaySales }, loadingCommercialDistrictWeekdaySales, errorCommercialDistrictWeekdaySales, 'CommercialDistrictWeekdaySales')}

@@ -102,7 +102,7 @@ const Population = ({ populationReportData, storeInfoRedux }) => {
                 color: 'black',
                 anchor: 'center',
                 align: 'center',
-                formatter: (value) => value.toLocaleString(),
+                formatter: (value) => value ? value.toLocaleString() : '',
                 font: {
                     size: 12,
                     weight: 'bold',

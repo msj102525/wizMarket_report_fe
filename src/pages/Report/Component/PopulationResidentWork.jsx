@@ -76,7 +76,7 @@ const PopulationResidentWork = ({ populationResidentWorkPopReportData, storeInfo
             const { ctx, data } = chart;
             const meta = chart.getDatasetMeta(0);
             ctx.save();
-            ctx.font = '12px Arial'; // 외부 라벨 크기 줄임
+            ctx.font = 'bold 14px Arial'; // 외부 라벨 크기 줄임
             ctx.fillStyle = '#333';
             ctx.textAlign = 'center';
 
