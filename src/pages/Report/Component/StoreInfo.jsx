@@ -36,7 +36,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
             <div className='relative h-[473px] bg-white shadow-inner' style={backgroundStyle}>
                 <div className='absolute bottom-0 w-full h-full bg-gradient-to-t from-black/100 to-transparent' style={{ height: '25%' }}></div>
 
-                <div className='absolute z-10 px-6 text-white bottom-0'>
+                <div className='absolute z-10 px-4 text-white bottom-0'>
                     <div className="flex gap-2 items-center flex-nowrap">
                         <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5 truncate max-w-[100px]'>{storeInfoRedux.detail_category_name}</p>
                         {/* <p className='text-2xl '>{store_name}</p> */}
@@ -63,7 +63,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 </div>
             </div>
 
-            <div className="bg-black px-6 py-4">
+            <div className="bg-black px-4 py-4">
                 <div className="">
                     <p className='text-white'>GPT Dummy data</p>
                     <p className='text-white text-md font-light'>

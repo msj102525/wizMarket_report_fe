@@ -155,13 +155,8 @@ const Report = React.memo(() => {
                     key: 'commercialRisingSales',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/rising/sales`
                 },
-                {
-                    key: 'risingBusiness',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`
-                },
             ],
             tertiary: [
-
                 {
                     key: 'risingMenu',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`
@@ -170,6 +165,10 @@ const Report = React.memo(() => {
                     key: 'locInfo',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore`
                 },
+                {
+                    key: 'risingBusiness',
+                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`
+                },
             ]
         };
 
@@ -177,7 +176,7 @@ const Report = React.memo(() => {
             try {
                 const response = await axios.get(endpoint.url, {
                     params: { store_business_id },
-                    timeout: 10000,
+                    timeout: 30000,
                     signal: controller.signal
                 });
 
@@ -274,11 +273,11 @@ const Report = React.memo(() => {
                     {renderSection(StoreInfo, 'storeInfo', { storeInfo: states.data.storeInfo, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(RisingMenu, 'risingMenu', { risingMenu: states.data.risingMenu, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(CommercialDistrict, 'commercialDistrict', { commercialDistrict: states.data.commercialDistrict, storeInfoRedux })}
                 </section>
 
@@ -286,7 +285,7 @@ const Report = React.memo(() => {
                     <StoreDescription />
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {!states.error.commonInfo && !states.loading.commonInfo && states.data.commonInfo?.map((commonReport) => (
                         <div className="py-1" key={commonReport.common_information_id}>
                             {renderSection(CommonInformation, 'commonInfo', { commonReport })}
@@ -294,55 +293,55 @@ const Report = React.memo(() => {
                     ))}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(LocInfoAvgJscore, 'locInfoAvgJscore', { locInfoAvgJscore: states.data.locInfoAvgJscore, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(Population, 'population', { population: states.data.population, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(LocInfoJScore, 'locInfo', { locInfo: states.data.locInfo, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(PopulationResidentWork, 'populationResidentWork', { populationResidentWork: states.data.populationResidentWork, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(LocInfoMovePop, 'locInfoMovePop', { locInfoMovePop: states.data.locInfoMovePop, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(CommercialDistrictAvgJScore, 'commercialDistrictAvgJscore', { commercialDistrictAvgJscore: states.data.commercialDistrictAvgJscore, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(CommercialDistrictMainCategoryCount, 'commercialDistrictMainCategory', { commercialDistrictMainCategory: states.data.commercialDistrictMainCategory, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(CommercialDistirctJScore, 'commercialDistrictJscore', { commercialDistrictJscore: states.data.commercialDistrictJscore, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(CommercialDistrictWeekdaySales, 'commercialDistrictWeekdaySales', { commercialDistrictWeekdaySales: states.data.commercialDistrictWeekdaySales, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(CommercialDistrictTimeSales, 'commercialDistrictTimeSales', { commercialDistrictTimeSales: states.data.commercialDistrictTimeSales, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(CommercialDistrictRisingSales, 'commercialRisingSales', { commercialRisingSales: states.data.commercialRisingSales, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     {renderSection(RisingBusiness, 'risingBusiness', { risingBusiness: states.data.risingBusiness, storeInfoRedux })}
                 </section>
 
-                <section className="px-2 py-1">
+                <section className="px-1 py-1">
                     <Footer />
                 </section>
             </div>

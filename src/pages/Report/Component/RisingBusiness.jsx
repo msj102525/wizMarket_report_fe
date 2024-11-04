@@ -11,17 +11,17 @@ const RisingBusiness = ({ risingBusiness }) => {
 
     // 전국 TOP5 및 지역 TOP3 데이터 추출
     const nationwide_top5 = [
-        risingBusiness.rising_business_national_rising_sales_top1_info,
-        risingBusiness.rising_business_national_rising_sales_top2_info,
-        risingBusiness.rising_business_national_rising_sales_top3_info,
-        risingBusiness.rising_business_national_rising_sales_top4_info,
-        risingBusiness.rising_business_national_rising_sales_top5_info,
+        risingBusiness.rising_business_data.rising_business_national_rising_sales_top1_info,
+        risingBusiness.rising_business_data.rising_business_national_rising_sales_top2_info,
+        risingBusiness.rising_business_data.rising_business_national_rising_sales_top3_info,
+        risingBusiness.rising_business_data.rising_business_national_rising_sales_top4_info,
+        risingBusiness.rising_business_data.rising_business_national_rising_sales_top5_info,
     ];
 
     const sub_district_top3_data = [
-        risingBusiness.rising_business_sub_district_rising_sales_top1_info,
-        risingBusiness.rising_business_sub_district_rising_sales_top2_info,
-        risingBusiness.rising_business_sub_district_rising_sales_top3_info,
+        risingBusiness.rising_business_data.rising_business_sub_district_rising_sales_top1_info,
+        risingBusiness.rising_business_data.rising_business_sub_district_rising_sales_top2_info,
+        risingBusiness.rising_business_data.rising_business_sub_district_rising_sales_top3_info,
     ];
 
     return (
@@ -55,7 +55,7 @@ const RisingBusiness = ({ risingBusiness }) => {
                 {sub_district_top3_data.length > 0 ? (
                     <div className='div-underline'>
                         <h3 className="text-lg font-semibold pb-2">
-                            {sub_district_top3_data[0].split(',')[1]} 매출 증가 업종 TOP3
+                            {risingBusiness.rising_business_data.sub_district_name} 매출 증가 업종 TOP3
                         </h3>
                         {sub_district_top3_data.map((item, index) => {
                             const [district_name, sub_district_name, biz_detail_category_name, growth_rate] = item.split(',');
@@ -77,9 +77,9 @@ const RisingBusiness = ({ risingBusiness }) => {
                     <div className="">Top3 데이터 오류</div>
                 )}
             </div>
-            <div className="text-sm text-gray-500">
-                <p className='pb-5'>분석 및 조언</p>
-                <p>AI 조언.....</p>
+            <div className="">
+                <p className='pb-6 font-semibold'>최근 뜨는 업종을 통한 마켓 트랜드 분석 및 조언</p>
+                <p className="text-sm" dangerouslySetInnerHTML={{ __html: risingBusiness.rising_business_advice.replace(/\n/g, "<br />") }}></p>
             </div>
         </div>
     );
