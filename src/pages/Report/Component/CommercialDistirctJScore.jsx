@@ -1,7 +1,6 @@
 import React from 'react';
 import { Radar } from 'react-chartjs-2';
 import { Chart as ChartJS, RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend } from 'chart.js';
-import formatDate from '../../../utils/formatDate';
 
 ChartJS.register(RadialLinearScale, PointElement, LineElement, Filler, Tooltip, Legend);
 
@@ -87,12 +86,11 @@ const CommercialDistrictJScore = ({ commercialDistrictJscore, storeInfoRedux }) 
         },
     };
 
-    const formattedDate = formatDate(storeInfoRedux.nice_biz_map_data_ref_date);
 
     return (
         <div className="bg-white p-4 rounded-lg shadow-md space-y-6">
             <div className="pb-10">
-                <p className="text-md font-semibold">{storeInfoRedux.sub_district_name} 상권분석 ({formattedDate} 기준)</p>
+                <p className="text-md font-semibold">{storeInfoRedux.sub_district_name} {storeInfoRedux.detail_category_name} 상권분석</p>
                 <div>
                     {lowScores.length > 0 && highScores.length > 0 ? (
                         <p className="text-sm font-medium text-gray-700">

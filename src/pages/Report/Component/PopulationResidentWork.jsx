@@ -62,10 +62,10 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
         },
         layout: {
             padding: {
-                top: 16,
-                bottom: 16,
-                left: 16,
-                right: 16
+                top: 30,
+                bottom: 30,
+                left: 30,
+                right: 30
             }
         }
     };
@@ -82,7 +82,7 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
 
             meta.data.forEach((arc, index) => {
                 const angle = Math.PI / 2 - arc.startAngle - (arc.endAngle - arc.startAngle) / 2;
-                const radius = arc.outerRadius + 15; // 외부 라벨 위치 조정
+                const radius = arc.outerRadius + 10; // 외부 라벨 위치 조정
 
                 const x = arc.x + Math.cos(angle) * radius;
                 const y = arc.y + Math.sin(angle) * radius;
