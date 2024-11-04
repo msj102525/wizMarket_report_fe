@@ -288,7 +288,7 @@ const Report = React.memo(() => {
 
                 <section className="px-2 py-1">
                     {!states.error.commonInfo && !states.loading.commonInfo && states.data.commonInfo?.map((commonReport) => (
-                        <div className="" key={commonReport.common_information_id}>
+                        <div className="py-1" key={commonReport.common_information_id}>
                             {renderSection(CommonInformation, 'commonInfo', { commonReport })}
                         </div>
                     ))}
