@@ -37,10 +37,14 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 <div className='absolute bottom-0 w-full h-full bg-gradient-to-t from-black/100 to-transparent' style={{ height: '25%' }}></div>
 
                 <div className='absolute z-10 px-6 text-white bottom-0'>
-                    <div className="flex gap-2 items-center">
-                        <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5'>{storeInfoRedux.detail_category_name}</p>
-                        <p className='text-2xl font-bold'>{store_name}</p>
+                    <div className="flex gap-2 items-center flex-nowrap">
+                        <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5 truncate max-w-[100px]'>{storeInfoRedux.detail_category_name}</p>
+                        {/* <p className='text-2xl '>{store_name}</p> */}
+                        <p className={`${store_name.length >= 10 ? 'text-xl' : 'text-2xl'} font-bold truncate`}>
+                            {store_name}
+                        </p>
                     </div>
+
                     <p className='text-xs text-gray-300'>{road_name} {building_name} {floor_info}층</p>
                 </div>
 

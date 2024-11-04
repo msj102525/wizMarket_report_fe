@@ -20,12 +20,12 @@ import CommercialDistrictTimeSales from "./Component/CommercialDistrictTimeSales
 import CommercialDistrictRisingSales from "./Component/CommercialDistrictRisingSales";
 import RisingBusiness from "./Component/RisingBusiness";
 import Footer from "./Component/Footer";
+import StoreDescription from "./Component/StoreDescription";
 
 const Report = React.memo(() => {
     const { store_business_id } = useParams();
     const dispatch = useDispatch();
     const storeInfoRedux = useSelector((state) => state.storeInfo);
-
 
     // Consolidated states
     const [states, setStates] = useState({
@@ -38,8 +38,8 @@ const Report = React.memo(() => {
             population: true,
             locInfo: true,
             populationResidentWork: true,
-            locInfoMovePop: true,
             commercialDistrictAvgJscore: true,
+            locInfoMovePop: true,
             commercialDistrictMainCategory: true,
             commercialDistrictJscore: true,
             commercialDistrictWeekdaySales: true,
@@ -85,11 +85,14 @@ const Report = React.memo(() => {
         }
     });
 
+
+
     useEffect(() => {
         let isMounted = true;
+        const controller = new AbortController();
 
-        const fetchData = async () => {
-            const endpoints = [
+        const ENDPOINT_GROUPS = {
+            essential: [
                 {
                     key: 'storeInfo',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info/redux`,
@@ -100,29 +103,24 @@ const Report = React.memo(() => {
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info`
                 },
                 {
-                    key: 'risingMenu',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`
+                    key: 'commonInfo',
+                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/common/info`
                 },
                 {
                     key: 'commercialDistrict',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`
                 },
                 {
-                    key: 'commonInfo',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/common/info`
-                },
-                {
                     key: 'locInfoAvgJscore',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore/average`
-                },
+                }
+            ],
+            primary: [
                 {
                     key: 'population',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`
                 },
-                {
-                    key: 'locInfo',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore`
-                },
+
                 {
                     key: 'populationResidentWork',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/resident/work/compare`
@@ -130,7 +128,9 @@ const Report = React.memo(() => {
                 {
                     key: 'commercialDistrictAvgJscore',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore/average`
-                },
+                }
+            ],
+            secondary: [
                 {
                     key: 'locInfoMovePop',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/move/population`
@@ -158,47 +158,90 @@ const Report = React.memo(() => {
                 {
                     key: 'risingBusiness',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`
-                }
-            ];
+                },
+            ],
+            tertiary: [
 
-            const fetchEndpoint = async (endpoint) => {
-                try {
-                    const response = await axios.get(endpoint.url, { params: { store_business_id } });
-                    if (isMounted) {
-                        if (endpoint.reduxAction) {
-                            dispatch(fetchStoreInfo.fulfilled(response.data));
-                        } else {
-                            setStates(prev => ({
-                                ...prev,
-                                data: { ...prev.data, [endpoint.key]: response.data },
-                                loading: { ...prev.loading, [endpoint.key]: false }
-                            }));
-                        }
-                    }
-                } catch (error) {
-                    if (isMounted) {
-                        console.error(`Error fetching ${endpoint.url}:`, error);
-                        setStates(prev => ({
-                            ...prev,
-                            error: { ...prev.error, [endpoint.key]: error.message },
-                            loading: { ...prev.loading, [endpoint.key]: false }
-                        }));
-                        if (endpoint.reduxAction) {
-                            dispatch(fetchStoreInfo.rejected(null, null, error));
-                        }
-                    }
-                }
-            };
-
-            await Promise.all(endpoints.map(fetchEndpoint));
+                {
+                    key: 'risingMenu',
+                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`
+                },
+                {
+                    key: 'locInfo',
+                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore`
+                },
+            ]
         };
 
-        if (store_business_id) {
-            fetchData();
-        }
+        const fetchEndpoint = async (endpoint) => {
+            try {
+                const response = await axios.get(endpoint.url, {
+                    params: { store_business_id },
+                    timeout: 10000,
+                    signal: controller.signal
+                });
+
+                if (!isMounted) return;
+
+                if (endpoint.reduxAction) {
+                    dispatch(fetchStoreInfo.fulfilled(response.data));
+                } else {
+                    setStates(prev => ({
+                        ...prev,
+                        data: { ...prev.data, [endpoint.key]: response.data },
+                        loading: { ...prev.loading, [endpoint.key]: false }
+                    }));
+                }
+            } catch (error) {
+                if (!isMounted) return;
+
+                // Ignore aborted requests
+                if (error.name === 'AbortError') return;
+
+                console.error(`Error fetching ${endpoint.url}:`, error);
+                setStates(prev => ({
+                    ...prev,
+                    error: { ...prev.error, [endpoint.key]: error.message },
+                    loading: { ...prev.loading, [endpoint.key]: false }
+                }));
+
+                if (endpoint.reduxAction) {
+                    dispatch(fetchStoreInfo.rejected(null, null, error));
+                }
+            }
+        };
+
+        const fetchGroupWithDelay = async (endpoints, delay = 0) => {
+            if (delay > 0) {
+                await new Promise(resolve => setTimeout(resolve, delay));
+            }
+
+            const BATCH_SIZE = 3;
+            for (let i = 0; i < endpoints.length; i += BATCH_SIZE) {
+                const batch = endpoints.slice(i, i + BATCH_SIZE);
+                await Promise.all(batch.map(fetchEndpoint));
+            }
+        };
+
+        const fetchAllData = async () => {
+            if (!store_business_id) return;
+
+            try {
+                // Fetch data in order of priority with delays
+                await fetchGroupWithDelay(ENDPOINT_GROUPS.essential);
+                await fetchGroupWithDelay(ENDPOINT_GROUPS.primary, 100);
+                await fetchGroupWithDelay(ENDPOINT_GROUPS.secondary, 200);
+                await fetchGroupWithDelay(ENDPOINT_GROUPS.tertiary, 300);
+            } catch (error) {
+                console.error('Error in fetchAllData:', error);
+            }
+        };
+
+        fetchAllData();
 
         return () => {
             isMounted = false;
+            controller.abort();
         };
     }, [store_business_id, dispatch]);
 
@@ -210,13 +253,17 @@ const Report = React.memo(() => {
                 </div>
             );
         }
+
         if (states.error[key]) {
             return (
-                <div className="p-4 bg-white">
-                    <p className="text-red-500">'{key}' 데이터를 불러오는 중 오류가 발생했습니다: {states.error[key]}</p>
+                <div className="p-4 bg-white rounded-lg shadow">
+                    <p className="text-red-500">
+                        '{key}' 데이터를 불러오는 중 오류가 발생했습니다: {states.error[key]}
+                    </p>
                 </div>
             );
         }
+
         return states.data[key] ? <Component {...states.data[key]} {...additionalProps} /> : null;
     };
 
@@ -233,6 +280,10 @@ const Report = React.memo(() => {
 
                 <section className="px-2 py-1">
                     {renderSection(CommercialDistrict, 'commercialDistrict', { commercialDistrict: states.data.commercialDistrict, storeInfoRedux })}
+                </section>
+
+                <section className="py-1">
+                    <StoreDescription />
                 </section>
 
                 <section className="px-2 py-1">

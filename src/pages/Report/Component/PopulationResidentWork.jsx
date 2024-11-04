@@ -18,13 +18,13 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
     const { loc_info_resident, loc_info_work_pop, loc_info_resident_percent, loc_info_work_pop_percent } = populationResidentWork;
 
     const data = {
-        labels: ['주거인구', '직장인구'],
+        labels: ['직장인구', '주거인구'],
         datasets: [
             {
                 label: '인구 분포',
-                data: [loc_info_resident, loc_info_work_pop],
-                backgroundColor: ['#1F77B4', '#FF7F0E'],
-                borderColor: ['rgba(31, 119, 180, 1)', 'rgba(255, 127, 14, 1)'],
+                data: [loc_info_work_pop, loc_info_resident],
+                backgroundColor: ['#FF7F0E', '#1F77B4'],
+                borderColor: ['rgba(255, 127, 14, 1)', 'rgba(31, 119, 180, 1)'],
                 borderWidth: 1,
                 cutout: '80%',
             },
@@ -41,7 +41,7 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
                 callbacks: {
                     label: (tooltipItem) => {
                         const value = tooltipItem.raw;
-                        const percentage = tooltipItem.label === '주거인구' ? loc_info_resident_percent : loc_info_work_pop_percent;
+                        const percentage = tooltipItem.label === '주거인구' ? loc_info_work_pop_percent : loc_info_resident_percent;
                         return `${tooltipItem.label}: ${value.toLocaleString()} (${percentage}%)`;
                     },
                 },
@@ -53,7 +53,7 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
                     weight: '600',
                 },
                 formatter: (value, context) => {
-                    const percentage = context.dataIndex === 0 ? loc_info_resident_percent : loc_info_work_pop_percent;
+                    const percentage = context.dataIndex === 0 ? loc_info_work_pop_percent : loc_info_resident_percent;
                     return `    ${percentage}%\n(${value.toLocaleString()})`;
                 },
                 anchor: 'start', // 내부 라벨 위치
