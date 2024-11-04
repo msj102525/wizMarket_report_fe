@@ -176,7 +176,7 @@ const Report = React.memo(() => {
             try {
                 const response = await axios.get(endpoint.url, {
                     params: { store_business_id },
-                    timeout: 30000,
+                    timeout: 60000,
                     signal: controller.signal
                 });
 

@@ -103,11 +103,16 @@ const LocInfoJScore = ({ locInfo, storeInfoRedux }) => {
                         <p>점수 정보가 부족합니다.</p>
                     )}
                 </div>
-                <div className="w-full h-80 div-underline">
+                <div className="w-full h-80">
                     <Radar data={data} options={options} />
                 </div>
-                <div className="">
-                    <p className='font-bold py-2'>백쉐프의 조언 들어보세요~</p>
+                <div className="pt-4">
+                    <div className="flex justify-center">
+                        <div className="w-6 h-auto">
+                            <img src={require('../../../assets/component/advice_icon.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
+                        </div>
+                    </div>
+                    <p className='font-bold py-2'>분석 및 조언</p>
                     <p className="text-sm" dangerouslySetInnerHTML={{ __html: loc_info_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
             </div>

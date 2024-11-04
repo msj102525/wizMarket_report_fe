@@ -106,10 +106,15 @@ const CommercialDistrictJScore = ({ commercialDistrictJscore, storeInfoRedux }) 
                         <p>점수 정보가 부족합니다.</p>
                     )}
                 </div>
-                <div className="w-full h-80 div-underline">
+                <div className="w-full h-80">
                     <Radar data={data} options={options} />
                 </div>
-                <div className="text-sm text-gray-500 py-4">
+                <div className="text-sm text-gray-500 pt-4">
+                    <div className="flex justify-center">
+                        <div className="w-6 h-auto">
+                            <img src={require('../../../assets/component/advice_icon.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
+                        </div>
+                    </div>
                     <p>분석 및 조언</p>
                     <p>AI 조언.....</p>
                 </div>

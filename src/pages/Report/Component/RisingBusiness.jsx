@@ -78,7 +78,12 @@ const RisingBusiness = ({ risingBusiness }) => {
                 )}
             </div>
             <div className="">
-                <p className='pb-6 font-semibold'>최근 뜨는 업종을 통한 마켓 트랜드 분석 및 조언</p>
+                <div className="flex justify-center">
+                    <div className="w-6 h-auto">
+                        <img src={require('../../../assets/component/advice_icon.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
+                    </div>
+                </div>
+                <p className='py-4 font-semibold'>최근 뜨는 업종을 통한 마켓 트랜드 분석 및 조언</p>
                 <p className="text-sm" dangerouslySetInnerHTML={{ __html: risingBusiness.rising_business_advice.replace(/\n/g, "<br />") }}></p>
             </div>
         </div>

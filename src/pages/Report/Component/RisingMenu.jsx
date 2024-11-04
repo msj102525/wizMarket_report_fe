@@ -33,7 +33,12 @@ const RisingMenu = ({ risingMenu, storeInfoRedux }) => {
                     <span className='text-black text-md font-semibold'> {local_store_top5_orderd_menu.detail_category_top5_ordered_menu}</span>
                 </p>
 
-                <div className="">
+                <div className="pt-4">
+                    <div className="flex justify-center">
+                        <div className="w-6 h-auto">
+                            <img src={require('../../../assets/component/advice_icon.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
+                        </div>
+                    </div>
                     <p className='font-bold py-2'>백쉐프의 조언 들어보세요~</p>
                     <p className="text-sm" dangerouslySetInnerHTML={{ __html: rising_menu_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
