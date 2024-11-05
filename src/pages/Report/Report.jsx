@@ -46,6 +46,7 @@ const Report = React.memo(() => {
             commercialDistrictTimeSales: true,
             commercialRisingSales: true,
             risingBusiness: true,
+            storeDescription: true,
         },
         data: {
             storeInfo: null,
@@ -64,6 +65,7 @@ const Report = React.memo(() => {
             commercialDistrictTimeSales: null,
             commercialRisingSales: null,
             risingBusiness: null,
+            storeDescription: null,
         },
         error: {
             storeInfo: null,
@@ -82,6 +84,7 @@ const Report = React.memo(() => {
             commercialDistrictTimeSales: null,
             commercialRisingSales: null,
             risingBusiness: null,
+            storeDescription: null,
         }
     });
 
@@ -113,7 +116,12 @@ const Report = React.memo(() => {
                 {
                     key: 'locInfoAvgJscore',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore/average`
-                }
+                },
+                {
+                    key: 'storeDescription',
+                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/local/store/content`
+                },
+
             ],
             primary: [
                 {
@@ -282,7 +290,7 @@ const Report = React.memo(() => {
                 </section>
 
                 <section className="py-1">
-                    <StoreDescription />
+                    {states.data.storeDescription && renderSection(StoreDescription, 'storeDescription', { storeDescription: states.data.storeDescription, storeInfoRedux })}
                 </section>
 
                 <section className="px-1 py-1">
