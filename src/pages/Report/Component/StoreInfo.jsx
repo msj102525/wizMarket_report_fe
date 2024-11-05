@@ -16,7 +16,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
         );
     }
 
-    const { localStoreInfo, weatherInfo, aqi_info, format_current_datetime } = storeInfo;
+    const { localStoreInfo, weatherInfo, aqi_info, format_current_datetime, store_info_advice } = storeInfo;
 
     const {
         road_name,
@@ -87,18 +87,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                             <img src={require('../../../assets/component/advice_icon.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
                         </div>
                     </div>
-                    <p className='text-white text-md font-light'>
-                        • 목요일 저녁 집중<br />
-                        매출이 가장 높은 목요일 18시~21시에 맞춰 특별 메뉴나 세트 메뉴를 준비해 더 많은 고객을 유치하세요.<br />
-                        • 50대 남성 고객 공략<br />
-                        주요 고객이 50대 남성이므로, 이들이 좋아할 수 있는 메뉴 추천이나 간단한 서비스로 고객 만족도를 높이세요.<br />
-                        • 매장 외부 홍보 강화<br />
-                        당산2동 유동인구가 많으니, 지나가는 사람들을 겨냥한 배너나 현수막을 통해 매장 홍보를 적극적으로 진행해 보세요.<br />
-                        • 테이크아웃 메뉴 강화<br />
-                        근처 직장인을 위해 저렴한 테이크아웃 메뉴를 마련하고, 점심 시간대 홍보를 강화하는 것도 좋은 전략입니다.<br />
-                        • 맑은 날씨 활용<br />
-                        오늘처럼 날씨가 맑을 때는 창가 좌석이나 야외 좌석을 잘 활용해 편안한 분위기를 만들어 고객의 발길을 끌어보세요.<br />
-                    </p>
+                    <p className="text-white text-md font-light" dangerouslySetInnerHTML={{ __html: store_info_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
             </div>
 
