@@ -33,14 +33,14 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                     modules={[Navigation, Pagination]}
                     spaceBetween={0}
                     slidesPerView={1}
-                    pagination={{ 
+                    pagination={{
                         clickable: true,
                     }}
-                    className="h-full [&_.swiper-pagination-bullet]:bg-white [&_.swiper-pagination]:!bottom-[-10px] [&_.swiper-pagination]:z-30" 
+                    className="h-full [&_.swiper-pagination-bullet]:bg-white [&_.swiper-pagination]:!bottom-[0px]"
                 >
                     {local_store_image_url.map((imageUrl, index) => (
                         <SwiperSlide key={index}>
-                            <div 
+                            <div
                                 className="w-full h-full relative"
                                 style={{
                                     backgroundImage: `url("${process.env.REACT_APP_FASTAPI_BASE_URL}${imageUrl}")`,
@@ -54,7 +54,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                     ))}
                 </Swiper>
 
-                <div className='absolute z-10 px-4 text-white bottom-0'>
+                <div className='absolute z-10 px-4 text-white bottom-4'>
                     <div className="flex gap-2 items-center flex-nowrap">
                         <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5 truncate max-w-[100px]'>
                             {storeInfoRedux.detail_category_name}
@@ -80,12 +80,12 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 </div>
             </div>
 
-            <div className="bg-black px-4 py-4 absolute z-0"> {/* z-index 낮춤 */}
+            <div className="bg-black px-4 py-4">
                 <div className="">
                     <p className='text-white'>GPT Dummy data</p>
                     <p className='text-white text-md font-light'>
                         • 목요일 저녁 집중<br />
-                        매출이 가장 높은 목요일 18시~21시에 맞춰 특별 메뉴나 세트 메뉴를 준비해 더 많은 고객을 유치하세요. <br />
+                        매출이 가장 높은 목요일 18시~21시에 맞춰 특별 메뉴나 세트 메뉴를 준비해 더 많은 고객을 유치하세요.<br />
                         • 50대 남성 고객 공략<br />
                         주요 고객이 50대 남성이므로, 이들이 좋아할 수 있는 메뉴 추천이나 간단한 서비스로 고객 만족도를 높이세요.<br />
                         • 매장 외부 홍보 강화<br />
@@ -97,6 +97,21 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                     </p>
                 </div>
             </div>
+
+            <style jsx>{`
+                .swiper-pagination-bullet {
+                    background: gray; /* 기본 bullet 색상 */
+                    border-radius: 5px;
+                    transition: background 0.3s ease, transform 0.3s ease; /* 배경색과 변형의 전환 추가 */
+                }
+
+                .swiper-pagination-bullet-active {
+                    width: 30px; /* 기본 bullet의 너비 */
+                    height: 6px; /* 기본 bullet의 높이 */
+                    background: white; /* 활성 bullet 색상 */
+                    transform: scale(1.1); /* 활성 bullet 크기 조정 */
+                }
+            `}</style>
         </div>
     );
 };
