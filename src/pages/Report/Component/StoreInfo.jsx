@@ -1,7 +1,13 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Navigation, Pagination } from 'swiper/modules';
+
+// Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
 
 const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
-
     if (!storeInfo) {
         return (
             <div className="p-4 bg-white">
@@ -9,7 +15,6 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
             </div>
         );
     }
-
 
     const { localStoreInfo, weatherInfo, aqi_info, format_current_datetime } = storeInfo;
 
@@ -21,35 +26,47 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
         local_store_image_url
     } = localStoreInfo;
 
-
-    // FastAPI 서버의 정적 파일 URL 구성
-    const imageUrl = `${process.env.REACT_APP_FASTAPI_BASE_URL}${local_store_image_url}`;
-
-    const backgroundStyle = {
-        backgroundImage: `url("${imageUrl}")`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-    };
-
     return (
         <div className="">
-            <div className='relative h-[473px] bg-white shadow-inner' style={backgroundStyle}>
-                <div className='absolute bottom-0 w-full h-full bg-gradient-to-t from-black/100 to-transparent' style={{ height: '25%' }}></div>
+            <div className='relative h-[473px] bg-white shadow-inner'>
+                <Swiper
+                    modules={[Navigation, Pagination]}
+                    spaceBetween={0}
+                    slidesPerView={1}
+                    pagination={{ 
+                        clickable: true,
+                    }}
+                    className="h-full [&_.swiper-pagination-bullet]:bg-white [&_.swiper-pagination]:!bottom-[-10px] [&_.swiper-pagination]:z-30" 
+                >
+                    {local_store_image_url.map((imageUrl, index) => (
+                        <SwiperSlide key={index}>
+                            <div 
+                                className="w-full h-full relative"
+                                style={{
+                                    backgroundImage: `url("${process.env.REACT_APP_FASTAPI_BASE_URL}${imageUrl}")`,
+                                    backgroundSize: 'cover',
+                                    backgroundPosition: 'center',
+                                }}
+                            >
+                                <div className='absolute bottom-0 w-full h-full bg-gradient-to-t from-black/100 to-transparent' style={{ height: '25%' }}></div>
+                            </div>
+                        </SwiperSlide>
+                    ))}
+                </Swiper>
 
                 <div className='absolute z-10 px-4 text-white bottom-0'>
                     <div className="flex gap-2 items-center flex-nowrap">
-                        <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5 truncate max-w-[100px]'>{storeInfoRedux.detail_category_name}</p>
-                        {/* <p className='text-2xl '>{store_name}</p> */}
+                        <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5 truncate max-w-[100px]'>
+                            {storeInfoRedux.detail_category_name}
+                        </p>
                         <p className={`${store_name.length >= 10 ? 'text-xl' : 'text-2xl'} font-bold truncate`}>
                             {store_name}
                         </p>
                     </div>
-
                     <p className='text-xs text-gray-300'>{road_name} {building_name} {floor_info}층</p>
                 </div>
 
-                {/* 날씨 아이콘과 온도 추가 */}
-                <div className="w-28 absolute top-6 right-2 flex flex-col items-center">
+                <div className="w-28 absolute top-6 right-2 flex flex-col items-center z-10">
                     <div className="w-20 h-20">
                         <img
                             src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}
@@ -63,19 +80,19 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 </div>
             </div>
 
-            <div className="bg-black px-4 py-4">
+            <div className="bg-black px-4 py-4 absolute z-0"> {/* z-index 낮춤 */}
                 <div className="">
                     <p className='text-white'>GPT Dummy data</p>
                     <p className='text-white text-md font-light'>
-                        •	목요일 저녁 집중<br />
+                        • 목요일 저녁 집중<br />
                         매출이 가장 높은 목요일 18시~21시에 맞춰 특별 메뉴나 세트 메뉴를 준비해 더 많은 고객을 유치하세요. <br />
-                        •	50대 남성 고객 공략<br />
+                        • 50대 남성 고객 공략<br />
                         주요 고객이 50대 남성이므로, 이들이 좋아할 수 있는 메뉴 추천이나 간단한 서비스로 고객 만족도를 높이세요.<br />
-                        •	매장 외부 홍보 강화<br />
+                        • 매장 외부 홍보 강화<br />
                         당산2동 유동인구가 많으니, 지나가는 사람들을 겨냥한 배너나 현수막을 통해 매장 홍보를 적극적으로 진행해 보세요.<br />
-                        •	테이크아웃 메뉴 강화<br />
+                        • 테이크아웃 메뉴 강화<br />
                         근처 직장인을 위해 저렴한 테이크아웃 메뉴를 마련하고, 점심 시간대 홍보를 강화하는 것도 좋은 전략입니다.<br />
-                        •	맑은 날씨 활용<br />
+                        • 맑은 날씨 활용<br />
                         오늘처럼 날씨가 맑을 때는 창가 좌석이나 야외 좌석을 잘 활용해 편안한 분위기를 만들어 고객의 발길을 끌어보세요.<br />
                     </p>
                 </div>
