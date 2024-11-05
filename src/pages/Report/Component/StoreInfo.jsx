@@ -82,7 +82,11 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
 
             <div className="bg-black px-4 py-4">
                 <div className="">
-                    <p className='text-white'>GPT Dummy data</p>
+                    <div className="flex justify-center pt-4 pb-2">
+                        <div className="w-6 h-auto">
+                            <img src={require('../../../assets/component/advice_icon.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
+                        </div>
+                    </div>
                     <p className='text-white text-md font-light'>
                         • 목요일 저녁 집중<br />
                         매출이 가장 높은 목요일 18시~21시에 맞춰 특별 메뉴나 세트 메뉴를 준비해 더 많은 고객을 유치하세요.<br />
@@ -98,20 +102,21 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 </div>
             </div>
 
-            <style jsx>{`
-                .swiper-pagination-bullet {
-                    background: gray; /* 기본 bullet 색상 */
-                    border-radius: 5px;
-                    transition: background 0.3s ease, transform 0.3s ease; /* 배경색과 변형의 전환 추가 */
-                }
+            <style>{`
+                    .swiper-pagination-bullet {
+                        background: gray; /* 기본 bullet 색상 */
+                        border-radius: 5px;
+                        transition: background 0.3s ease, transform 0.3s ease; /* 배경색과 변형의 전환 추가 */
+                    }
 
-                .swiper-pagination-bullet-active {
-                    width: 30px; /* 기본 bullet의 너비 */
-                    height: 6px; /* 기본 bullet의 높이 */
-                    background: white; /* 활성 bullet 색상 */
-                    transform: scale(1.1); /* 활성 bullet 크기 조정 */
-                }
-            `}</style>
+                    .swiper-pagination-bullet-active {
+                        width: 30px; /* 기본 bullet의 너비 */
+                        height: 6px; /* 기본 bullet의 높이 */
+                        background: white; /* 활성 bullet 색상 */
+                        transform: scale(1.1); /* 활성 bullet 크기 조정 */
+                    }
+                `}
+            </style>
         </div>
     );
 };
