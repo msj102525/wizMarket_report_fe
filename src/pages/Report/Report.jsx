@@ -101,6 +101,9 @@ const Report = React.memo(() => {
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info/redux`,
                     reduxAction: true
                 },
+            ],
+            primary: [
+                // 매장 정보는 예외적으로 1순위
                 {
                     key: 'storeInfo',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info`
@@ -121,14 +124,10 @@ const Report = React.memo(() => {
                     key: 'storeDescription',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/local/store/content`
                 },
-
-            ],
-            primary: [
                 {
                     key: 'population',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`
                 },
-
                 {
                     key: 'populationResidentWork',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/resident/work/compare`
@@ -136,9 +135,7 @@ const Report = React.memo(() => {
                 {
                     key: 'commercialDistrictAvgJscore',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore/average`
-                }
-            ],
-            secondary: [
+                },
                 {
                     key: 'locInfoMovePop',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/move/population`
@@ -164,7 +161,9 @@ const Report = React.memo(() => {
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/rising/sales`
                 },
             ],
-            tertiary: [
+            // GPT
+            secondary: [
+
                 {
                     key: 'risingMenu',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`
@@ -177,7 +176,8 @@ const Report = React.memo(() => {
                     key: 'risingBusiness',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`
                 },
-            ]
+            ],
+
         };
 
         const fetchEndpoint = async (endpoint) => {
@@ -238,7 +238,6 @@ const Report = React.memo(() => {
                 await fetchGroupWithDelay(ENDPOINT_GROUPS.essential);
                 await fetchGroupWithDelay(ENDPOINT_GROUPS.primary, 100);
                 await fetchGroupWithDelay(ENDPOINT_GROUPS.secondary, 200);
-                await fetchGroupWithDelay(ENDPOINT_GROUPS.tertiary, 300);
             } catch (error) {
                 console.error('Error in fetchAllData:', error);
             }

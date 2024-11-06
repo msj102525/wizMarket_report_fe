@@ -90,22 +90,6 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                     <p className="text-white text-md font-light" dangerouslySetInnerHTML={{ __html: store_info_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
             </div>
-
-            <style>{`
-                    .swiper-pagination-bullet {
-                        background: gray; /* 기본 bullet 색상 */
-                        border-radius: 5px;
-                        transition: background 0.3s ease, transform 0.3s ease; /* 배경색과 변형의 전환 추가 */
-                    }
-
-                    .swiper-pagination-bullet-active {
-                        width: 30px; /* 기본 bullet의 너비 */
-                        height: 6px; /* 기본 bullet의 높이 */
-                        background: white; /* 활성 bullet 색상 */
-                        transform: scale(1.1); /* 활성 bullet 크기 조정 */
-                    }
-                `}
-            </style>
         </div>
     );
 };
