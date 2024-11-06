@@ -33,11 +33,11 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
     // 밀집도 비교 메시지 생성
     let densityMessage;
     if (commercial_district_sub_district_density_average > commercial_district_national_density_average) {
-        densityMessage = "매장 개수는 많습니다";
+        densityMessage = "매장 개수는 많음";
     } else if (commercial_district_sub_district_density_average < commercial_district_national_density_average) {
-        densityMessage = "매장 개수는 적습니다";
+        densityMessage = "매장 개수는 적음";
     } else {
-        densityMessage = "매장 개수는 평균입니다.";
+        densityMessage = "매장 개수는 평균";
     }
 
     return (
