@@ -33,9 +33,9 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
     // 밀집도 비교 메시지 생성
     let densityMessage;
     if (commercial_district_sub_district_density_average > commercial_district_national_density_average) {
-        densityMessage = "매장 개수는 많습니다.";
+        densityMessage = "매장 개수는 많습니다";
     } else if (commercial_district_sub_district_density_average < commercial_district_national_density_average) {
-        densityMessage = "매장 개수는 적습니다.";
+        densityMessage = "매장 개수는 적습니다";
     } else {
         densityMessage = "매장 개수는 평균입니다.";
     }
@@ -47,7 +47,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
 
             <div className="py-4">
                 <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {detail_category_name} 밀집도</p>
-                <p className='text-2xl font-semibold'>{commercial_district_sub_district_density_average}%로 지역내 {densityMessage}</p>
+                <p className='text-2xl font-semibold whitespace-nowrap'>{commercial_district_sub_district_density_average}%로 지역내 {densityMessage}</p>
                 <p className='text-sm text-opacity-70'>전국 평균 수치보다 {commercial_district_sub_district_density_average > commercial_district_national_density_average ? "높습니다." : "낮습니다."}</p>
             </div>
 
@@ -61,15 +61,15 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
                 </p>
                 <p className='text-2xl font-semibold'>{Math.round(commercial_district_sub_district_average_sales / 10000).toLocaleString()}만원</p>
                 <p className='text-sm text-opacity-70'>
-                    우리 동네는 {district_name} 다른 동네에 비해
+                    우리 동네는 {district_name} 다른 곳에 비해
                     {commercial_district_sub_district_average_sales > commercial_district_national_average_sales
                         ? "장사가 잘되는 편입니다."
                         : "장사가 안되는 편입니다."}
                 </p>
             </div>
 
-            <div className="py-4">
-                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {detail_category_name} /평균 결제단가/이용건수
+            <div className="py-4 ">
+                <p className='text-md font-semibold text-opacity-80 whitespace-nowrap'>{sub_district_name} {detail_category_name} /평균 결제단가/이용건수
                     <span className='text-xs font-normal text-opacity-70'>
                         {commercial_district_national_average_payment > commercial_district_national_usage_count
                             ? ` 감소추세`
