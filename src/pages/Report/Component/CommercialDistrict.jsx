@@ -26,7 +26,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
         commercial_district_average_sales_max_percent_client_top2,
     } = commercialDistrict;
 
-    const { district_name, sub_district_name, detail_category_name, nice_biz_map_data_ref_date } = storeInfoRedux;
+    const { district_name, sub_district_name, biz_detail_category_rep_name, nice_biz_map_data_ref_date } = storeInfoRedux;
     const date = new Date(nice_biz_map_data_ref_date);
     const month = date.getMonth() + 1;
 
@@ -42,17 +42,17 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
 
     return (
         <div className='bg-white p-4'>
-            <p className='text-sm text-opacity-80 pb-4'>{sub_district_name} {detail_category_name} 업종 상권분석</p>
+            <p className='text-sm text-opacity-80 pb-4'>{sub_district_name} {biz_detail_category_rep_name} 업종 상권분석</p>
             <p>틈나시면 우리 동네 상권분석 자료를 검토해보세요. 동네를 알면 장사를 잘 하실 수 있을겁니다.</p>
 
             <div className="py-4">
-                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {detail_category_name} 밀집도</p>
+                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {biz_detail_category_rep_name} 밀집도</p>
                 <p className='text-2xl font-semibold whitespace-nowrap'>{commercial_district_sub_district_density_average}%로 지역내 {densityMessage}</p>
                 <p className='text-sm text-opacity-70'>전국 평균 수치보다 {commercial_district_sub_district_density_average > commercial_district_national_density_average ? "높습니다." : "낮습니다."}</p>
             </div>
 
             <div className="py-4">
-                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {detail_category_name} 점포당 매출규모
+                <p className='text-md font-semibold text-opacity-80 text-nowrap'>{sub_district_name} {biz_detail_category_rep_name} 점포당 매출규모
                     <span className='text-xs font-normal text-opacity-70'>
                         {commercial_district_national_average_sales > commercial_district_sub_district_average_sales
                             ? ` ${Math.round((commercial_district_national_average_sales - commercial_district_sub_district_average_sales) / 10000).toLocaleString()}만원 감소`
@@ -69,7 +69,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
             </div>
 
             <div className="py-4 ">
-                <p className='text-md font-semibold text-opacity-80 whitespace-nowrap'>{sub_district_name} {detail_category_name} /평균 결제단가/이용건수
+                <p className='text-md font-semibold text-opacity-80 whitespace-nowrap'>{sub_district_name} {biz_detail_category_rep_name} 평균 결제단가/이용건수
                     <span className='text-xs font-normal text-opacity-70'>
                         {commercial_district_national_average_payment > commercial_district_national_usage_count
                             ? ` 감소추세`
@@ -93,7 +93,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
             {/*  */}
 
             <div className="py-4">
-                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {detail_category_name} 매출비중</p>
+                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {biz_detail_category_rep_name} 매출비중</p>
                 <p className='text-2xl font-bold text-opacity-70'>
                     {`${commercial_district_average_sales_max_percent_weekday} ${commercial_district_average_sales_max_percent_time}에
                     매출이 가장 높고 ${commercial_district_average_sales_min_percent_weekday}이 매출이 가장 낮아요.`}
@@ -101,7 +101,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
             </div>
 
             <div className="py-4">
-                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {detail_category_name} 주요고객</p>
+                <p className='text-md font-semibold text-opacity-80'>{sub_district_name} {biz_detail_category_rep_name} 주요고객</p>
                 <p className='text-2xl font-bold'>
                     {commercial_district_average_sales_max_percent_client_top1}, {commercial_district_average_sales_max_percent_client_top2}
                 </p>

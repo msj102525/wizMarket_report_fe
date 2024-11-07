@@ -90,7 +90,7 @@ const CommercialDistrictJScore = ({ commercialDistrictJscore, storeInfoRedux }) 
     return (
         <div className="bg-white p-4 rounded-lg shadow-md space-y-6">
             <div className="pb-10">
-                <p className="text-md font-semibold">{storeInfoRedux.sub_district_name} {storeInfoRedux.detail_category_name} 상권분석</p>
+                <p className="text-md font-semibold">{storeInfoRedux.sub_district_name} {storeInfoRedux.biz_detail_category_rep_name} 상권분석</p>
                 <div>
                     {lowScores.length > 0 && highScores.length > 0 ? (
                         <p className="text-sm font-medium text-gray-700">

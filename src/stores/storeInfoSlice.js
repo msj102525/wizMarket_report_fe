@@ -29,6 +29,7 @@ const storeInfoSlice = createSlice({
         district_name: '',
         sub_district_name: '',
         detail_category_name: '',
+        biz_detail_category_rep_name: '',
         loc_info_data_ref_date: '',
         nice_biz_map_data_ref_date: '',
         population_data_ref_date: '',
@@ -44,6 +45,7 @@ const storeInfoSlice = createSlice({
                     district_name = '',
                     sub_district_name = '',
                     detail_category_name = '',
+                    biz_detail_category_rep_name = '',
                     loc_info_data_ref_date = '',
                     nice_biz_map_data_ref_date = '',
                     population_data_ref_date = ''
@@ -53,6 +55,7 @@ const storeInfoSlice = createSlice({
                 state.district_name = district_name;
                 state.sub_district_name = sub_district_name;
                 state.detail_category_name = detail_category_name;
+                state.biz_detail_category_rep_name = biz_detail_category_rep_name;
                 state.loc_info_data_ref_date = loc_info_data_ref_date;
                 state.nice_biz_map_data_ref_date = nice_biz_map_data_ref_date;
                 state.population_data_ref_date = population_data_ref_date;

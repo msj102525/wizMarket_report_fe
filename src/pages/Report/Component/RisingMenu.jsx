@@ -12,10 +12,12 @@ const RisingMenu = ({ risingMenu, storeInfoRedux }) => {
 
     const { local_store_top5_orderd_menu, rising_menu_advice } = risingMenu;
 
+    console.log(storeInfoRedux)
+
 
     return (
         <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
-            <p className='text-md font-semibold'>{storeInfoRedux.detail_category_name} 매장에서 가장 많이 주문하는 메뉴?</p>
+            <p className='text-md font-semibold'>{storeInfoRedux.biz_detail_category_rep_name} 매장에서 가장 많이 주문하는 메뉴?</p>
             <div className="">
                 <p className='text-blue-600 text-md font-semibold py-1'>1위
                     <span className='text-black text-md font-semibold'> {local_store_top5_orderd_menu.detail_category_top1_ordered_menu}</span>

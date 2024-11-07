@@ -21,6 +21,7 @@ import CommercialDistrictRisingSales from "./Component/CommercialDistrictRisingS
 import RisingBusiness from "./Component/RisingBusiness";
 import Footer from "./Component/Footer";
 import StoreDescription from "./Component/StoreDescription";
+import StoreCategoryDescription from "./Component/StoreCategoryDescription";
 
 const Report = React.memo(() => {
     const { store_business_id } = useParams();
@@ -47,6 +48,7 @@ const Report = React.memo(() => {
             commercialRisingSales: true,
             risingBusiness: true,
             storeDescription: true,
+            storeCategoryDescription: true,
         },
         data: {
             storeInfo: null,
@@ -66,6 +68,7 @@ const Report = React.memo(() => {
             commercialRisingSales: null,
             risingBusiness: null,
             storeDescription: null,
+            storeCategoryDescription: null,
         },
         error: {
             storeInfo: null,
@@ -85,6 +88,7 @@ const Report = React.memo(() => {
             commercialRisingSales: null,
             risingBusiness: null,
             storeDescription: null,
+            storeCategoryDescription: null,
         }
     });
 
@@ -123,6 +127,10 @@ const Report = React.memo(() => {
                 {
                     key: 'storeDescription',
                     url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/local/store/content`
+                },
+                {
+                    key: 'storeCategoryDescription',
+                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/detail/category/content`
                 },
                 {
                     key: 'population',
@@ -290,6 +298,10 @@ const Report = React.memo(() => {
 
                 <section className="py-1">
                     {states.data.storeDescription && renderSection(StoreDescription, 'storeDescription', { storeDescription: states.data.storeDescription, storeInfoRedux })}
+                </section>
+
+                <section className="py-1">
+                    {states.data.storeCategoryDescription && renderSection(StoreCategoryDescription, 'storeCategoryDescription', { storeCategoryDescription: states.data.storeCategoryDescription, storeInfoRedux })}
                 </section>
 
                 <section className="px-1 py-1">
