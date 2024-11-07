@@ -29,7 +29,7 @@ const StoreDescription = ({ storeDescription }) => {
                                 }}
                             />
                         )}
-                        {item.store_description_img_url && item.store_description_img_url.length > 0 && (
+                        {item.store_description_img_url && item.store_description_img_url.length > 0 && item.store_description_img_url[0] !== null && (
                             <div className="rounded-xl overflow-hidden mt-2">
                                 <Swiper
                                     modules={[Navigation, Pagination]}
@@ -39,7 +39,7 @@ const StoreDescription = ({ storeDescription }) => {
                                     slidesPerView={1}
                                     className="w-full"
                                 >
-                                    {item.store_description_img_url.map((imgUrl, imgIndex) => (
+                                    {item.store_description_img_url.filter(url => url !== null).map((imgUrl, imgIndex) => (
                                         <SwiperSlide key={imgIndex}>
                                             <img
                                                 src={`${process.env.REACT_APP_FASTAPI_BASE_URL}${imgUrl}`}
