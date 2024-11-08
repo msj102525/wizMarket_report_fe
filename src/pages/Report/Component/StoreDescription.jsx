@@ -11,7 +11,7 @@ const StoreDescription = ({ storeDescription }) => {
     }
 
     return (
-        <div className="bg-white p-4 rounded-md tracking-tight shadow-md shadow-black-500">
+        <div className="bg-white p-4 rounded-md tracking-tight shadow-md shadow-black-500 py-1">
             <div className="storeDescription-item">
                 <div className="pb-2">
                     <p className="pb-4 font-bold">{storeDescription.store_description_title}</p>

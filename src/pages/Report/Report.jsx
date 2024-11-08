@@ -296,27 +296,23 @@ const Report = React.memo(() => {
                     {renderSection(CommercialDistrict, 'commercialDistrict', { commercialDistrict: states.data.commercialDistrict, storeInfoRedux })}
                 </section>
 
-                <section className="px-1 py-1">
-                    {!states.error.storeDescription && !states.loading.storeDescription && states.data.storeDescription?.map((storeDescription) => (
-                        <div className="py-1" key={storeDescription.local_store_content_id}>
-                            {renderSection(StoreDescription, 'storeDescription', { storeDescription })}
-                        </div>
-                    ))}
-                </section>
+                {!states.error.storeDescription && !states.loading.storeDescription && states.data.storeDescription?.map((storeDescription) => (
+                    <section className="px-1 py-1" key={storeDescription.local_store_content_id}>
+                        {renderSection(StoreDescription, 'storeDescription', { storeDescription })}
+                    </section>
+                ))}
 
                 {states.data.storeCategoryDescription && states.data.storeCategoryDescription.length > 0 && (
-                    <section className="py-1">
+                    <section className="px-1 py-1">
                         {renderSection(StoreCategoryDescription, 'storeCategoryDescription', { storeCategoryDescription: states.data.storeCategoryDescription, storeInfoRedux })}
                     </section>
                 )}
 
-                <section className="px-1 py-1">
-                    {!states.error.commonInfo && !states.loading.commonInfo && states.data.commonInfo?.map((commonReport) => (
-                        <div className="py-1" key={commonReport.common_information_id}>
-                            {renderSection(CommonInformation, 'commonInfo', { commonReport })}
-                        </div>
-                    ))}
-                </section>
+                {!states.error.commonInfo && !states.loading.commonInfo && states.data.commonInfo?.map((commonReport) => (
+                    <section className="px-1 py-1" key={commonReport.common_information_id}>
+                        {renderSection(CommonInformation, 'commonInfo', { commonReport })}
+                    </section>
+                ))}
 
                 <section className="px-1 py-1">
                     {renderSection(LocInfoAvgJscore, 'locInfoAvgJscore', { locInfoAvgJscore: states.data.locInfoAvgJscore, storeInfoRedux })}
