@@ -33,6 +33,7 @@ const storeInfoSlice = createSlice({
         loc_info_data_ref_date: '',
         nice_biz_map_data_ref_date: '',
         population_data_ref_date: '',
+        biz_main_category_id: '',
     },
     reducers: {},
     extraReducers: (builder) => {
@@ -48,7 +49,8 @@ const storeInfoSlice = createSlice({
                     biz_detail_category_rep_name = '',
                     loc_info_data_ref_date = '',
                     nice_biz_map_data_ref_date = '',
-                    population_data_ref_date = ''
+                    population_data_ref_date = '',
+                    biz_main_category_id = ''
                 } = action.payload || {};
 
                 state.city_name = city_name;
@@ -59,6 +61,7 @@ const storeInfoSlice = createSlice({
                 state.loc_info_data_ref_date = loc_info_data_ref_date;
                 state.nice_biz_map_data_ref_date = nice_biz_map_data_ref_date;
                 state.population_data_ref_date = population_data_ref_date;
+                state.biz_main_category_id = biz_main_category_id;
             })
             .addCase(fetchStoreInfo.rejected, (state, action) => {
                 state.loading = false; // 로딩 종료

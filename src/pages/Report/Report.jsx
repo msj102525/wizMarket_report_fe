@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchStoreInfo } from '../../stores/storeInfoSlice';
@@ -92,172 +92,213 @@ const Report = React.memo(() => {
         }
     });
 
+    const [storeInfoReceived, setStoreInfoReceived] = useState(false);
 
+    const ENDPOINT_GROUPS = useMemo(() => ({
+        essential: [
+            {
+                key: 'storeInfoRedux',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info/redux`,
+                reduxAction: true
+            },
+        ],
+        primary: [
+            // 매장 정보는 예외적으로 1순위
+            {
+                key: 'storeInfo',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info`
+            },
+            {
+                key: 'commonInfo',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/common/info`
+            },
+            {
+                key: 'commercialDistrict',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`
+            },
+            {
+                key: 'locInfoAvgJscore',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore/average`
+            },
+            {
+                key: 'storeDescription',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/local/store/content`
+            },
+            {
+                key: 'storeCategoryDescription',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/detail/category/content`
+            },
+            {
+                key: 'population',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`
+            },
+            {
+                key: 'populationResidentWork',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/resident/work/compare`
+            },
+            {
+                key: 'commercialDistrictAvgJscore',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore/average`
+            },
+            {
+                key: 'locInfoMovePop',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/move/population`
+            },
+            {
+                key: 'commercialDistrictMainCategory',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/mainCategory/count`
+            },
+            {
+                key: 'commercialDistrictJscore',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore`
+            },
+            {
+                key: 'commercialDistrictWeekdaySales',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/weekday/sales`
+            },
+            {
+                key: 'commercialDistrictTimeSales',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/time/sales`
+            },
+            {
+                key: 'commercialRisingSales',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/rising/sales`
+            },
+        ],
+        // GPT
+        secondary: [
 
-    useEffect(() => {
-        let isMounted = true;
-        const controller = new AbortController();
+            {
+                key: 'risingMenu',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`,
+                condition: (storeData) => storeData?.biz_main_category_id === 1
+            },
+            {
+                key: 'locInfo',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore`
+            },
+            {
+                key: 'risingBusiness',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`
+            },
+        ],
 
-        const ENDPOINT_GROUPS = {
-            essential: [
-                {
-                    key: 'storeInfo',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info/redux`,
-                    reduxAction: true
-                },
-            ],
-            primary: [
-                // 매장 정보는 예외적으로 1순위
-                {
-                    key: 'storeInfo',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/store/info`
-                },
-                {
-                    key: 'commonInfo',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/common/info`
-                },
-                {
-                    key: 'commercialDistrict',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict`
-                },
-                {
-                    key: 'locInfoAvgJscore',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore/average`
-                },
-                {
-                    key: 'storeDescription',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/local/store/content`
-                },
-                {
-                    key: 'storeCategoryDescription',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/detail/category/content`
-                },
-                {
-                    key: 'population',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/population`
-                },
-                {
-                    key: 'populationResidentWork',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/resident/work/compare`
-                },
-                {
-                    key: 'commercialDistrictAvgJscore',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore/average`
-                },
-                {
-                    key: 'locInfoMovePop',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/move/population`
-                },
-                {
-                    key: 'commercialDistrictMainCategory',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/mainCategory/count`
-                },
-                {
-                    key: 'commercialDistrictJscore',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/jscore`
-                },
-                {
-                    key: 'commercialDistrictWeekdaySales',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/weekday/sales`
-                },
-                {
-                    key: 'commercialDistrictTimeSales',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/time/sales`
-                },
-                {
-                    key: 'commercialRisingSales',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/rising/sales`
-                },
-            ],
-            // GPT
-            secondary: [
+    }), []);
 
-                {
-                    key: 'risingMenu',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/menu/advice`
-                },
-                {
-                    key: 'locInfo',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/location/jscore`
-                },
-                {
-                    key: 'risingBusiness',
-                    url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/rising/business`
-                },
-            ],
+    const fetchEndpoint = useCallback(async (endpoint, controller, isMountedRef) => {
+        // if (endpoint.key === 'risingMenu') {
+        //     console.log('Checking risingMenu condition:', {
+        //         storeInfoRedux,
+        //         hasCondition: !!endpoint.condition,
+        //         conditionResult: endpoint.condition ? endpoint.condition(storeInfoRedux) : 'no condition'
+        //     });
+        // }
 
-        };
+        
 
-        const fetchEndpoint = async (endpoint) => {
-            try {
-                const response = await axios.get(endpoint.url, {
-                    params: { store_business_id },
-                    timeout: 60000,
-                    signal: controller.signal
-                });
+        try {
+            const response = await axios.get(endpoint.url, {
+                params: { store_business_id },
+                timeout: 60000,
+                signal: controller.signal
+            });
 
-                if (!isMounted) return;
+            if (!isMountedRef.current) return;
 
-                if (endpoint.reduxAction) {
-                    dispatch(fetchStoreInfo.fulfilled(response.data));
-                } else {
-                    setStates(prev => ({
-                        ...prev,
-                        data: { ...prev.data, [endpoint.key]: response.data },
-                        loading: { ...prev.loading, [endpoint.key]: false }
-                    }));
-                }
-            } catch (error) {
-                if (!isMounted) return;
-
-                // Ignore aborted requests
-                if (error.name === 'AbortError') return;
-
-                console.error(`Error fetching ${endpoint.url}:`, error);
+            if (endpoint.condition && !endpoint.condition(storeInfoRedux)) {
+                // console.log(`Skipping ${endpoint.key} due to condition not met`);
                 setStates(prev => ({
                     ...prev,
-                    error: { ...prev.error, [endpoint.key]: error.message },
                     loading: { ...prev.loading, [endpoint.key]: false }
                 }));
-
-                if (endpoint.reduxAction) {
-                    dispatch(fetchStoreInfo.rejected(null, null, error));
-                }
-            }
-        };
-
-        const fetchGroupWithDelay = async (endpoints, delay = 0) => {
-            if (delay > 0) {
-                await new Promise(resolve => setTimeout(resolve, delay));
+                return;
             }
 
-            const BATCH_SIZE = 3;
-            for (let i = 0; i < endpoints.length; i += BATCH_SIZE) {
-                const batch = endpoints.slice(i, i + BATCH_SIZE);
-                await Promise.all(batch.map(fetchEndpoint));
+            if (endpoint.reduxAction) {
+                dispatch(fetchStoreInfo.fulfilled(response.data));
+                setStoreInfoReceived(true);
+            } else {
+                setStates(prev => ({
+                    ...prev,
+                    data: { ...prev.data, [endpoint.key]: response.data },
+                    loading: { ...prev.loading, [endpoint.key]: false }
+                }));
             }
-        };
+        } catch (error) {
+            if (!isMountedRef.current) return;
+            if (error.name === 'AbortError') return;
 
-        const fetchAllData = async () => {
+            console.error(`Error fetching ${endpoint.key}:`, error);
+            setStates(prev => ({
+                ...prev,
+                error: { ...prev.error, [endpoint.key]: error.message },
+                loading: { ...prev.loading, [endpoint.key]: false }
+            }));
+
+            if (endpoint.reduxAction) {
+                dispatch(fetchStoreInfo.rejected(null, null, error));
+            }
+        }
+    }, [store_business_id, dispatch, storeInfoRedux]);
+
+    const fetchGroupWithDelay = useCallback(async (endpoints, delay = 0, controller, isMountedRef) => {
+        if (delay > 0) {
+            await new Promise(resolve => setTimeout(resolve, delay));
+        }
+
+        const BATCH_SIZE = 3;
+        for (let i = 0; i < endpoints.length; i += BATCH_SIZE) {
+            const batch = endpoints.slice(i, i + BATCH_SIZE);
+            await Promise.all(batch.map(endpoint =>
+                fetchEndpoint(endpoint, controller, isMountedRef)
+            ));
+        }
+    }, [fetchEndpoint]);
+
+    useEffect(() => {
+        const isMountedRef = { current: true };
+        const controller = new AbortController();
+
+        const fetchEssentialData = async () => {
             if (!store_business_id) return;
-
-            try {
-                // Fetch data in order of priority with delays
-                await fetchGroupWithDelay(ENDPOINT_GROUPS.essential);
-                await fetchGroupWithDelay(ENDPOINT_GROUPS.primary, 100);
-                await fetchGroupWithDelay(ENDPOINT_GROUPS.secondary, 200);
-            } catch (error) {
-                console.error('Error in fetchAllData:', error);
-            }
+            await fetchGroupWithDelay(ENDPOINT_GROUPS.essential, 0, controller, isMountedRef);
         };
 
-        fetchAllData();
+        fetchEssentialData();
 
         return () => {
-            isMounted = false;
+            isMountedRef.current = false;
             controller.abort();
         };
-    }, [store_business_id, dispatch]);
+    }, [store_business_id, fetchGroupWithDelay, ENDPOINT_GROUPS.essential]);
+
+    useEffect(() => {
+        const isMountedRef = { current: true };
+        const controller = new AbortController();
+
+        const fetchRemainingData = async () => {
+            if (!storeInfoReceived || !storeInfoRedux) return;
+
+            // console.log('Fetching remaining data with storeInfoRedux:', storeInfoRedux);
+
+            try {
+                await Promise.all([
+                    fetchGroupWithDelay(ENDPOINT_GROUPS.primary, 100, controller, isMountedRef),
+                    fetchGroupWithDelay(ENDPOINT_GROUPS.secondary, 200, controller, isMountedRef)
+                ]);
+            } catch (error) {
+                console.error('Error in fetchRemainingData:', error);
+            }
+        };
+
+        fetchRemainingData();
+
+        return () => {
+            isMountedRef.current = false;
+            controller.abort();
+        };
+    }, [storeInfoRedux, storeInfoReceived, fetchGroupWithDelay, ENDPOINT_GROUPS]);
+
 
     const renderSection = (Component, key, additionalProps = {}) => {
         if (states.loading[key]) {
