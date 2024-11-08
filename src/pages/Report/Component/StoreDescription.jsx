@@ -6,54 +6,51 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 
 const StoreDescription = ({ storeDescription }) => {
-    // storeDescription이 없거나 비어있으면 렌더링하지 않음
-    if (!storeDescription || storeDescription.length === 0) {
+    if (!storeDescription) {
         return null;
     }
 
     return (
-        <div className="bg-white p-4 shadow-md shadow-black-500">
-            {storeDescription.map((item, index) => (
-                <div key={index} className="pb-4 flex gap-2">
-                    <div className="py-2.5 flex flex-col items-center gap-2">
-                        <div className="w-2.5 h-2.5 bg-[#7864F9] rounded-full"></div>
-                        <div className="w-[1px] h-full bg-[#EEE9FE]"></div>
-                    </div>
-                    <div className="w-full pr-4">
-                        <h2 className="text-lg font-bold mb-2">{item.store_description_title}</h2>
-                        {item.store_description_content && (
-                            <p
-                                className={`${item.store_description_img_url?.length > 0 ? 'bg-[#7864F9] text-white px-2 py-4 text-sm rounded-xl' : 'py-2 font-medium'}`}
-                                dangerouslySetInnerHTML={{
-                                    __html: item.store_description_content
-                                }}
-                            />
-                        )}
-                        {item.store_description_img_url && item.store_description_img_url.length > 0 && item.store_description_img_url[0] !== null && (
-                            <div className="rounded-xl overflow-hidden mt-2">
-                                <Swiper
-                                    modules={[Navigation, Pagination]}
-                                    // navigation
-                                    pagination={{ clickable: true }}
-                                    spaceBetween={10}
-                                    slidesPerView={1}
-                                    className="w-full"
-                                >
-                                    {item.store_description_img_url.filter(url => url !== null).map((imgUrl, imgIndex) => (
+        <div className="bg-white p-4 rounded-md tracking-tight shadow-md shadow-black-500">
+            <div className="storeDescription-item">
+                <div className="pb-2">
+                    <p className="pb-4 font-bold">{storeDescription.store_description_title}</p>
+                    {storeDescription.store_description_content && (
+                        <p
+                            className="text-sm break-words whitespace-pre-wrap [&>p>a]:hover:underline"
+                            dangerouslySetInnerHTML={{
+                                __html: storeDescription.store_description_content
+                            }}
+                        />
+                    )}
+                </div>
+                {storeDescription.store_description_img_url &&
+                    storeDescription.store_description_img_url.some(url => url !== null) && (
+                        <div className="files pt-2 w-full">
+                            <Swiper
+                                modules={[Navigation, Pagination]}
+                                spaceBetween={10}
+                                slidesPerView={1}
+                                pagination={{ clickable: true }}
+                                className="max-w-xs"
+                            >
+                                {storeDescription.store_description_img_url
+                                    .filter(url => url !== null)
+                                    .map((imgUrl, imgIndex) => (
                                         <SwiperSlide key={imgIndex}>
-                                            <img
-                                                src={`${process.env.REACT_APP_FASTAPI_BASE_URL}${imgUrl}`}
-                                                alt={`${item.store_description_title} ${imgIndex + 1}`}
-                                                className="w-full h-64 object-cover"
-                                            />
+                                            <div className="">
+                                                <img
+                                                    src={`${process.env.REACT_APP_FASTAPI_BASE_URL}${imgUrl}`}
+                                                    alt={`${storeDescription.store_description_title} ${imgIndex + 1}`}
+                                                    className="block w-full h-auto object-contain"
+                                                />
+                                            </div>
                                         </SwiperSlide>
                                     ))}
-                                </Swiper>
-                            </div>
-                        )}
-                    </div>
-                </div>
-            ))}
+                            </Swiper>
+                        </div>
+                    )}
+            </div>
         </div>
     );
 };

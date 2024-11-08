@@ -296,13 +296,19 @@ const Report = React.memo(() => {
                     {renderSection(CommercialDistrict, 'commercialDistrict', { commercialDistrict: states.data.commercialDistrict, storeInfoRedux })}
                 </section>
 
-                <section className="py-1">
-                    {states.data.storeDescription && renderSection(StoreDescription, 'storeDescription', { storeDescription: states.data.storeDescription, storeInfoRedux })}
+                <section className="px-1 py-1">
+                    {!states.error.storeDescription && !states.loading.storeDescription && states.data.storeDescription?.map((storeDescription) => (
+                        <div className="py-1" key={storeDescription.local_store_content_id}>
+                            {renderSection(StoreDescription, 'storeDescription', { storeDescription })}
+                        </div>
+                    ))}
                 </section>
 
-                <section className="py-1">
-                    {states.data.storeCategoryDescription && renderSection(StoreCategoryDescription, 'storeCategoryDescription', { storeCategoryDescription: states.data.storeCategoryDescription, storeInfoRedux })}
-                </section>
+                {states.data.storeCategoryDescription && states.data.storeCategoryDescription.length > 0 && (
+                    <section className="py-1">
+                        {renderSection(StoreCategoryDescription, 'storeCategoryDescription', { storeCategoryDescription: states.data.storeCategoryDescription, storeInfoRedux })}
+                    </section>
+                )}
 
                 <section className="px-1 py-1">
                     {!states.error.commonInfo && !states.loading.commonInfo && states.data.commonInfo?.map((commonReport) => (
