@@ -35,7 +35,8 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
         responsive: true,
         plugins: {
             legend: {
-                display: false,
+                display: true,
+                position: 'right'
             },
             tooltip: {
                 callbacks: {
@@ -62,39 +63,39 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
         },
         layout: {
             padding: {
-                top: 30,
-                bottom: 30,
-                left: 30,
-                right: 30
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0
             }
         }
     };
 
-    const externalLabelsPlugin = {
-        id: 'external-labels',
-        afterDatasetsDraw: (chart) => {
-            const { ctx, data } = chart;
-            const meta = chart.getDatasetMeta(0);
-            ctx.save();
-            ctx.font = 'bold 14px Arial'; // 외부 라벨 크기 줄임
-            ctx.fillStyle = '#333';
-            ctx.textAlign = 'center';
+    // const externalLabelsPlugin = {
+    //     id: 'external-labels',
+    //     afterDatasetsDraw: (chart) => {
+    //         const { ctx, data } = chart;
+    //         const meta = chart.getDatasetMeta(0);
+    //         ctx.save();
+    //         ctx.font = 'bold 14px Arial'; // 외부 라벨 크기 줄임
+    //         ctx.fillStyle = '#333';
+    //         ctx.textAlign = 'center';
 
-            meta.data.forEach((arc, index) => {
-                const angle = Math.PI / 2 - arc.startAngle - (arc.endAngle - arc.startAngle) / 2;
-                const radius = arc.outerRadius + 10; // 외부 라벨 위치 조정
+    //         meta.data.forEach((arc, index) => {
+    //             const angle = Math.PI / 2 - arc.startAngle - (arc.endAngle - arc.startAngle) / 2;
+    //             const radius = arc.outerRadius + 10; // 외부 라벨 위치 조정
 
-                const x = arc.x + Math.cos(angle) * radius;
-                const y = arc.y + Math.sin(angle) * radius;
+    //             const x = arc.x + Math.cos(angle) * radius;
+    //             const y = arc.y + Math.sin(angle) * radius;
 
-                ctx.fillText(data.labels[index], x, y); // 외부 라벨 텍스트
-            });
+    //             ctx.fillText(data.labels[index], x, y); // 외부 라벨 텍스트
+    //         });
 
-            ctx.restore();
-        },
-    };
+    //         ctx.restore();
+    //     },
+    // };
 
-    const plugins = [externalLabelsPlugin];
+    // const plugins = [externalLabelsPlugin];
 
     const focusAreaText = loc_info_resident_percent > loc_info_work_pop_percent
         ? `${sub_district_name}은 주거인구가 ${loc_info_resident_percent}%를 차지하는 주거중심지역입니다.`
@@ -110,7 +111,8 @@ const PopulationResidentWork = ({ populationResidentWork, storeInfoRedux }) => {
                 {/* 도넛 차트 */}
                 <div className="flex justify-center">
                     <div className="">
-                        <Doughnut data={data} options={options} plugins={plugins} />
+                        {/* <Doughnut data={data} options={options} plugins={plugins} /> */}
+                        <Doughnut data={data} options={options} />
                     </div>
                 </div>
             </div>

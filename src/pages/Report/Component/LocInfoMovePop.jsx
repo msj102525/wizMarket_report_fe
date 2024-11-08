@@ -29,7 +29,7 @@ const LocInfoMovePop = ({ locInfoMovePop, storeInfoRedux }) => {
                 </div>
                 <div className="pt-10 flex items-center gap-2">
                     <div
-                        className={`w-14 h-14 rounded-[50%] text-center text-white content-center bg-[#57B3B9] `}
+                        className={`w-14 h-14 rounded-[50%] text-center text-white content-center bg-[#57B3B9] font-bold`}
                     >
                         {loc_info_move_pop_j_score}
                     </div>
