@@ -63,7 +63,12 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                             {store_name}
                         </p>
                     </div>
-                    <p className='text-xs text-gray-300'>{road_name} {building_name} {floor_info}층</p>
+                    <p className="text-xs text-gray-300">
+                        {road_name ? `${road_name} ` : ""}
+                        {building_name ? `${building_name} ` : ""}
+                        {floor_info ? `${floor_info}층` : ""}
+                    </p>
+
                 </div>
 
                 <div className="w-28 absolute top-6 right-2 flex flex-col items-center z-10">
