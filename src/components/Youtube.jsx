@@ -3,7 +3,7 @@ import YouTube from 'react-youtube';
 
 const YouTubePlayer = ({ content }) => {
 
-    console.log(content)
+    // console.log(content)
 
     // HTML escape 문자를 원래 문자로 변환하는 함수
     const unescapeHTML = (str) => {
@@ -31,7 +31,7 @@ const YouTubePlayer = ({ content }) => {
         return null;
     }
 
-    console.log(videoId)
+    // console.log(videoId)
 
 
     return (

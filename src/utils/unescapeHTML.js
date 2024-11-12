@@ -13,7 +13,7 @@ export const unescapeHTML = (str) => {
 // 유튜브 iframe이 포함되어 있는지 확인하는 함수
 export const hasYoutubeIframe = (content) => {
 
-    console.log(content)
+    // console.log(content)
     if (!content) return false;
     const unescapedContent = unescapeHTML(content);
     return unescapedContent.includes('<iframe') && unescapedContent.includes('youtube.com');

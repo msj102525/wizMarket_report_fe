@@ -12,7 +12,6 @@ const StoreDescription = ({ storeDescription }) => {
         return null;
     }
 
-    // store_description_content에 iframe이 포함되어 있는지 체크
     const hasIframe = hasYoutubeIframe(storeDescription.store_description_content);
 
     return (
@@ -20,7 +19,6 @@ const StoreDescription = ({ storeDescription }) => {
             <div className="storeDescription-item">
                 <div className="pb-2">
                     <p className="pb-4 font-bold">{storeDescription.store_description_title}</p>
-                    {/* iframe이 포함된 경우 일반 텍스트는 표시하지 않음 */}
                     {!hasIframe && storeDescription.store_description_content && (
                         <p
                             className="text-sm break-words whitespace-pre-wrap [&>p>a]:hover:underline"
