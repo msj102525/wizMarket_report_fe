@@ -4,18 +4,24 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import YouTube from '../../../components/Youtube';
+import { hasYoutubeIframe } from '../../../utils/unescapeHTML';
 
 const StoreDescription = ({ storeDescription }) => {
     if (!storeDescription) {
         return null;
     }
 
+    // store_description_content에 iframe이 포함되어 있는지 체크
+    const hasIframe = hasYoutubeIframe(storeDescription.store_description_content);
+
     return (
         <div className="bg-white p-4 rounded-md tracking-tight shadow-md shadow-black-500 py-1">
             <div className="storeDescription-item">
                 <div className="pb-2">
                     <p className="pb-4 font-bold">{storeDescription.store_description_title}</p>
-                    {storeDescription.store_description_content && (
+                    {/* iframe이 포함된 경우 일반 텍스트는 표시하지 않음 */}
+                    {!hasIframe && storeDescription.store_description_content && (
                         <p
                             className="text-sm break-words whitespace-pre-wrap [&>p>a]:hover:underline"
                             dangerouslySetInnerHTML={{
@@ -24,6 +30,7 @@ const StoreDescription = ({ storeDescription }) => {
                         />
                     )}
                 </div>
+
                 {storeDescription.store_description_img_url &&
                     storeDescription.store_description_img_url.some(url => url !== null) && (
                         <div className="files pt-2 w-full">
@@ -50,6 +57,9 @@ const StoreDescription = ({ storeDescription }) => {
                             </Swiper>
                         </div>
                     )}
+
+                {/* iframe이 포함된 경우 YouTube 컴포넌트 표시 */}
+                {hasIframe && <YouTube content={storeDescription.store_description_content} />}
             </div>
         </div>
     );

@@ -141,7 +141,9 @@ const Population = ({ population, storeInfoRedux }) => {
             <div>
                 <p className="text-md font-bold">{storeInfoRedux.sub_district_name} 인구분포 ({formatDate(storeInfoRedux.population_data_ref_date)} 기준)</p>
                 <p className='text-sm text-gray-600'>
-                    총 인구 수 {population_total.toLocaleString()}명 중 여성 {population_female_percent}%, 남성 {population_male_percent}%로 {genderComparison}
+                    총 인구 수 {population_total ? population_total.toLocaleString() : ''}명 중
+                    여성 {population_female_percent ? population_female_percent : '데이터 없음'}%,
+                    남성 {population_male_percent ? population_male_percent : '데이터 없음'}%로 {genderComparison}
                     또한 {ageLabels[maxIndex]}가 가장 많고 {ageLabels[minIndex]} 인구가 가장 적습니다.
                 </p>
             </div>

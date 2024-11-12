@@ -1,9 +1,11 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation, Pagination } from 'swiper/modules';
+import YouTube from '../../../components/Youtube';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import { hasYoutubeIframe } from '../../../utils/unescapeHTML';
 
 const StoreCategoryDescription = ({ storeCategoryDescription }) => {
     if (!storeCategoryDescription || storeCategoryDescription.length === 0) {
@@ -20,7 +22,7 @@ const StoreCategoryDescription = ({ storeCategoryDescription }) => {
                     </div>
                     <div className="w-full pr-4">
                         <h2 className="text-lg font-bold mb-2">{item.detail_category_description_title}</h2>
-                        {item.detail_category_description_content && (
+                        {item.detail_category_description_content && !hasYoutubeIframe(item.detail_category_description_content) && (
                             <p
                                 className={`${item.detail_category_description_img_url?.length > 0 ? 'bg-[#7864F9] text-white px-2 py-4 text-sm rounded-xl' : 'py-2 font-medium'}`}
                                 dangerouslySetInnerHTML={{
@@ -32,23 +34,27 @@ const StoreCategoryDescription = ({ storeCategoryDescription }) => {
                             <div className="rounded-xl overflow-hidden mt-2">
                                 <Swiper
                                     modules={[Navigation, Pagination]}
-                                    // navigation
-                                    pagination={{ clickable: true }}
                                     spaceBetween={10}
                                     slidesPerView={1}
+                                    pagination={{ clickable: true }}
                                     className="w-full"
                                 >
-                                    {item.detail_category_description_img_url.map((imgUrl, imgIndex) => (
-                                        <SwiperSlide key={imgIndex}>
-                                            <img
-                                                src={`${process.env.REACT_APP_FASTAPI_BASE_URL}${imgUrl}`}
-                                                alt={`${item.detail_category_description_title} ${imgIndex + 1}`}
-                                                className="w-full h-64 object-cover"
-                                            />
-                                        </SwiperSlide>
-                                    ))}
+                                    {item.detail_category_description_img_url
+                                        .filter(url => url !== null)
+                                        .map((imgUrl, imgIndex) => (
+                                            <SwiperSlide key={imgIndex}>
+                                                <img
+                                                    src={`${process.env.REACT_APP_FASTAPI_BASE_URL}${imgUrl}`}
+                                                    alt={`${item.detail_category_description_title} ${imgIndex + 1}`}
+                                                    className="w-full h-64 object-cover"
+                                                />
+                                            </SwiperSlide>
+                                        ))}
                                 </Swiper>
                             </div>
+                        )}
+                        {hasYoutubeIframe(item.detail_category_description_content) && (
+                            <YouTube content={item.detail_category_description_content} />
                         )}
                     </div>
                 </div>

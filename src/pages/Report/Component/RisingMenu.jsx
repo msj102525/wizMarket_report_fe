@@ -12,7 +12,6 @@ const RisingMenu = ({ risingMenu, storeInfoRedux }) => {
 
     const { local_store_top5_orderd_menu, rising_menu_advice } = risingMenu;
 
-    console.log(storeInfoRedux)
 
 
     return (
