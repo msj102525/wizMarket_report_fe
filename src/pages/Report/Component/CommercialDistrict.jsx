@@ -29,34 +29,34 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
     const { district_name, sub_district_name, biz_detail_category_rep_name, nice_biz_map_data_ref_date } = storeInfoRedux;
 
     // 주요고객 섹션 표시 여부
-    const showMainCustomers = commercial_district_average_sales_max_percent_client_top1 !== "-" && 
+    const showMainCustomers = commercial_district_average_sales_max_percent_client_top1 !== "-" &&
         commercial_district_average_sales_max_percent_client_top2 !== "-";
 
     // 매출비중 섹션 표시 여부
-    const showSalesDistribution = commercial_district_average_sales_max_percent_weekday !== "-" && 
-        commercial_district_average_sales_max_percent_time !== "-" && 
+    const showSalesDistribution = commercial_district_average_sales_max_percent_weekday !== "-" &&
+        commercial_district_average_sales_max_percent_time !== "-" &&
         commercial_district_average_sales_min_percent_weekday !== "-";
 
     // 점포당 매출규모 섹션 표시 여부
-    const showSalesScale = commercial_district_national_average_sales !== 0 && 
-        commercial_district_sub_district_average_sales !== 0 && 
+    const showSalesScale = commercial_district_national_average_sales !== 0 &&
+        commercial_district_sub_district_average_sales !== 0 &&
         district_name;
 
     // 평균 결제단가/이용건수 섹션 표시 여부
-    const showPaymentAndUsage = commercial_district_sub_district_average_payment !== 0 && 
+    const showPaymentAndUsage = commercial_district_sub_district_average_payment !== 0 &&
         commercial_district_sub_district_usage_count !== 0;
 
     // 밀집도 섹션 표시 여부
-    const showDensity = commercial_district_sub_district_density_average !== 0 && 
+    const showDensity = commercial_district_sub_district_density_average !== 0 &&
         commercial_district_national_density_average !== 0;
 
     // 모든 섹션이 숨겨진 경우 체크
-    const noDataAvailable = !showMainCustomers && !showSalesDistribution && 
+    const noDataAvailable = !showMainCustomers && !showSalesDistribution &&
         !showSalesScale && !showPaymentAndUsage && !showDensity;
 
     if (noDataAvailable) {
         return (
-            <div className="p-4 bg-white">
+            <div className="bg-white p-4 rounded-lg shadow-md space-y-6">
                 <p className='text-md text-opacity-80 pb-4'>내 점포 사업 요약</p>
                 <p className="text-center text-gray-500">상권분석 데이터가 없습니다.</p>
             </div>
@@ -64,7 +64,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
     }
 
     return (
-        <div className='bg-white p-4'>
+        <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
             <p className='text-md text-opacity-80 pb-4'>내 점포 사업 요약 <span className='text-xs text-opacity-80'>{formatDate(nice_biz_map_data_ref_date)}</span></p>
 
             {showMainCustomers && (
