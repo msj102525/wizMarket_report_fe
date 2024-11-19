@@ -4,21 +4,21 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchStoreInfo } from '../../stores/storeInfoSlice';
 import axios from "axios";
 import StoreInfo from "./Component/StoreInfo";
-import RisingMenu from "./Component/RisingMenu";
+// import RisingMenu from "./Component/RisingMenu";
 import CommercialDistrict from "./Component/CommercialDistrict";
 import CommonInformation from "./Component/CommonInformation";
 import LocInfoAvgJscore from "./Component/LocInfoAvgJscore";
-import Population from "./Component/Population";
+// import Population from "./Component/Population";
 import LocInfoJScore from "./Component/LocInfoJScore";
-import PopulationResidentWork from "./Component/PopulationResidentWork";
+// import PopulationResidentWork from "./Component/PopulationResidentWork";
 import CommercialDistrictAvgJScore from "./Component/CommercialDistrictAvgJScore";
 import LocInfoMovePop from "./Component/LocInfoMovePop";
-import CommercialDistrictMainCategoryCount from "./Component/CommercialDistrictMainCategoryCount";
+// import CommercialDistrictMainCategoryCount from "./Component/CommercialDistrictMainCategoryCount";
 import CommercialDistirctJScore from "./Component/CommercialDistirctJScore";
-import CommercialDistrictWeekdaySales from "./Component/CommercialDistrictWeekdaySales";
-import CommercialDistrictTimeSales from "./Component/CommercialDistrictTimeSales";
+// import CommercialDistrictWeekdaySales from "./Component/CommercialDistrictWeekdaySales";
+// import CommercialDistrictTimeSales from "./Component/CommercialDistrictTimeSales";
 import CommercialDistrictRisingSales from "./Component/CommercialDistrictRisingSales";
-import RisingBusiness from "./Component/RisingBusiness";
+// import RisingBusiness from "./Component/RisingBusiness";
 import Footer from "./Component/Footer";
 import StoreDescription from "./Component/StoreDescription";
 import StoreCategoryDescription from "./Component/StoreCategoryDescription";
@@ -329,9 +329,9 @@ const Report = React.memo(() => {
                     {renderSection(StoreInfo, 'storeInfo', { storeInfo: states.data.storeInfo, storeInfoRedux })}
                 </section>
 
-                <section className="px-1 py-1">
+                {/* <section className="px-1 py-1">
                     {renderSection(RisingMenu, 'risingMenu', { risingMenu: states.data.risingMenu, storeInfoRedux })}
-                </section>
+                </section> */}
 
                 <section className="px-1 py-1">
                     {renderSection(CommercialDistrict, 'commercialDistrict', { commercialDistrict: states.data.commercialDistrict, storeInfoRedux })}
@@ -359,17 +359,17 @@ const Report = React.memo(() => {
                     {renderSection(LocInfoAvgJscore, 'locInfoAvgJscore', { locInfoAvgJscore: states.data.locInfoAvgJscore, storeInfoRedux })}
                 </section>
 
-                <section className="px-1 py-1">
+                {/* <section className="px-1 py-1">
                     {renderSection(Population, 'population', { population: states.data.population, storeInfoRedux })}
-                </section>
+                </section> */}
 
                 <section className="px-1 py-1">
                     {renderSection(LocInfoJScore, 'locInfo', { locInfo: states.data.locInfo, storeInfoRedux })}
                 </section>
 
-                <section className="px-1 py-1">
+                {/* <section className="px-1 py-1">
                     {renderSection(PopulationResidentWork, 'populationResidentWork', { populationResidentWork: states.data.populationResidentWork, storeInfoRedux })}
-                </section>
+                </section> */}
 
                 <section className="px-1 py-1">
                     {renderSection(LocInfoMovePop, 'locInfoMovePop', { locInfoMovePop: states.data.locInfoMovePop, storeInfoRedux })}
@@ -379,29 +379,29 @@ const Report = React.memo(() => {
                     {renderSection(CommercialDistrictAvgJScore, 'commercialDistrictAvgJscore', { commercialDistrictAvgJscore: states.data.commercialDistrictAvgJscore, storeInfoRedux })}
                 </section>
 
-                <section className="px-1 py-1">
+                {/* <section className="px-1 py-1">
                     {renderSection(CommercialDistrictMainCategoryCount, 'commercialDistrictMainCategory', { commercialDistrictMainCategory: states.data.commercialDistrictMainCategory, storeInfoRedux })}
-                </section>
+                </section> */}
 
                 <section className="px-1 py-1">
                     {renderSection(CommercialDistirctJScore, 'commercialDistrictJscore', { commercialDistrictJscore: states.data.commercialDistrictJscore, storeInfoRedux })}
                 </section>
 
-                <section className="px-1 py-1">
+                {/* <section className="px-1 py-1">
                     {renderSection(CommercialDistrictWeekdaySales, 'commercialDistrictWeekdaySales', { commercialDistrictWeekdaySales: states.data.commercialDistrictWeekdaySales, storeInfoRedux })}
-                </section>
+                </section> */}
 
-                <section className="px-1 py-1">
+                {/* <section className="px-1 py-1">
                     {renderSection(CommercialDistrictTimeSales, 'commercialDistrictTimeSales', { commercialDistrictTimeSales: states.data.commercialDistrictTimeSales, storeInfoRedux })}
-                </section>
+                </section> */}
 
                 <section className="px-1 py-1">
                     {renderSection(CommercialDistrictRisingSales, 'commercialRisingSales', { commercialRisingSales: states.data.commercialRisingSales, storeInfoRedux })}
                 </section>
 
-                <section className="px-1 py-1">
+                {/* <section className="px-1 py-1">
                     {renderSection(RisingBusiness, 'risingBusiness', { risingBusiness: states.data.risingBusiness, storeInfoRedux })}
-                </section>
+                </section> */}
 
                 <section className="px-1 py-1">
                     <Footer />

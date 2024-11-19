@@ -7,11 +7,11 @@ const Footer = () => {
                 <p className='font-bold p-2.5'>WIZ MARKET</p>
                 <div className='flex justify-between px-12'>
                     <p className='cursor-pointer text-sm'>이용 요금</p>
-                    <p>|</p>
+                    <p className='text-sm'>|</p>
                     <p className='cursor-pointer text-sm'>프로필 수정</p>
-                    <p>|</p>
+                    <p className='text-sm'>|</p>
                     <p className='cursor-pointer text-sm'>정보설정</p>
-                    <p>|</p>
+                    <p className='text-sm'>|</p>
                     <p className='cursor-pointer text-sm'>1:1문의</p>
                 </div>
                 <p className='text-xs'>서비스 시작일 : 2024-04-15</p>

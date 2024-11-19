@@ -19,7 +19,7 @@ const CommonInformation = ({ commonReport }) => {
             <div className="commonReport-item">
                 <div className="pb-2">
                     <p className="pb-4 font-bold">{commonReport.title}</p>
-                    <p className="text-sm break-words whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: convertUrlsToLinks(commonReport.content) }} />
+                    <p className="text-md break-words whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: convertUrlsToLinks(commonReport.content) }} />
                 </div>
                 <div className="files pt-2 w-full">
                     <Swiper

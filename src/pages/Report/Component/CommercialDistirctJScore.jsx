@@ -90,16 +90,16 @@ const CommercialDistrictJScore = ({ commercialDistrictJscore, storeInfoRedux }) 
     return (
         <div className="bg-white p-4 rounded-lg shadow-md space-y-6">
             <div className="pb-10">
-                <p className="text-md font-semibold">{storeInfoRedux.sub_district_name} {storeInfoRedux.biz_detail_category_rep_name} 상권분석</p>
+                <p className="text-md font-semibold py-4">{storeInfoRedux.sub_district_name} {storeInfoRedux.biz_detail_category_rep_name} 상권분석</p>
                 <div>
                     {lowScores.length > 0 && highScores.length > 0 ? (
-                        <p className="text-sm font-medium text-gray-700">
+                        <p className="text-lg font-medium text-gray-700">
                             {storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 적고 {highScores.join(', ')}가 비교적 높은 편입니다.
                         </p>
                     ) : lowScores.length > 0 ? (
-                        <p className="text-sm font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 낮습니다.</p>
+                        <p className="text-lg font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 낮습니다.</p>
                     ) : highScores.length > 0 ? (
-                        <p className="text-sm font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {highScores.join(', ')}이 비교적 높습니다.</p>
+                        <p className="text-lg font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {highScores.join(', ')}이 비교적 높습니다.</p>
                     ) : (
                         <p>점수 정보가 부족합니다.</p>
                     )}
