@@ -19,12 +19,31 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
     const { localStoreInfo, weatherInfo, aqi_info, format_current_datetime, store_info_advice } = storeInfo;
 
     const {
+        store_business_number,
         road_name,
         store_name,
         building_name,
         floor_info,
         local_store_image_url
     } = localStoreInfo;
+
+    const handleLinkClick = (store_business_number) => {
+        // console.log(store_business_number);
+        alert(`wizAD 매장 번호: ${store_business_number}`);
+        // event.preventDefault();
+
+        // const REPORT_URL = `http://192.168.0.240:3001/wizmarket/report/${store_business_id}`;
+        // const width = 394;
+        // const height = 900;
+        // const left = window.screenX + (window.outerWidth - width) / 2;
+        // const top = window.screenY + (window.outerHeight - height) / 2;
+
+        // window.open(
+        //     REPORT_URL,
+        //     "_blank",
+        //     `width=${width},height=${height},top=${top},left=${left}`
+        // );
+    };
 
     return (
         <div className="">
@@ -85,7 +104,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 </div>
             </div>
 
-            <div className="bg-black px-4 py-4">
+            <div className="bg-black px-4 pt-4">
                 <div className="">
                     <div className="flex justify-center pt-4 pb-2">
                         <div className="w-6 h-auto">
@@ -94,7 +113,11 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                     </div>
                     <p className="text-white text-md font-light" dangerouslySetInnerHTML={{ __html: store_info_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
+                <div className="px-4 py-2 cursor-pointer" onClick={(e) => handleLinkClick(store_business_number)}>
+                    <img src={require('../../../assets/component/wizAD.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
+                </div>
             </div>
+
         </div>
     );
 };

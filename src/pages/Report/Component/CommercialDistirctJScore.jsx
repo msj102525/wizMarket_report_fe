@@ -93,13 +93,13 @@ const CommercialDistrictJScore = ({ commercialDistrictJscore, storeInfoRedux }) 
                 <p className="text-md font-semibold py-4">{storeInfoRedux.sub_district_name} {storeInfoRedux.biz_detail_category_rep_name} 상권분석</p>
                 <div>
                     {lowScores.length > 0 && highScores.length > 0 ? (
-                        <p className="text-lg font-medium text-gray-700">
+                        <p className="text-lg text-opacity-70">
                             {storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 적고 {highScores.join(', ')}가 비교적 높은 편입니다.
                         </p>
                     ) : lowScores.length > 0 ? (
-                        <p className="text-lg font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 낮습니다.</p>
+                        <p className="text-lg text-opacity-70">{storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 낮습니다.</p>
                     ) : highScores.length > 0 ? (
-                        <p className="text-lg font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {highScores.join(', ')}이 비교적 높습니다.</p>
+                        <p className="text-lg text-opacity-70">{storeInfoRedux.sub_district_name}은 {highScores.join(', ')}이 비교적 높습니다.</p>
                     ) : (
                         <p>점수 정보가 부족합니다.</p>
                     )}
@@ -113,8 +113,8 @@ const CommercialDistrictJScore = ({ commercialDistrictJscore, storeInfoRedux }) 
                             <img src={require('../../../assets/component/advice_icon.png')} alt="Wiz-advice_icon" className='block w-full h-auto' />
                         </div>
                     </div>
-                    <p>분석 및 조언</p>
-                    <p>AI 조언.....</p>
+                    <p className='text-md font-bold py-2'>분석 및 조언</p>
+                    <p className="text-lg">AI 조언.....</p>
                 </div> */}
             </div>
         </div>

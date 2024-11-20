@@ -92,13 +92,13 @@ const LocInfoJScore = ({ locInfo, storeInfoRedux }) => {
                 <p className="text-md font-semibold py-4">{storeInfoRedux.sub_district_name} 입지분석 ({formattedDate} 기준)</p>
                 <div>
                     {lowScores.length > 0 && highScores.length > 0 ? (
-                        <p className="text-lg font-medium text-gray-700">
+                        <p className="text-lg text-opacity-70">
                             {storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 적고 {highScores.join(', ')}가 비교적 높은 편입니다.
                         </p>
                     ) : lowScores.length > 0 ? (
-                        <p className="text-lg font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 낮습니다.</p>
+                        <p className="text-lg text-opacity-70">{storeInfoRedux.sub_district_name}은 {lowScores.join(', ')}이 낮습니다.</p>
                     ) : highScores.length > 0 ? (
-                        <p className="text-lg font-medium text-gray-700">{storeInfoRedux.sub_district_name}은 {highScores.join(', ')}이 비교적 높습니다.</p>
+                        <p className="text-lg text-opacity-70">{storeInfoRedux.sub_district_name}은 {highScores.join(', ')}이 비교적 높습니다.</p>
                     ) : (
                         <p>점수 정보가 부족합니다.</p>
                     )}
@@ -113,7 +113,7 @@ const LocInfoJScore = ({ locInfo, storeInfoRedux }) => {
                         </div>
                     </div>
                     <p className='text-md font-bold py-2'>분석 및 조언</p>
-                    <p className="text-sm" dangerouslySetInnerHTML={{ __html: loc_info_advice.replace(/\n/g, "<br />") }}></p>
+                    <p className="text-lg" dangerouslySetInnerHTML={{ __html: loc_info_advice.replace(/\n/g, "<br />") }}></p>
                 </div>
             </div>
         </div>
