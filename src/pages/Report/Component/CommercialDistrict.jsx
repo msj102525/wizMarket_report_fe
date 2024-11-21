@@ -93,12 +93,18 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
             {showSalesScale && (
                 <div className="py-4 text-right">
                     <p className='text-md font-semibold text-opacity-80 text-nowrap'>{sub_district_name} {biz_detail_category_rep_name} 점포당 매출규모</p>
-                    <p className='text-xs font-normal text-black text-opacity-70'>
+                    {/* <p className='text-xs font-normal text-black text-opacity-70'>
                         {commercial_district_national_average_sales > commercial_district_sub_district_average_sales
                             ? ` ${Math.round((commercial_district_national_average_sales - commercial_district_sub_district_average_sales) / 10000).toLocaleString()}만원 감소`
                             : ` ${Math.round((commercial_district_sub_district_average_sales - commercial_district_national_average_sales) / 10000).toLocaleString()}만원 증가`}
+                    </p> */}
+                    <p className='text-xs font-normal text-black text-opacity-70'>
+                        {commercial_district_national_average_sales > commercial_district_sub_district_average_sales
+                            ? ` ${(commercial_district_national_average_sales - commercial_district_sub_district_average_sales).toLocaleString()}만원 감소`
+                            : ` ${(commercial_district_sub_district_average_sales - commercial_district_national_average_sales).toLocaleString()}만원 증가`}
                     </p>
-                    <p className='text-[2.5rem] font-bold text-black text-opacity-70'>{Math.round(commercial_district_sub_district_average_sales / 10000).toLocaleString()}만원</p>
+                    {/* <p className='text-[2.5rem] font-bold text-black text-opacity-70'>{Math.round(commercial_district_sub_district_average_sales / 10000).toLocaleString()}만원</p> */}
+                    <p className='text-[2.5rem] font-bold text-black text-opacity-70'>{commercial_district_sub_district_average_sales.toLocaleString()}만원</p>
                     <p className='text-sm text-black text-opacity-70'>
                         우리 동네는 {district_name} 다른 곳에 비해</p>
                     <p className='text-sm text-black text-opacity-70'>{commercial_district_sub_district_average_sales > commercial_district_national_average_sales
