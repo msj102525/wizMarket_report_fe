@@ -78,7 +78,13 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                         <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5 truncate max-w-[100px]'>
                             {storeInfoRedux.detail_category_name}
                         </p>
-                        <p className={`${store_name.length >= 10 ? 'text-xl' : 'text-2xl'} font-bold truncate`}>
+                        <p
+                            className={`${store_name.length >= 14
+                                ? 'text-lg'
+                                : store_name.length >= 10
+                                    ? 'text-xl'
+                                    : 'text-2xl'} font-bold truncate`}
+                        >
                             {store_name}
                         </p>
                     </div>
