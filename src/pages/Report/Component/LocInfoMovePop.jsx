@@ -14,10 +14,10 @@ const LocInfoMovePop = ({ locInfoMovePop, storeInfoRedux }) => {
 
     const popComparison = loc_info_move_pop > loc_info_city_move_pop ? "높은" : "적은";
 
-    const maxPopulation = 450000;
+    const maxPopulation = 250000;
 
     const cityPercentage = parseInt((loc_info_city_move_pop / maxPopulation) * 250);
-    const localPercentage = parseInt((loc_info_move_pop_j_score) * 22);
+    const localPercentage = parseInt((loc_info_move_pop_j_score) * 21);
 
     return (
         <div className='bg-white p-4 rounded-lg shadow-md space-y-6'>
@@ -35,13 +35,13 @@ const LocInfoMovePop = ({ locInfoMovePop, storeInfoRedux }) => {
                     </div>
                     <div className="bg-[#F2F2F2] w-[250px] h-6 rounded-xl flex relative">
                         <div
-                            className={`bg-[#57B3B9] absolute top-[-50px] p-2 rounded-lg translate-x-[-45%] z-10`}
+                            className={`bg-[#57B3B9] absolute top-[-50px] p-2 rounded-lg translate-x-[-45%] z-10 min-w-36`}
                             style={{ left: `${cityPercentage}px` }}
                         >
                             <p className='text-white text-xs'>{city_name} 평균 유동인구</p>
                         </div>
                         <div
-                            className={`bg-[#57B3B9] absolute top-[-27px] p-2 translate-x-[0] rotate-45 z-0`}
+                            className={`bg-[#57B3B9] absolute top-[-27px] p-2 translate-x-[0] rotate-45 z-0 `}
                             style={{ left: `${cityPercentage}px` }}
                         >
                         </div>
