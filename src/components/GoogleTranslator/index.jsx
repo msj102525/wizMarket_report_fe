@@ -149,7 +149,7 @@ const GoogleTranslator = () => {
 
                 {isHovered && (
                     <div
-                        className="absolute top-9 left-0 w-24 max-h-60 mt-1 overflow-y-auto bg-white rounded shadow-lg z-50"
+                        className="absolute top-8 left-0 w-24 max-h-60 mt-1 overflow-y-auto bg-white rounded shadow-lg z-50"
                         onWheel={handleWheel}
                     >
                         {languages.map((lang) => (
