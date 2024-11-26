@@ -38,7 +38,7 @@ const LocInfoMovePop = ({ locInfoMovePop, storeInfoRedux }) => {
                             className={`bg-[#57B3B9] absolute top-[-50px] p-2 rounded-lg translate-x-[-45%] z-10 min-w-36`}
                             style={{ left: `${cityPercentage}px` }}
                         >
-                            <p className='text-white text-xs'>{city_name} 평균 유동인구</p>
+                            <p className='text-white text-xs max-w-36 truncate'>{city_name} 평균 유동인구</p>
                         </div>
                         <div
                             className={`bg-[#57B3B9] absolute top-[-27px] p-2 translate-x-[0] rotate-45 z-0 `}

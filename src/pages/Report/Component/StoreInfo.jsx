@@ -6,6 +6,7 @@ import { Navigation, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import GoogleTranslator from '../../../components/GoogleTranslator';
 
 const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
     if (!storeInfo) {
@@ -73,7 +74,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                     ))}
                 </Swiper>
 
-                <div className='absolute z-10 px-4 text-white bottom-4'>
+                <div className='absolute z-10 px-2 text-white bottom-4'>
                     <div className="flex gap-2 items-center flex-nowrap">
                         <p className='text-xs content-center bg-[#16DBCC] rounded-xl px-1 leading-5 truncate max-w-[100px]'>
                             {storeInfoRedux.detail_category_name}
@@ -83,7 +84,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                                 ? 'text-lg'
                                 : store_name.length >= 10
                                     ? 'text-xl'
-                                    : 'text-2xl'} font-bold truncate`}
+                                    : 'text-2xl'} font-bold w-56 truncate`}
                         >
                             {store_name}
                         </p>
@@ -97,6 +98,7 @@ const StoreInfo = ({ storeInfo, storeInfoRedux }) => {
                 </div>
 
                 <div className="w-28 absolute top-6 right-2 flex flex-col items-center z-10">
+                    <GoogleTranslator />
                     <div className="w-20 h-20">
                         <img
                             src={`http://openweathermap.org/img/wn/${weatherInfo.icon}@2x.png`}

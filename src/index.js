@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/index.css';
+import './styles/global.css';
 import reportWebVitals from './reportWebVitals';
 import Router from './Router';
 import { Provider } from 'react-redux';

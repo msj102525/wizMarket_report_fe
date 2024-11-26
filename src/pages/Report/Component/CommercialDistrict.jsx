@@ -92,7 +92,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
 
             {showSalesScale && (
                 <div className="py-4 text-right">
-                    <p className='text-md font-semibold text-opacity-80 text-nowrap'>{sub_district_name} {biz_detail_category_rep_name} 점포당 매출규모</p>
+                    <p className='text-md font-semibold text-opacity-80 text-nowrap truncate'>{sub_district_name} {biz_detail_category_rep_name} 점포당 매출규모</p>
                     {/* <p className='text-xs font-normal text-black text-opacity-70'>
                         {commercial_district_national_average_sales > commercial_district_sub_district_average_sales
                             ? ` ${Math.round((commercial_district_national_average_sales - commercial_district_sub_district_average_sales) / 10000).toLocaleString()}만원 감소`
@@ -116,7 +116,7 @@ const CommercialDistrict = ({ commercialDistrict, storeInfoRedux }) => {
 
             {showPaymentAndUsage && (
                 <div className="py-4 text-right">
-                    <p className='text-md font-semibold text-opacity-80 whitespace-nowrap'>{sub_district_name} {biz_detail_category_rep_name} 평균 결제단가/이용건수</p>
+                    <p className='text-md font-semibold text-opacity-80 whitespace-nowrap truncate'>{sub_district_name} {biz_detail_category_rep_name} 평균 결제단가/이용건수</p>
                     <p className='text-xs font-normal text-black text-opacity-70'>
                         {commercial_district_national_average_payment > commercial_district_national_usage_count
                             ? ` 감소추세`
