@@ -90,8 +90,8 @@ body::-webkit-scrollbar-thumb {
   background-color: #ddd;
 }
 
-.skiptranslate {
-  /* display: none */
+#google_translate_box font {
+  font-size: 0.75rem;
 }
 
 /* ************************************************************************ */

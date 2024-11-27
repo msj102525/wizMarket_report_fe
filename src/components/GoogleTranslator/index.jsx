@@ -93,20 +93,25 @@ const GoogleTranslator = () => {
                 // console.error('.goog-te-combo element not found.');
                 return;
             }
-            
+
+            if (!window.google || !window.google.translate) {
+                console.error('Google Translate not loaded');
+                return;
+            }
+
             // 이벤트 리스너 일시적으로 제거
             const originalOnchange = gtCombo.onchange;
             gtCombo.onchange = null;
-            
+
             // 언어 변경
             gtCombo.value = lang.code;
             gtCombo.dispatchEvent(new Event('change', { bubbles: true }));
-            
+
             // 잠시 후 원래 이벤트 리스너 복원
             setTimeout(() => {
                 gtCombo.onchange = originalOnchange;
             }, 100);
-            
+
             setChooseCountry(lang);
         } catch (error) {
             console.error('Error changing language:', error);
@@ -128,7 +133,7 @@ const GoogleTranslator = () => {
     }
 
     return (
-        <>
+        <div id='google_translate_box'>
             <div id="google_translate_element" className="hidden"></div>
 
             <div
@@ -149,7 +154,7 @@ const GoogleTranslator = () => {
 
                 {isHovered && (
                     <div
-                        className="absolute top-8 left-0 w-24 max-h-60 mt-1 overflow-y-auto bg-white rounded shadow-lg z-50"
+                        className="absolute top-8 left-0 w-24 max-h-32 overflow-y-auto bg-white rounded z-50"
                         onWheel={handleWheel}
                     >
                         {languages.map((lang) => (
@@ -164,13 +169,13 @@ const GoogleTranslator = () => {
                                         backgroundImage: `url(https://cdn.weglot.com/flags/square/${lang.flag}.svg)`,
                                     }}
                                 ></div>
-                                <span className="text-sm">{lang.name}</span>
+                                <span className="text-xs">{lang.name}</span>
                             </div>
                         ))}
                     </div>
                 )}
             </div>
-        </>
+        </div>
     );
 };
 
