@@ -10,19 +10,9 @@ const GoogleTranslator = () => {
         flag: 'kr',
     });
 
-    // useEffect(() => {
-    //     if (isScriptLoaded) {
-    //         console.log('Google Translate script loaded. Checking initialization...');
-    //         if (window.google && window.google.translate) {
-    //             console.log('Google Translate initialized successfully.');
-    //         } else {
-    //             console.error('Google Translate failed to initialize.');
-    //         }
-    //     }
-    // }, [isScriptLoaded]);
-
     useEffect(() => {
-        // 스크립트가 이미 로드되었는지 확인
+        if (typeof window === 'undefined' || typeof document === 'undefined') return;
+
         if (document?.querySelector('script[src*="translate_a/element.js"]')) {
             setIsScriptLoaded(true);
             return;
@@ -39,12 +29,10 @@ const GoogleTranslator = () => {
         };
 
         addGoogleTranslateScript.onload = () => {
-            // console.log('Google Translate script loaded');
             setIsScriptLoaded(true);
         };
 
         window.googleTranslateElementInit = () => {
-            // console.log('googleTranslateElementInit called');
             try {
                 setTimeout(() => {
                     if (window.google && window.google.translate && window.google.translate.TranslateElement) {
@@ -57,19 +45,13 @@ const GoogleTranslator = () => {
                                 },
                                 'google_translate_element'
                             );
-                            // console.log('TranslateElement initialized successfully');
                         } catch (initError) {
                             console.error('Error creating TranslateElement:', initError);
                         }
                     } else {
-                        console.error('Google Translate objects not fully available:', {
-                            google: !!window.google,
-                            translate: window.google ? !!window.google.translate : 'No google object',
-                            TranslateElement: window.google && window.google.translate ?
-                                !!window.google.translate.TranslateElement : 'No translate object'
-                        });
+                        console.error('Google Translate objects not fully available');
                     }
-                }, 500);  // Add a small delay
+                }, 500);
             } catch (error) {
                 console.error('Outer initialization error:', error);
             }
@@ -89,25 +71,19 @@ const GoogleTranslator = () => {
     const handleLanguageChange = (lang) => {
         try {
             const gtCombo = document?.querySelector('.goog-te-combo');
-            if (!gtCombo) {
-                // console.error('.goog-te-combo element not found.');
-                return;
-            }
+            if (!gtCombo) return;
 
             if (!window.google || !window.google.translate) {
                 console.error('Google Translate not loaded');
                 return;
             }
 
-            // 이벤트 리스너 일시적으로 제거
             const originalOnchange = gtCombo.onchange;
             gtCombo.onchange = null;
 
-            // 언어 변경
             gtCombo.value = lang.code;
             gtCombo.dispatchEvent(new Event('change', { bubbles: true }));
 
-            // 잠시 후 원래 이벤트 리스너 복원
             setTimeout(() => {
                 gtCombo.onchange = originalOnchange;
             }, 100);
@@ -118,14 +94,13 @@ const GoogleTranslator = () => {
         }
     };
 
-
     const handleWheel = (e) => {
         e.stopPropagation();
     };
 
     if (!isScriptLoaded) {
         return (
-            <div className="flex items-center gap-2 p-2 w-[95px] h-[45px] bg-white rounded shadow">
+            <div className="flex items-center gap-2  w-[95px] h-[45px]">
                 <div className="animate-pulse bg-gray-200 w-5 h-5 rounded"></div>
                 <div className="animate-pulse bg-gray-200 w-16 h-4 rounded"></div>
             </div>
@@ -137,24 +112,20 @@ const GoogleTranslator = () => {
             <div id="google_translate_element" className="hidden"></div>
 
             <div
-                className="relative flex items-center gap-2 p-2 w-24 max-h-60 bg-white rounded shadow cursor-pointer"
-                onMouseEnter={() => {
-                    if (!isScriptLoaded) return; // 스크립트가 로드되지 않은 경우 중단
-                    setIsHovered(true);
-                }}
-                onMouseLeave={() => setIsHovered(false)}
+                className="relative flex items-center gap-1 cursor-pointer"
+                onClick={() => setIsHovered(!isHovered)}
             >
                 <div
-                    className="w-5 h-5 bg-center bg-contain bg-no-repeat"
+                    className="w-[1.36rem] h-[1.36rem] bg-center bg-contain bg-no-repeat"
                     style={{
-                        backgroundImage: `url(https://cdn.weglot.com/flags/square/${chooseCountry.flag}.svg)`,
+                        backgroundImage: `url(${require('../../assets/footer/language.png')})`,
                     }}
                 ></div>
                 <span className="text-sm">{chooseCountry.name}</span>
 
                 {isHovered && (
                     <div
-                        className="absolute top-8 left-0 w-24 max-h-32 overflow-y-auto bg-white rounded z-50"
+                        className="absolute bottom-8 left-[-150px] w-52 max-h-32 overflow-y-auto bg-white rounded z-50"
                         onWheel={handleWheel}
                     >
                         {languages.map((lang) => (
@@ -163,13 +134,13 @@ const GoogleTranslator = () => {
                                 className="flex items-center gap-2 p-2 cursor-pointer hover:bg-gray-100"
                                 onClick={() => handleLanguageChange(lang)}
                             >
-                                <div
+                                {/* <div
                                     className="w-5 h-5 bg-center bg-contain bg-no-repeat"
                                     style={{
                                         backgroundImage: `url(https://cdn.weglot.com/flags/square/${lang.flag}.svg)`,
                                     }}
-                                ></div>
-                                <span className="text-xs">{lang.name}</span>
+                                ></div> */}
+                                <span className="text-sm">{lang.name}</span>
                             </div>
                         ))}
                     </div>

@@ -1,21 +1,26 @@
 import React from 'react';
+import GoogleTranslator from '../../../components/GoogleTranslator/GoogleTranslator';
 
 const Footer = () => {
     return (
         <div>
-            <div className="text-center">
-                <p className='font-bold p-2.5'>WIZ MARKET</p>
-                <div className='flex justify-between px-12'>
-                    <p className='cursor-pointer text-sm'>이용 요금</p>
-                    <p className='text-sm'>|</p>
-                    <p className='cursor-pointer text-sm'>프로필 수정</p>
-                    <p className='text-sm'>|</p>
-                    <p className='cursor-pointer text-sm'>정보설정</p>
-                    <p className='text-sm'>|</p>
-                    <p className='cursor-pointer text-sm'>1:1문의</p>
+            <div className="text-center flex flex-col items-center">
+                <div className="">
+                    <h1 className='w-[11rem] h-auto py-2'>
+                        <img src={require('../../../assets/footer/wizmarket_logo.png')} alt="Wiz-Market_logo" className='block w-full h-auto' />
+                    </h1>
                 </div>
-                <p className='text-xs'>서비스 시작일 : 2024-04-15</p>
+                <div className='flex justify-between py-2 gap-2 '>
+                    <p className='cursor-pointer text-sm font-medium'>Copyright JYES</p>
+                    <p className='text-sm font-medium'>|</p>
+                    <p className='cursor-pointer text-sm font-medium'>blog</p>
+                    <p className='text-sm font-medium'>|</p>
+                    <p className='cursor-pointer text-sm font-medium'>1:1문의</p>
+                    <p className='text-sm font-medium'>|</p>
+                    <GoogleTranslator />
+                </div>
             </div>
+
         </div>
     );
 };
