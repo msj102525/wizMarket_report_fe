@@ -125,7 +125,7 @@ const GoogleTranslator = () => {
 
                 {isHovered && (
                     <div
-                        className="absolute bottom-8 left-[-150px] w-52 max-h-32 overflow-y-auto bg-white rounded z-50"
+                        className="absolute bottom-8 left-[-170px] w-48 max-h-32 overflow-y-auto bg-white rounded z-50"
                         onWheel={handleWheel}
                     >
                         {languages.map((lang) => (

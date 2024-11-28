@@ -94,6 +94,10 @@ body::-webkit-scrollbar-thumb {
   font-size: 0.75rem;
 }
 
+#footer font {
+  font-size: 0.75rem;
+}
+
 /* ************************************************************************ */
 
 @layer components {

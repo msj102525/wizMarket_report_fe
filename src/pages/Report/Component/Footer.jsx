@@ -3,7 +3,7 @@ import GoogleTranslator from '../../../components/GoogleTranslator/GoogleTransla
 
 const Footer = () => {
     return (
-        <div>
+        <div id='footer'>
             <div className="text-center flex flex-col items-center">
                 <div className="">
                     <h1 className='w-[11rem] h-auto py-2'>
