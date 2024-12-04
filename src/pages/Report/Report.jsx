@@ -22,6 +22,8 @@ import CommercialDistrictRisingSales from "./Component/CommercialDistrictRisingS
 import Footer from "./Component/Footer";
 import StoreDescription from "./Component/StoreDescription";
 import StoreCategoryDescription from "./Component/StoreCategoryDescription";
+import LocTourInfo from "./Component/LocTourInfo";
+import RoadEventInfo from "./Component/RoadEventInfo";
 
 const Report = React.memo(() => {
     const { store_business_id } = useParams();
@@ -49,6 +51,8 @@ const Report = React.memo(() => {
             risingBusiness: true,
             storeDescription: true,
             storeCategoryDescription: true,
+            locTourInfo: true,
+            roadEventInfo: true,
         },
         data: {
             storeInfo: null,
@@ -69,6 +73,8 @@ const Report = React.memo(() => {
             risingBusiness: null,
             storeDescription: null,
             storeCategoryDescription: null,
+            locTourInfo: null,
+            roadEventInfo: null,
         },
         error: {
             storeInfo: null,
@@ -89,6 +95,8 @@ const Report = React.memo(() => {
             risingBusiness: null,
             storeDescription: null,
             storeCategoryDescription: null,
+            locTourInfo: null,
+            roadEventInfo: null,
         }
     });
 
@@ -164,6 +172,14 @@ const Report = React.memo(() => {
                 key: 'commercialRisingSales',
                 url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/commercialDistrict/rising/sales`
             },
+            {
+                key: 'locTourInfo',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/local/tour/info`
+            },
+            {
+                key: 'roadEventInfo',
+                url: `${process.env.REACT_APP_FASTAPI_BASE_URL}/report/local/road/info`
+            },
         ],
         // GPT
         secondary: [
@@ -194,7 +210,7 @@ const Report = React.memo(() => {
         //     });
         // }
 
-        
+
 
         try {
             const response = await axios.get(endpoint.url, {
@@ -401,10 +417,18 @@ const Report = React.memo(() => {
 
                 {/* <section className="px-1 py-1">
                     {renderSection(RisingBusiness, 'risingBusiness', { risingBusiness: states.data.risingBusiness, storeInfoRedux })}
-                </section> */}
+                    </section> */}
 
                 <section className="px-1 py-1">
                     <Footer />
+                </section>
+
+                <section className="px-1 py-1">
+                    {renderSection(LocTourInfo, 'locTourInfo', { locTourInfo: states.data.locTourInfo, storeInfoRedux })}
+                </section>
+
+                <section className="px-1 py-1">
+                    {renderSection(RoadEventInfo, 'roadEventInfo', { roadEventInfo: states.data.roadEventInfo, storeInfoRedux })}
                 </section>
             </div>
         </main>
