@@ -31,6 +31,7 @@ const LocTourInfo = ({ locTourInfo }) => {
                 <div key={index} className="border-b pb-4 mb-4">
                     <h2 className="text-lg font-bold text-gray-800">{item.title}</h2>
                     <p className="text-sm text-gray-600">{item.addr1} {item.addr2}</p>
+                    <p className="text-sm text-gray-600">소분류: {item.cat3}</p>
                     {item.firstimage && (
                         <img
                             src={item.firstimage}
