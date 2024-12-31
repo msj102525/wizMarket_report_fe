@@ -41,7 +41,7 @@ const CommercialDistrictRisingSales = ({ commercialRisingSales, storeInfoRedux }
             <div className="divide-y divide-gray-200">
                 {salesData.map((item, index) => {
                     const [districtName, sales] = item.data ? item.data.split(",") : ["정보없음", "0"];
-                    // const formattedSales = (parseInt(sales, 10) / 10000).toFixed(0);
+                    const formattedSales = (parseInt(sales, 10) / 10000).toFixed(0);
 
                     // 해당 행을 sub_district_name과 비교하여 bold 처리
                     const isHighlighted = districtName === sub_district_name;
@@ -51,8 +51,7 @@ const CommercialDistrictRisingSales = ({ commercialRisingSales, storeInfoRedux }
                         <div key={index} className="grid grid-cols-3 gap-4 py-2">
                             <p className={textStyle}>{item.rank}</p>
                             <p className={textStyle}>{districtName}</p>
-                            {/* <p className={textStyle}>{Intl.NumberFormat().format(formattedSales)}만원</p> */}
-                            <p className={textStyle}>{Intl.NumberFormat().format(sales)}만원</p>
+                            <p className={textStyle}>{Intl.NumberFormat().format(formattedSales)}만원</p>
                         </div>
                     );
                 })}
